@@ -1,0 +1,48 @@
+body{
+	background: #cfd;
+}
+#asset-picker{
+	list-style: none; padding: 0px; width: 100px; position: absolute; top: 10px; left: 10px;
+}
+#assets{
+	border: solid thin black; display: inline-block;
+}
+.first{
+	border: solid thin black; width: 100px; height: 100px; padding: 0;
+}
+.asset{
+	width: 100px; height: 100px; padding: 0;
+}
+.asset img, .first img{
+	width: 100%; height: 100%;
+}
+#workspace{
+	float: left; border: solid thin black; height: 500px; width: 800px; background: #fdc; margin-left: 150px;
+}
+#z-order-container{
+	border: solid thin black; height: 500px; width: 200px; float: right;	
+}
+#pagination-container{
+	border: solid thin black; float: left; height: 20px; width: auto;
+}
+#pagination{
+	list-style: none; padding: 0; margin: 0;
+}
+#pagination li{
+	float:left; border: solid thin black; margin-left: 2px;
+}
+.pages{
+	height: 100%; width: 100%;
+}
+#fileChooser{
+	position: absolute; left: 300px; top: 700px;
+}
+/*#p-0, #p-3{
+	background: #abc;
+}
+#p-1, #p-4{
+	background: #def;
+}
+#p-2, #p-5{
+	background: #789;
+}*/
