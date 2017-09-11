@@ -11,16 +11,32 @@ class MemoRecap extends CI_Controller {
 	}
 
 	public function index(){
+		//redirect muna kase wala pang parent page
+		redirect(site_url('MemoRecap/myScrapbooks'));
+	}
+
+	public function myScrapbooks(){
 		$data['title'] = 'MemoRecap';
 		$data['list_of_scrapbooks'] = $this->scrapbook->displayScrapbooks('0001');
-		$this->load->view('myScrapbooks',$data);
-		if($this->input->post('create')){
-			$scrapbook_id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('pages'));
-			$this->editor($scrapbook_id);
-		}
+		$this->load->view('myScrapbooks',$data);		
+	}
+
+	public function view($id){
+		$data['title'] = 'MemoRecap';
+		$this->scrapbook->loadJSON($id);
+		$data['assignAssets'] = $this->scrapbook->assignAssets();
+		$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
+		$data['loadPagination'] = $this->scrapbook->loadPagination();
+		$data['script'] = $this->scrapbook->script();
+		$data['id'] = $id;
+		$this->load->view('view', $data);
 	}
 
 	public function editor($id){
+		if($id == 'new'){
+			$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('pages'));			
+			redirect(site_url('MemoRecap/editor/'.$id));
+		}
 		$data['title'] = 'MemoRecap';
 		$this->scrapbook->loadJSON($id);
 		$data['assignAssets'] = $this->scrapbook->assignAssets();
@@ -29,17 +45,18 @@ class MemoRecap extends CI_Controller {
 		$data['loadPagination'] = $this->scrapbook->loadPagination();
 		$data['loadZOrder'] = $this->scrapbook->loadZOrder();
 		$data['script'] = $this->scrapbook->script();
+		$data['functionalityScript'] = $this->scrapbook->functionalityScript();
 		$this->load->view('editor', $data);
 		if($this->input->post('imageSubmit')){
 			if(getimagesize($_FILES['image']['tmp_name'])== FALSE){
-					echo "Choose effing Image";
+				echo "Choose effing Image";
 			}else{
 				$image = addslashes($_FILES['image']['tmp_name']);			
 				$image = file_get_contents($image);
 				$image = base64_encode($image);
 				$this->scrapbook->uploadAsset($image);
 			}
-		}		
+		}
 	}
 
 	public function save(){		
@@ -47,10 +64,12 @@ class MemoRecap extends CI_Controller {
 		$id = substr($json, 0, 4);
 		$json = substr($json, 4, strlen($json));
 		header('Content-type: application/json');
-		$this->scrapbook->save($id, $json);
-		// $con = mysqli_connect("localhost","root","");
-		// mysqli_select_db($con,"memo_recap");
-		// $qry = "UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'";
-		// $result = mysqli_query($con,$qry);
+		$this->scrapbook->save($id, $json);		
 	}
+
+	public function delete($id){
+		$this->scrapbook->delete($id);
+		redirect(site_url('MemoRecap/index'));
+	}
+	
 }

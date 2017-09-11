@@ -57,6 +57,7 @@
 		</div>
 		<?php
 			echo $script;
+			echo $functionalityScript;
 		?>
 		<script>
 			$('#save').click(function(){	//get x y and size of all assets in all pages
@@ -115,20 +116,16 @@
 			    	type: 'POST',
 			    	contentType: 'application/json',
 			    	data: c + attr,
-			    	dataType: 'json'
+			    	dataType: 'json',
+			    	success: function(){
+			    		alert('Saved successfully!');
+			    	}
 			    });	    
 			});
 
 			function getParameterByName(url) {
-			    if (!url) url = window.location.href;
-			    // name = name.replace(/[\[\]]/g, "\\$&");
-			    // alert(name + ' ' + url);
-			    // var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-			    //     results = regex.exec(url);
-			    // if (!results) return null;
-			    // if (!results[2]) return '';
-				return url.substring(url.length-4, url.length);		
-			    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+			    if (!url) url = window.location.href;			    
+				return url.substring(url.length-4, url.length);
 			}
 
 		</script>

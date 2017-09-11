@@ -7,6 +7,8 @@
 
 		private $obj = '';
 
+		//Start of CRUD
+		//C
 		public function createScrapbook($name, $pages){	
 			$scrapbook_id = "0000";
 			$query = $this->db->query("SELECT scrapbook_id FROM scrapbooks order by scrapbook_id ASC");
@@ -33,12 +35,47 @@
 			return $scrapbook_id;
 		}
 
-		public function save($id, $json){
-			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
-				echo 'Ok';
-			}else{echo 'Omg';}
+		public function uploadAsset($image){
+			$asset_id = "0000";
+			$query = $this->db->query("SELECT asset_id FROM assets order by asset_id ASC");			
+			foreach($query->result_array() as $row){
+				$asset_id = $row["asset_id"];
+			}
+			$temp = (int)$asset_id + 1;
+			$asset_id = "0000".$temp;
+			$asset_id = substr($asset_id,strlen($asset_id)-4,strlen($asset_id));
+			$qry = "INSERT into assets (asset_id, file, owner, upload_date) values ('$asset_id', '$image', '0001', '".date("Y/m/d")."')";			
+			return ($this->db->simple_query($qry))?"Image Uploaded Successfully <br/>":"Not <br/>";
 		}
 
+		//R
+		public function displayScrapbooks($user_id){					
+			$sbHTML = '';
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE user_id = $user_id order by scrapbook_id ASC");
+			foreach($query->result_array() as $row){
+				$sbHTML .= '
+					<li>'.$row["name"].' | <a href = "'.site_url('MemoRecap/editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.site_url('MemoRecap/view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.site_url('MemoRecap/delete/'.$row["scrapbook_id"]).'">Delete</a></li>
+				';
+			}
+			return $sbHTML;
+		}
+
+		public function displayAssets(){
+			$query = $this->db->query("select * from assets");			
+			$assetsHTML = '';				
+			foreach($query->result_array() as $row){
+				$assetsHTML .= '
+					<li>
+						<div class = "first" id = "'.$row["asset_id"].'">
+							<img src="data:image;base64,'.$row["file"].'" />
+						</div>
+					</li>
+					';
+			}		
+			return $assetsHTML;
+		}
+
+		/*functions for loading a scrapbook*/
 		public function loadJSON($id){
 			// end($this->uri->segment_array())
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = ".$id." ");
@@ -54,7 +91,7 @@
 				$str .= '<div id = "p-'.$page.'" class = "pages ui-droppable">';
 				if(is_array($assets)){						
 					foreach($assets as $asset_id => $attr){
-						$str .= '<div class="ui-draggable ui-draggable-handle asset ui-resizable"';//asset id
+						$str .= '<div class="ui-draggable ui-draggable-handle asset ui-resizable"';
 						$str .= 'style = "position: absolute; ';
 						$str .= 'left: '.$attr['x'].'; ';
 						$str .= 'top: '.$attr['y'].'; ';
@@ -108,46 +145,22 @@
 			}
 			return $str;
 		}
+		/*end of functions for loading a scrapbook*/
 
-		public function displayScrapbooks($user_id){					
-			$sbHTML = '';
-			$query = $this->db->query("SELECT * FROM scrapbooks WHERE user_id = $user_id order by scrapbook_id ASC");
-			foreach($query->result_array() as $row){
-				$sbHTML .= '
-					<li><a href = "'.site_url('MemoRecap/editor/'.$row["scrapbook_id"]).'">'.$row["name"].'</a></li>
-				';
-			}
-			return $sbHTML;
+		//U
+		public function save($id, $json){
+			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
+				echo 'Ok';
+			}else{echo 'Omg';}
 		}
 
-		public function displayAssets(){
-			$query = $this->db->query("select * from assets");			
-			$assetsHTML = '';				
-			foreach($query->result_array() as $row){
-				$assetsHTML .= '
-					<li>
-						<div class = "first" id = "'.$row["asset_id"].'">
-							<img src="data:image;base64,'.$row["file"].'" />
-						</div>
-					</li>
-					';
-			}		
-			return $assetsHTML;
+		//D
+		public function delete($id){
+			$this->db->query("DELETE FROM scrapbooks WHERE scrapbook_id='".$id."'");
 		}
+		//End of CRUD
 
-		public function uploadAsset($image){
-			$asset_id = "0000";
-			$query = $this->db->query("SELECT asset_id FROM assets order by asset_id ASC");			
-			foreach($query->result_array() as $row){
-				$asset_id = $row["asset_id"];
-			}
-			$temp = (int)$asset_id + 1;
-			$asset_id = "0000".$temp;
-			$asset_id = substr($asset_id,strlen($asset_id)-4,strlen($asset_id));
-			$qry = "INSERT into assets (asset_id, file, owner, upload_date) values ('$asset_id', '$image', '0001', '".date("Y/m/d")."')";			
-			return ($this->db->simple_query($qry))?"Image Uploaded Successfully <br/>":"Not <br/>";
-		}
-
+		//More on javascript
 		public function getVariables($parameter){
 			$json = json_decode($this->obj, true);
 			$pageCount = 0;
@@ -169,8 +182,8 @@
 			foreach($json as $page => $assets){			
 				if(is_array($assets)){
 					foreach($assets as $asset_id => $attr){
-						$str .= 'x = parentLeft + '.$attr['x'].' + 1;';
-						$str .= 'y = parentTop + '.$attr['y'].';';
+						$str .= 'x = position.left + '.$attr['x'].' + 1;';
+						$str .= 'y = position.top + '.$attr['y'].' + 1;';
 						$str .=	'$(\'#'.$asset_id.'\').animate({';
 						$str .= '"position": "absolute", '.
 						'"left": x, '.					
@@ -209,9 +222,7 @@
 			$scriptHTML .= 'assetID = '.$this->getVariables('assets').';';
 			$scriptHTML .= '
 			var element = document.getElementById("workspace");
-			var position = element.getBoundingClientRect();
-			var parentTop = position.top;
-			var parentLeft = position.left;
+			var position = element.getBoundingClientRect();			
 			'.$this->applyAttributes().'
 			for(var p = 0; p <= pageCount; p++){
 				if(currentPage != p){
@@ -225,6 +236,13 @@
 			currentPage = 0;
 			$("#p-0").show();
 			$("#z-0").show();		
+			';
+			$scriptHTML .= '</script>';
+			return $scriptHTML;
+		}
+
+		public function functionalityScript(){
+			return '<script>
 			$(\'.asset\').resizable({
 				containment: "#workspace",		//para hanggang workspace lng ung laki
 		    	animate: true, ghost: true,		    	
@@ -247,9 +265,8 @@
 			});
 			$(\'.asset\').mousedown(function(){//gawing focusable lol kinuha ko lng ung id haha
 				$(\'#selectedAsset\').html($(this).attr(\'id\'));
-			});';
-			$scriptHTML .= '</script>';
-			return $scriptHTML;
+			});</script>';
 		}
+
 	}
 ?>

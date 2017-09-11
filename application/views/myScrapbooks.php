@@ -5,14 +5,14 @@
 </head>
 <body>
 	<p>Temporarily signed is as user 0001</p>
-	<form method = "POST">
-		Name:<input type="text" name="name" /><br />
-		Number of pages:<input type="number" name="pages" min = "3" max = "999" /><br />
+	<form action = "<?php echo site_url('MemoRecap/editor/new'); ?>" method = "POST">
+		Name:<input type="text" name="name" required /><br />
+		Number of pages:<input type="number" name="pages" min = "3" max = "999" required /><br />
 		<input type="submit" name="create" value = "Create" />
-	</form>	
+	</form>
 	List of scrapbooks
 	<ul>
-		<?php			
+		<?php
 			echo $list_of_scrapbooks;
 		?>
 	</ul>

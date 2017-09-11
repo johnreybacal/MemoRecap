@@ -86,7 +86,7 @@ $(document).ready(function(){
 	 	var parPos = $this.parent().position();
 	 	var x = thisPos.left - parPos.left;
 	 	var y = thisPos.top - parPos.top;
-	 	alert('x: ' + x + ' ' + $this.css('left') + '\ny: ' + y + ' ' + $this.css('left') + '\nh: ' + $this.css('height') + '\nw: ' + $this.css('width') + '\nz: ' + $this.css('z-index'));
+	 	alert('x: ' + x + '\ny: ' + y + '\nh: ' + $this.css('height') + '\nw: ' + $this.css('width') + '\nz: ' + $this.css('z-index'));
 	});
 
 	$('#delete-asset').click(function(){
