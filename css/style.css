@@ -17,7 +17,7 @@ body{
 	width: 100%; height: 100%;
 }
 #workspace{
-	float: left; border: solid thin black; height: 500px; width: 800px; background: #fdc; margin-left: 150px;
+	float: left; border: solid thin black; height: 500px; width: 800px; background: #fdc; margin-left: 125px;
 }
 #z-order-container{
 	border: solid thin black; height: 500px; width: 200px; float: right;	

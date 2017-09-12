@@ -16,7 +16,7 @@
 			<?php
 				echo $loadWorkspace;
 			?>			
-		</div>
+		</div>		
 		<div id = "pagination-container">
 			<ol id = "pagination">
 				<?php					
@@ -24,7 +24,7 @@
 				?>				
 			</ol>
 		</div>
-		<a href = '<?php echo site_url('MemoRecap/editor/'.$id); ?>'>Edit</a>
+		<a href = '<?php echo base_url('MemoRecap/editor/'.$id); ?>'>Edit</a>
 		<?php
 			echo $script;
 		?>

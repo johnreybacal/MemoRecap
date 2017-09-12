@@ -158,5 +158,9 @@ $(document).ready(function(){
 			$("#z-" + currentPage).show();	
 		}
 	});
+
+	$('#changeBG').click(function(){		
+		$('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
+	});
 	
 });

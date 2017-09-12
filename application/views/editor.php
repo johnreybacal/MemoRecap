@@ -14,19 +14,19 @@
 			echo $assignAssets;
 		?>
 	</head>
-	<body>
+	<body>	
 		<div id = "assets">
 			<ul id = "asset-picker">				
 			<?php
 				echo $displayAssets;
 			?>
 			</ul>					
-		</div>
+		</div>		
 		<div id = "workspace">
 			<?php
 				echo $loadWorkspace;
 			?>			
-		</div>
+		</div>		
 		<div id = "pagination-container">
 			<ol id = "pagination">
 				<?php					
@@ -46,6 +46,10 @@
 			Size:<text id = "siz"></text><br />
 			Selected Asset: <text id = "selectedAsset"></text><br />
 			Current Page: <text id = "currentPage"></text><br />
+			R: <input type = "number" id = "R" min = "0" max = "255"/><br />
+			G: <input type = "number" id = "G" min = "0" max = "255"/><br />
+			B: <input type = "number" id = "B" min = "0" max = "255"/><br />
+			<button id = "changeBG">chnage Bg</button>
 		</div>
 		<div style = "float: left;">
 			Selected asset in asset-picker: <text id = "wtf"></text><br />
@@ -61,7 +65,7 @@
 		?>
 		<script>
 			$('#save').click(function(){	//get x y and size of all assets in all pages
-				var attr = "{";		
+				var attr = '{"height":"' + $('#workspace').css('height') + '", "width":"' + $('#workspace').css('width') + '" , "pages":{';		
 				var getBack = currentPage;
 				for(var p = 0; p < pageCount; p++){//loop ng pages
 					if(currentPage != p){//lilipat ng page kasi hindi makukuha ung x at y kapag hidden ung page na naglalaman sa asset
@@ -75,6 +79,7 @@
 						attr += ',';
 					}
 					attr += '"' + p + '":{';
+					attr += '"bg":"' + $('#p-' + p.toString()).css("background-color") + '"';
 					// alert(assets[p]);
 					if(assets[p].length > 0){//check kung merong asset sa page
 						//kunin lahat ng assets sa isang page
@@ -82,10 +87,8 @@
 						//assets[p] => 0-1-2- => substring(0, assets[p].length - 1) => 0-1-2 => split("-") => [0, 1, 2]
 						//		string 						inalis ung - sa dulo 					ginawang array
 						for(var i = 0; i < assetsInThisPage.length; i++){//loop ng assets
-							//alert(p + " " + assetsInThisPage[i]);
-							if(i > 0){
-								attr += ',';
-							}
+							//alert(p + " " + assetsInThisPage[i]);							
+							attr += ',';
 						 	attr += '"' + assetsInThisPage[i] + '":{';
 					 		var $this = $('#' + assetsInThisPage[i]);
 						 	var thisPos = $this.position();
@@ -99,7 +102,7 @@
 					}
 					attr += '}';
 				}
-				attr += '}';
+				attr += '}}';
 				//get back to current page
 				$("#p-" + currentPage.toString()).hide();
 				$("#z-" + currentPage.toString()).hide();
@@ -110,7 +113,7 @@
 				// alert(attr);
 				//alert(attrjson);
 				//alert(JSON.stringify(attrjson));		
-				var c = getParameterByName();
+				var c = getScrapbookID();
 			    $.ajax({
 			    	url: "<?php echo base_url('index.php/MemoRecap/save'); ?>",
 			    	type: 'POST',
@@ -123,7 +126,7 @@
 			    });	    
 			});
 
-			function getParameterByName(url) {
+			function getScrapbookID(url) {
 			    if (!url) url = window.location.href;			    
 				return url.substring(url.length-4, url.length);
 			}

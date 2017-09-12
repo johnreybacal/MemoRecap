@@ -12,7 +12,7 @@ class MemoRecap extends CI_Controller {
 
 	public function index(){
 		//redirect muna kase wala pang parent page
-		redirect(site_url('MemoRecap/myScrapbooks'));
+		redirect(base_url('MemoRecap/myScrapbooks'));
 	}
 
 	public function myScrapbooks(){
@@ -34,8 +34,8 @@ class MemoRecap extends CI_Controller {
 
 	public function editor($id){
 		if($id == 'new'){
-			$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('pages'));			
-			redirect(site_url('MemoRecap/editor/'.$id));
+			$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('pages'), $this->input->post('size'));
+			redirect(base_url('MemoRecap/editor/'.$id));
 		}
 		$data['title'] = 'MemoRecap';
 		$this->scrapbook->loadJSON($id);
@@ -69,7 +69,7 @@ class MemoRecap extends CI_Controller {
 
 	public function delete($id){
 		$this->scrapbook->delete($id);
-		redirect(site_url('MemoRecap/index'));
+		redirect(base_url('MemoRecap/index'));
 	}
 	
 }
