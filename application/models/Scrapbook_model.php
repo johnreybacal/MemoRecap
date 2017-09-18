@@ -97,15 +97,16 @@
 			                foreach($assets as $asset_id => $attr){
 			                    if(is_array($attr)){
 			                        $str .= '<div class="ui-draggable ui-draggable-handle asset ui-resizable"';
-									$str .= 'style = "position: absolute; ';									
+									$str .= 'style = "position: absolute; ';
 									$str .= 'left: '.$attr['x'].'; ';
 									$str .= 'top: '.$attr['y'].'; ';
 									$str .= 'height: '.$attr['h'].'; ';
 									$str .= 'width: '.$attr['w'].'; ';
 									$str .= 'z-index: '.$attr['z'].';" ';
 									$str .= 'id = "'.$asset_id.'">';
+									$str .= '<div class = "rotate">';
 									$str .= '<img src="'.$this->getImage(substr($asset_id,strlen($asset_id)-4,strlen($asset_id))).'" />';
-									$str .= '</div>';
+									$str .= '</div></div>';
 			                    }else{
 		                        	$str .= $attr.';">';
 			                    	// if(strpos($attr, 'rgb') > 0){
@@ -175,8 +176,10 @@
 		//U
 		public function save($id, $json){
 			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
-				echo 'Ok';
-			}else{echo 'Omg';}
+				return 'Success';
+			}else{				
+				return 'Fail';
+			}
 		}
 
 		//D
@@ -186,6 +189,11 @@
 		//End of CRUD
 
 		//More on javascript
+		//Bakit nasa model 'to?
+		//Ans: 
+		//1. inaapply kasi ung json
+		//2. pwede i loop ung script
+		//3. hindi pa ako marunong mag AJAX dati lol
 		public function getVariables($parameter){
 			$json = json_decode($this->obj, true);
 			$pageCount = 0;
@@ -240,6 +248,12 @@
 									'"width": "'.$attr['w'].'", '.
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
+									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({angle: '.($attr['a'] * pi() / 180).'});';
+									// $str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').css({'.
+									// '"-webkit-transform": "rotate('.$attr['a'].'deg)",'.
+									// '"-moz-transform": "rotate('.$attr['a'].'deg)",'.
+									// '"-ms-transform": "rotate('.$attr['a'].'deg)",'.
+									// '"transform": "rotate('.$attr['a'].'deg)"});';
 								}
 							}
 						}
@@ -303,7 +317,7 @@
 			return '<script>
 			$(\'.asset\').resizable({
 				containment: "#workspace",		//para hanggang workspace lng ung laki
-		    	animate: true, ghost: true,		    	
+		    	// animate: true, ghost: true,		    	
 		    	minHeight: 50, minWidth: 50,
 		    	resize: function(event, ui){
 		    		$(\'#siz\').html("w: " + ui.size.width + ", h: " + ui.size.height);
@@ -320,7 +334,7 @@
 		    		var y = thisPos.top - parPos.top;
 		    		$(\'#pos\').html("x: " + x + ", y: " + y);
 				}    			
-			});
+			});			
 			$(\'.asset\').mousedown(function(){//gawing focusable lol kinuha ko lng ung id haha
 				$(\'#selectedAsset\').html($(this).attr(\'id\'));
 			});</script>';

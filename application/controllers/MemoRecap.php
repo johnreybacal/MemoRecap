@@ -46,17 +46,19 @@ class MemoRecap extends CI_Controller {
 		$data['loadZOrder'] = $this->scrapbook->loadZOrder();
 		$data['script'] = $this->scrapbook->script();
 		$data['functionalityScript'] = $this->scrapbook->functionalityScript();
-		$this->load->view('editor', $data);
-		if($this->input->post('imageSubmit')){
-			if(getimagesize($_FILES['image']['tmp_name'])== FALSE){
-				echo "Choose effing Image";
-			}else{
-				$image = addslashes($_FILES['image']['tmp_name']);			
-				$image = file_get_contents($image);
-				$image = base64_encode($image);
-				$this->scrapbook->uploadAsset($image);
-			}
+		$this->load->view('editor', $data);		
+	}
+
+	public function uploadAsset($c, $f, $p){// controller function parameter
+		if(getimagesize($_FILES['image']['tmp_name'])== FALSE){
+			echo "Choose effing Image";
+		}else{
+			$image = addslashes($_FILES['image']['tmp_name']);			
+			$image = file_get_contents($image);
+			$image = base64_encode($image);
+			$this->scrapbook->uploadAsset($image);
 		}
+		redirect(base_url($c.'/'.$f.'/'.$p));
 	}
 
 	public function save(){		
@@ -64,12 +66,12 @@ class MemoRecap extends CI_Controller {
 		$id = substr($json, 0, 4);
 		$json = substr($json, 4, strlen($json));
 		header('Content-type: application/json');
-		$this->scrapbook->save($id, $json);		
+		echo $this->scrapbook->save($id, $json);
 	}
 
 	public function delete($id){
 		$this->scrapbook->delete($id);
-		redirect(base_url('MemoRecap/index'));
+		redirect(base_url('MemoRecap/myScrapbooks'));
 	}
 	
 }

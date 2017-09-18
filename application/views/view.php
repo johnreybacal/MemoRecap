@@ -6,7 +6,9 @@
 		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery-ui.css'); ?>" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/style.css'); ?>" />
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.js'); ?>"></script>
-		<script type = "text/javascript" src = "<?php echo base_url('js/variables.js'); ?>"></script>		
+		<script type = "text/javascript" src = "<?php echo base_url('js/jquery-ui.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/variables.js'); ?>"></script>	
+		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.ui.rotatable.min.js'); ?>"></script>
 		<?php
 			echo $assignAssets;
 		?>
@@ -51,10 +53,9 @@
 					if(assets[p].length > 0){							
 						var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");
 						for(var i = 0; i < assetsInThisPage.length; i++){							
-							$('#' + assetsInThisPage[i]).removeClass('ui-draggable');
-							$('#' + assetsInThisPage[i]).removeClass('ui-draggable-handle');							
-							$('#' + assetsInThisPage[i]).removeClass('ui-resizable');
-							$('#' + assetsInThisPage[i] + ' div').remove();
+							$('#' + assetsInThisPage[i]).removeClass('ui-draggable').removeClass('ui-draggable-handle').removeClass('ui-resizable').removeClass('asset');
+							$('#' + assetsInThisPage[i]).children('div.rotate').css({'border': 'none'});
+							// $('#' + assetsInThisPage[i] + ' div').remove();
 						}
 					}
 				}

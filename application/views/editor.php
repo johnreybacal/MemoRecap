@@ -5,8 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery-ui.css'); ?>" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/style.css'); ?>" />
-		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.js'); ?>"></script>
+		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery.ui.rotatable.css'); ?>" />
+		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.min.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery-ui.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.ui.rotatable.min.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/variables.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/script.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/initialization.js'); ?>"></script>
@@ -21,7 +23,7 @@
 				echo $displayAssets;
 			?>
 			</ul>					
-		</div>		
+		</div>
 		<div id = "workspace">
 			<?php
 				echo $loadWorkspace;
@@ -63,7 +65,7 @@
 			echo $script;
 			echo $functionalityScript;
 		?>
-		<script>
+		<script>							
 			$('#save').click(function(){	//get x y and size of all assets in all pages
 				var attr = '{"height":"' + $('#workspace').css('height') + '", "width":"' + $('#workspace').css('width') + '" , "pages":{';		
 				var getBack = currentPage;
@@ -95,9 +97,28 @@
 						 	var parPos = $this.parent().position();
 						 	var x = thisPos.left - parPos.left;
 						 	var y = thisPos.top - parPos.top;
+						 	var angle;
+					        var matrix = $this.children('div.rotate').css("-webkit-transform") ||
+					            $this.css("-moz-transform") ||
+					            $this.css("-ms-transform") ||
+					            $this.css("-o-transform") ||
+					            $this.css("transform");
+					        if (matrix && matrix !== 'none'){
+					            var values = matrix.split('(')[1].split(')')[0].split(',');
+					            var a = values[0];
+					            var b = values[1];
+					            angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+					        }
+					        else{
+					            angle = 0;
+					        }
+					        if(angle < 0){
+					        	angle = (180 + angle) + 180;
+					        }
 				     		attr += '"x": "' + x + '", "y": "' + y + '", ';
 				     		attr += '"w": "' + $this.css('width') + '", "h": "' + $this.css('height') + '", ';
-				     		attr += '"z": "' + $this.css('z-index') + '" }'
+				     		attr += '"z": "' + $this.css('z-index') + '",';
+				     		attr += '"a": "' + angle + '"}';
 						}
 					}
 					attr += '}';
@@ -115,13 +136,13 @@
 				//alert(JSON.stringify(attrjson));		
 				var c = getScrapbookID();
 			    $.ajax({
-			    	url: "<?php echo base_url('index.php/MemoRecap/save'); ?>",
+			    	url: "<?php echo base_url('MemoRecap/save'); ?>",
 			    	type: 'POST',
 			    	contentType: 'application/json',
 			    	data: c + attr,
 			    	dataType: 'json',
-			    	success: function(){
-			    		alert('Saved successfully!');
+			    	success: function(data){
+			    		alert(data);
 			    	}
 			    });	    
 			});
