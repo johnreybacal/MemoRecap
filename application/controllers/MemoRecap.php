@@ -21,11 +21,6 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('myScrapbooks',$data);		
 	}
 
-	public function printArray(){
-		$this->scrapbook->loadJSON('0001');
-		$this->scrapbook->generateCanvas();
-	}
-
 	public function view($id){
 		$data['title'] = 'MemoRecap';
 		$this->scrapbook->loadJSON($id);
