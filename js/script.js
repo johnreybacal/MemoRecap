@@ -42,26 +42,28 @@ $(document).ready(function(){
 				$(ui.helper).removeClass("first");
 				$(ui.helper).addClass("asset");
 				var id = assetID + '-' + $('#wtf').html();				
-				$(this).append($(ui.helper).clone().resizable({
-					containment: "#workspace",
-			    	animate: true, ghost: true,		    	
+				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
+				$('.rotatable').rotatable().removeClass('rotatable');
+				$('#' + id).resizable({
+					containment: "#workspace",		//para hanggang workspace lng ung laki
+			    	// animate: true, ghost: true,		    	
 			    	minHeight: 50, minWidth: 50,
 			    	resize: function(event, ui){
 			    		$('#siz').html("w: " + ui.size.width + ", h: " + ui.size.height);
 			    	}
 			    	//handles: "n, e, s, w, nw, ne, sw, se"
 			    }).draggable({
-	    			containment: "#workspace",
+	    			containment: "#workspace", 		//para di lumabas sa workspace
 	    			helper: "original", cursor: "move",
 	    			drag: function(){
 	    				var $this = $(this);
 			    		var thisPos = $this.position();
 			    		var parPos = $this.parent().position();
 			    		var x = thisPos.left - parPos.left;
-						var y = thisPos.top - parPos.top;
+			    		var y = thisPos.top - parPos.top;
 			    		$('#pos').html("x: " + x + ", y: " + y);
-	    			}	
-	    		}).attr("id", id).css("z-index", assetID));
+	    			}    			
+	    		}).css("z-index", assetID);
 	    		$('#' + id).mousedown(function(){
 	    			$('#selectedAsset').html($(this).attr('id'));
 	    		});
@@ -86,7 +88,25 @@ $(document).ready(function(){
 	 	var parPos = $this.parent().position();
 	 	var x = thisPos.left - parPos.left;
 	 	var y = thisPos.top - parPos.top;
-	 	alert('x: ' + x + '\ny: ' + y + '\nh: ' + $this.css('height') + '\nw: ' + $this.css('width') + '\nz: ' + $this.css('z-index'));
+	 	var angle;
+        var matrix = $this.children('div.rotate').css("-webkit-transform") ||
+            $this.css("-moz-transform") ||
+            $this.css("-ms-transform") ||
+            $this.css("-o-transform") ||
+            $this.css("transform");
+        if (matrix && matrix !== 'none'){
+            var values = matrix.split('(')[1].split(')')[0].split(',');
+            var a = values[0];
+            var b = values[1];
+            angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+        }
+        else{
+            angle = 0;
+        }
+        if(angle < 0){
+        	angle = (180 + angle) + 180;
+        }
+	 	alert('x: ' + x + '\ny: ' + y + '\nh: ' + $this.css('height') + '\nw: ' + $this.css('width') + '\nz: ' + $this.css('z-index') + '\na: ' + angle);
 	});
 
 	$('#delete-asset').click(function(){

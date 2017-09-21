@@ -12,9 +12,11 @@ $(document).ready(function(){
 			$(ui.helper).removeClass("first");	//pra hindi mag-clone	
 			$(ui.helper).addClass("asset");
 			var id = assetID + '-' + $('#wtf').html();
-			$(this).append($(ui.helper).clone().resizable({
+			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
+			$('.rotatable').rotatable().removeClass('rotatable');
+			$('#' + id).resizable({
 				containment: "#workspace",		//para hanggang workspace lng ung laki
-		    	animate: true, ghost: true,		    	
+		    	// animate: true, ghost: true,		    	
 		    	minHeight: 50, minWidth: 50,
 		    	resize: function(event, ui){
 		    		$('#siz').html("w: " + ui.size.width + ", h: " + ui.size.height);
@@ -31,7 +33,7 @@ $(document).ready(function(){
 		    		var y = thisPos.top - parPos.top;
 		    		$('#pos').html("x: " + x + ", y: " + y);
     			}    			
-    		}).attr("id", id).css("z-index", assetID));	//bigyan ng id
+    		}).css("z-index", assetID);	
     		$('#' + id).mousedown(function(){//gawing focusable lol kinuha ko lng ung id haha
     			$('#selectedAsset').html($(this).attr('id'));
     		});
