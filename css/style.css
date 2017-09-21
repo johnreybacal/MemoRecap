@@ -1,23 +1,29 @@
 body{
 	background: #cfd;
 }
-#asset-picker{
-	list-style: none; padding: 0px; width: 100px; position: absolute; top: 10px; left: 10px;
-}
 #assets{
-	border: solid thin black; display: inline-block;
+	float: left;width: 120px; height: 550px; border: solid thin black; overflow: auto; top: 10px; left: 10px;
+}
+#asset-picker{
+	list-style: none; padding: 0px; width: 100%;
 }
 .first{
 	border: solid thin black; width: 100px; height: 100px; padding: 0;
 }
 .asset{
-	width: 100px; height: 100px; padding: 0;
+	width: 100px; height: 100px; padding: 0; border: solid thin black; border-style: dashed;
 }
-.asset img, .first img{
+.rotate{
+	width: 100%; height: 100%; border: 1px solid #862dde;
+}
+.rotate img{
+	width: 100%; height: 100%;	
+}
+.first img{
 	width: 100%; height: 100%;
 }
 #workspace{
-	float: left; border: solid thin black; height: 500px; width: 800px; background: #fdc; margin-left: 125px;
+	float:left; background: #fdc; overflow: hidden; border: solid thin black;
 }
 #z-order-container{
 	border: solid thin black; height: 500px; width: 200px; float: right;	
@@ -29,10 +35,10 @@ body{
 	list-style: none; padding: 0; margin: 0;
 }
 #pagination li{
-	float:left; border: solid thin black; margin-left: 2px;
+	float: left; border: solid thin black; margin-left: 2px;
 }
 .pages{
-	height: 100%; width: 100%;
+	height: 100%; width: 100%; overflow: hidden;
 }
 #fileChooser{
 	position: absolute; left: 300px; top: 700px;
