@@ -27,7 +27,7 @@ class MemoRecap extends CI_Controller {
 		$data['assignAssets'] = $this->scrapbook->assignAssets();
 		$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
 		$data['loadPagination'] = $this->scrapbook->loadPagination();
-		$data['script'] = $this->scrapbook->script();
+		$data['script'] = $this->scrapbook->script();		
 		$data['id'] = $id;
 		$this->load->view('view', $data);
 	}

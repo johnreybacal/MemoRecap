@@ -77,7 +77,7 @@
 			return $assetsHTML;
 		}
 
-		/*functions for loading a scrapbook*/
+		/*functions for loading a scrapbook in editor*/
 		public function loadJSON($id){
 			// end($this->uri->segment_array())
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = ".$id." ");
@@ -96,7 +96,7 @@
 			            if(is_array($assets)){
 			                foreach($assets as $asset_id => $attr){
 			                    if(is_array($attr)){
-			                        $str .= '<div class="ui-draggable ui-draggable-handle asset ui-resizable"';
+			                        $str .= '<div class="ui-draggable ui-draggable-handle asset ui-resizable" data-angle = "'.$attr['a'].'"';
 									$str .= 'style = "position: absolute; ';
 									$str .= 'left: '.$attr['x'].'; ';
 									$str .= 'top: '.$attr['y'].'; ';
@@ -171,8 +171,8 @@
 			}			
 			return $str;
 		}
-		/*end of functions for loading a scrapbook*/
-
+		/*end of functions for loading a scrapbook in editor*/
+		
 		//U
 		public function save($id, $json){
 			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
@@ -249,11 +249,6 @@
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
 									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({angle: '.($attr['a'] * pi() / 180).'});';
-									// $str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').css({'.
-									// '"-webkit-transform": "rotate('.$attr['a'].'deg)",'.
-									// '"-moz-transform": "rotate('.$attr['a'].'deg)",'.
-									// '"-ms-transform": "rotate('.$attr['a'].'deg)",'.
-									// '"transform": "rotate('.$attr['a'].'deg)"});';
 								}
 							}
 						}
@@ -263,19 +258,39 @@
 			return $str;
 		}
 
-		public function assignAssets(){
+		public function assignAssets(){//asset id is sorted by its z-index
 			$json = json_decode($this->obj, true);
 			$str = '<script>';
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
 			        foreach($global_val as $pages => $assets){			
 						$str .= 'assets['.$pages.'] = "";';
+						$counter = 0;
+						$z = [];
+						$a = [];
 						if(is_array($assets)){
 							foreach($assets as $asset_id => $attr){
 								if(is_array($attr)){
-									$str .= 'assets['.$pages.'] += "'.$asset_id.'/";';
+									$counter++;
+									$z[] = $attr['z'];
+									$a[] = $asset_id;
 								}
 							}
+						}
+						for($x = 0;  $x < count($z); $x++){
+							for($y = 0; $y < count($z) - $x - 1; $y++){
+								if($z[$y] > $z[$y + 1]){
+									$temp1 = $z[$y];
+									$z[$y] = $z[$y + 1];
+									$z[$y + 1] = $temp1;
+									$temp1 = $a[$y];
+									$a[$y] = $a[$y + 1];
+									$a[$y + 1] = $temp1;
+								}
+							}
+						}
+						for($i = 0; $i < $counter; $i++) { 					
+							$str .= 'assets['.$pages.'] += "'.$a[$i].'/";';
 						}
 					}
 				}
