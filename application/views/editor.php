@@ -47,8 +47,7 @@
 			ID: <text id = "selectedAsset"></text><br />
 			Position:<br /><text id = "pos"></text><br />
 			Size:<br /><text id = "siz"></text><br />
-			Angle:<text id = "ang"></text>
-			<button id = "getAssetAtt">Get asset attributes</button>			
+			Angle:<text id = "ang"></text>					
 			<button id = "delete-asset">Delete asset</button>
 		</div>
 		<div id = "page-attribute">
