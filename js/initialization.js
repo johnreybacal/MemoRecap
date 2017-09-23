@@ -19,9 +19,10 @@ function getAngle($this){
     }
     return angle;
 }
+
 $(document).ready(function(){
-	/*Initializations*/
 	
+	/*Initializations*/	
 
     $(".first").draggable({
 		helper: "clone", revert: "invalid", 
