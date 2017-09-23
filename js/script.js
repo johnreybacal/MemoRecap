@@ -39,9 +39,11 @@ $(document).ready(function(){
 		$("#p-" + pageCount.toString()).droppable({
 			accept: ".first",						//para sa generated pages
 			drop: function(event, ui){
+				var id = assetID + '-' + $('#wtf').html();				
+	    		assets[currentPage] += id + "/";
+	    		assetID++;
 				$(ui.helper).removeClass("first");
 				$(ui.helper).addClass("asset");
-				var id = assetID + '-' + $('#wtf').html();				
 				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
 				$('.rotatable').rotatable().removeClass('rotatable');
 				$('#' + id).resizable({
@@ -49,27 +51,34 @@ $(document).ready(function(){
 			    	// animate: true, ghost: true,		    	
 			    	minHeight: 50, minWidth: 50,
 			    	resize: function(event, ui){
-			    		$('#siz').html("w: " + ui.size.width + ", h: " + ui.size.height);
+			    		$('#siz').html("w: " + ui.size.width + "<br />h: " + ui.size.height);
 			    	}
 			    	//handles: "n, e, s, w, nw, ne, sw, se"
 			    }).draggable({
 	    			containment: "#workspace", 		//para di lumabas sa workspace
 	    			helper: "original", cursor: "move",
-	    			drag: function(){
-	    				var $this = $(this);
+					drag: function(){
+						var $this = $(this);
 			    		var thisPos = $this.position();
 			    		var parPos = $this.parent().position();
 			    		var x = thisPos.left - parPos.left;
 			    		var y = thisPos.top - parPos.top;
-			    		$('#pos').html("x: " + x + ", y: " + y);
-	    			}    			
-	    		}).css("z-index", assetID);
+			    		$('#pos').html("x: " + x + "<br />y: " + y);
+					}
+	    		}).css("z-index", assets[currentPage].split('/').length - 1);
 	    		$('#' + id).mousedown(function(){
 	    			$('#selectedAsset').html($(this).attr('id'));
+    				var $this = $(this);
+		    		var thisPos = $this.position();
+		    		var parPos = $this.parent().position();
+		    		var x = thisPos.left - parPos.left;
+		    		var y = thisPos.top - parPos.top;
+		    		var angle = getAngle($this);
+		    		$('#pos').html("x: " + x + "<br />y: " + y);
+		    		$('#siz').html("w: " + $this.css('width') + "<br />h: " + $this.css('height'));
+		    		$('#ang').html(angle);
 	    		});
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
-	    		assets[currentPage] += id + "/";
-	    		assetID++;
 			}
 		});		
 		$("#p-" + currentPage.toString()).hide();
@@ -79,42 +88,15 @@ $(document).ready(function(){
 		currentPage = pageCount;
 		assets[pageCount] = "";
 		pageCount++;
-	});	
-
-	$('#getAssetAtt').click(function(){
-		var asset = $('#selectedAsset').html();
-		var $this = $('#' + asset);
-	 	var thisPos = $this.position();
-	 	var parPos = $this.parent().position();
-	 	var x = thisPos.left - parPos.left;
-	 	var y = thisPos.top - parPos.top;
-	 	var angle;
-        var matrix = $this.children('div.rotate').css("-webkit-transform") ||
-            $this.css("-moz-transform") ||
-            $this.css("-ms-transform") ||
-            $this.css("-o-transform") ||
-            $this.css("transform");
-        if (matrix && matrix !== 'none'){
-            var values = matrix.split('(')[1].split(')')[0].split(',');
-            var a = values[0];
-            var b = values[1];
-            angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
-        }
-        else{
-            angle = 0;
-        }
-        if(angle < 0){
-        	angle = (180 + angle) + 180;
-        }
-	 	alert('x: ' + x + '\ny: ' + y + '\nh: ' + $this.css('height') + '\nw: ' + $this.css('width') + '\nz: ' + $this.css('z-index') + '\na: ' + angle);
-	});
+	});		
 
 	$('#delete-asset').click(function(){
-		var selectedAsset = $('#selectedAsset').html();	
-		alert(selectedAsset);
+		alert(assets[currentPage]);
+		var selectedAsset = $('#selectedAsset').html();			
 		$('#' + selectedAsset).remove();	//delete asset
 		$('#' + selectedAsset + "-z").remove();		//delete on z-order
-		assets[currentPage] = assets[currentPage].replace(selectedAsset + "-", "");		//delete asset data
+		assets[currentPage] = assets[currentPage].replace(selectedAsset + "/", "");		//delete asset data
+		alert(assets[currentPage]);
 	});
 	
 	$('#delete-page').click(function(){
