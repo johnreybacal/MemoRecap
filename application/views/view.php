@@ -4,10 +4,7 @@
 		<title><?php echo $title ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery-ui.css'); ?>" />
-		<link rel = "stylesheet" href = "<?php echo base_url('css/style.css'); ?>" />
-		<style type="text/css">
-			canvas{ border: solid thin black; }
-		</style>
+		<link rel = "stylesheet" href = "<?php echo base_url('css/style.css'); ?>" />		
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery-ui.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/variables.js'); ?>"></script>	

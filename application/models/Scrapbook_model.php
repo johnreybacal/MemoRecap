@@ -22,7 +22,7 @@
 			$json .= '"height":"'.substr($size, 0, strpos($size,"x")).'","width":"'.substr($size, strpos($size,"x")+1, strlen($size)).'",';
 			$json .= '"pages":{';
 			for($i = 0; $i < $pages; $i++){
-				$json .= '"'.$i.'":{"bg":"rgb(255, 255, 255)"}';
+				$json .= '"'.$i.'":{"bg":"rgb(225, 225, 225)"}';
 				if($i != $pages - 1){
 					$json .= ',';
 				}
@@ -335,7 +335,7 @@
 		    	// animate: true, ghost: true,		    	
 		    	minHeight: 50, minWidth: 50,
 		    	resize: function(event, ui){
-		    		$(\'#siz\').html("w: " + ui.size.width + ", h: " + ui.size.height);
+		    		$(\'#siz\').html("w: " + ui.size.width + "<br />h: " + ui.size.height);
 		    	}
 		    	//handles: "n, e, s, w, nw, ne, sw, se"
 		    }).draggable({
@@ -347,11 +347,20 @@
 		    		var parPos = $this.parent().position();
 		    		var x = thisPos.left - parPos.left;
 		    		var y = thisPos.top - parPos.top;
-		    		$(\'#pos\').html("x: " + x + ", y: " + y);
-				}    			
+		    		$(\'#pos\').html("x: " + x + "<br />y: " + y);
+				}
 			});			
 			$(\'.asset\').mousedown(function(){//gawing focusable lol kinuha ko lng ung id haha
 				$(\'#selectedAsset\').html($(this).attr(\'id\'));
+				var $this = $(this);
+	    		var thisPos = $this.position();
+	    		var parPos = $this.parent().position();
+	    		var x = thisPos.left - parPos.left;
+	    		var y = thisPos.top - parPos.top;	    		
+	    		var angle = getAngle($this);
+	    		$(\'#pos\').html("x: " + x + "<br />y: " + y);
+	    		$(\'#siz\').html("w: " + $this.css(\'width\') + "<br />h: " + $this.css(\'height\'));
+	    		$(\'#ang\').html(angle);
 			});</script>';
 		}
 
