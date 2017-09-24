@@ -66,7 +66,8 @@ class MemoRecap extends CI_Controller {
 		$id = substr($json, 0, 4);
 		$json = substr($json, 4, strlen($json));
 		header('Content-type: application/json');
-		echo $this->scrapbook->save($id, $json);
+		$result = $this->scrapbook->save($id, $json);
+		echo $result;
 	}
 
 	public function delete($id){

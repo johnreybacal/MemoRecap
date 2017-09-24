@@ -177,7 +177,7 @@
 		public function save($id, $json){
 			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
 				return 'Success';
-			}else{				
+			}else{
 				return 'Fail';
 			}
 		}
