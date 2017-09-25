@@ -49,12 +49,13 @@ body{
 #fileChooser{
 	position: absolute; left: 300px; top: 700px;
 }
-/*#p-0, #p-3{
-	background: #abc;
+.context-menu {
+    list-style: none; overflow: hidden; display: none; z-index: 1000; position: absolute; border: 1px solid #CCC; white-space: nowrap; font-family: sans-serif; background: #FFF; color: #333; border-radius: 5px;
 }
-#p-1, #p-4{
-	background: #def;
+.context-menu li {
+    padding: 8px 12px; cursor: pointer;    
 }
-#p-2, #p-5{
-	background: #789;
-}*/
+
+.context-menu li:hover {
+    background-color: #DEF;
+}
