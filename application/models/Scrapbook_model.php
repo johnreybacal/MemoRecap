@@ -86,6 +86,46 @@
 			}			
 		}
 		
+		public function assignAssets(){//asset id is sorted by its z-index
+			$json = json_decode($this->obj, true);
+			$str = '<script>';
+			foreach($json as $global_attr => $global_val){
+			    if(is_array($global_val)){
+			        foreach($global_val as $pages => $assets){			
+						$str .= 'assets['.$pages.'] = "";';
+						$counter = 0;
+						$z = [];
+						$a = [];
+						if(is_array($assets)){
+							foreach($assets as $asset_id => $attr){
+								if(is_array($attr)){
+									$counter++;
+									$z[] = $attr['z'];
+									$a[] = $asset_id;
+								}
+							}
+						}
+						for($x = 0;  $x < count($z); $x++){
+							for($y = 0; $y < count($z) - $x - 1; $y++){
+								if($z[$y] > $z[$y + 1]){
+									$temp1 = $z[$y];
+									$z[$y] = $z[$y + 1];
+									$z[$y + 1] = $temp1;
+									$temp1 = $a[$y];
+									$a[$y] = $a[$y + 1];
+									$a[$y + 1] = $temp1;
+								}
+							}
+						}
+						for($i = 0; $i < $counter; $i++) { 					
+							$str .= 'assets['.$pages.'] += "'.$a[$i].'/";';
+						}
+					}
+				}
+			}
+			return $str.'</script>';
+		}
+		
 		public function loadWorkspace(){
 			$str = '';
 			$json = json_decode($this->obj, true);			
@@ -238,8 +278,8 @@
 						if(is_array($assets)){
 							foreach($assets as $asset_id => $attr){
 								if(is_array($attr)){
-									$str .= 'x = position.left + '.$attr['x'].' + 1;';
-									$str .= 'y = position.top + '.$attr['y'].' + 1;';
+									$str .= 'x = position.left + '.$attr['x'].';';
+									$str .= 'y = position.top + '.$attr['y'].';';
 									$str .=	'$(\'#'.$asset_id.'\').animate({';
 									$str .= '"position": "absolute", '.
 									'"left": x, '.					
@@ -258,45 +298,6 @@
 			return $str;
 		}
 
-		public function assignAssets(){//asset id is sorted by its z-index
-			$json = json_decode($this->obj, true);
-			$str = '<script>';
-			foreach($json as $global_attr => $global_val){
-			    if(is_array($global_val)){
-			        foreach($global_val as $pages => $assets){			
-						$str .= 'assets['.$pages.'] = "";';
-						$counter = 0;
-						$z = [];
-						$a = [];
-						if(is_array($assets)){
-							foreach($assets as $asset_id => $attr){
-								if(is_array($attr)){
-									$counter++;
-									$z[] = $attr['z'];
-									$a[] = $asset_id;
-								}
-							}
-						}
-						for($x = 0;  $x < count($z); $x++){
-							for($y = 0; $y < count($z) - $x - 1; $y++){
-								if($z[$y] > $z[$y + 1]){
-									$temp1 = $z[$y];
-									$z[$y] = $z[$y + 1];
-									$z[$y + 1] = $temp1;
-									$temp1 = $a[$y];
-									$a[$y] = $a[$y + 1];
-									$a[$y + 1] = $temp1;
-								}
-							}
-						}
-						for($i = 0; $i < $counter; $i++) { 					
-							$str .= 'assets['.$pages.'] += "'.$a[$i].'/";';
-						}
-					}
-				}
-			}
-			return $str.'</script>';
-		}
 
 		public function script(){
 			$query = $this->db->query("SELECT * FROM assets");			

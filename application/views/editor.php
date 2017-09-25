@@ -16,7 +16,13 @@
 			echo $assignAssets;
 		?>
 	</head>
-	<body>	
+	<body>
+		<ul class='context-menu'>
+			<li data-action = "copy">Copy</li>
+			<li data-action = "cut">Cut</li>
+			<li data-action = "paste">Paste</li>
+			<li data-action = "delete">Delete</li>
+		</ul>	
 		<div id = "assets">
 			<ul id = "asset-picker">				
 			<?php
