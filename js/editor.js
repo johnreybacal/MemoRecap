@@ -1,4 +1,72 @@
+function copy(){
+	isCut = false;
+	clipboard = $('#selectedAsset').html();
+}
+
+function cut(){
+	isCut = true;
+	clipboard = $('#selectedAsset').html();
+	pageClipboarded = currentPage;
+}
+
+function paste(y, x){
+	if(clipboard != ''){		
+		var z = clipboard.split('-');	
+		var id = assetID + '-' + z[1];
+		assetID++;
+		$('#p-' + currentPage).hide();
+		$('#p-' + pageClipboarded).show();
+		var ang = getAngle($('#' + clipboard)) * Math.PI / 180;
+		$('#p-' + pageClipboarded).hide();
+		$('#p-' + currentPage).show();
+		var pastedAsset = $('#' + clipboard).clone();
+		pastedAsset.removeClass('ui-draggable').removeClass('ui-draggable-handle').removeClass('ui-resizable');
+		pastedAsset.children('div.ui-resizable-handle').remove();
+		pastedAsset.children('div.rotate').addClass('rotatable').children('div.ui-rotatable-handle').remove();
+		$('#p-' + currentPage).append(pastedAsset.attr('id', id));
+		$('.rotatable').rotatable({ angle: ang }).removeClass('rotatable');
+		if(isCut){
+			$('#' + clipboard).remove();
+			assets[pageClipboarded] = assets[pageClipboarded].replace(clipboard + '/', '');
+			isCut = false;
+		}
+		assets[currentPage] += id + '/'
+		assetInteractability(id);
+		$('#' + id).animate({
+			'top': y, 'left': x
+		});
+	}else{
+		alert('Clipboard is empty :>');
+	}
+}
+
 $(document).ready(function(){
+
+	$('#workspace').bind("contextmenu", function (event) {
+	    event.preventDefault();
+	    $(".context-menu").finish().toggle(100).
+	    css({
+	        top: event.pageY + "px",
+	        left: event.pageX + "px"
+	    });
+	});
+
+	$(document).bind("mousedown", function (e) {	    	    
+	    if (!$(e.target).parents(".context-menu").length > 0){
+	        $(".context-menu").hide(100);
+	    }
+	});
+
+	$(".context-menu li").click(function(){
+	    switch($(this).attr("data-action")) {
+	        case "copy": copy(); break;
+	        case "cut": cut(); break;
+	        case "paste": paste($(".context-menu").css('top'), $(".context-menu").css('left')); break;
+	        case "delete": deleteAsset(); break;
+	    }
+	    $(".context-menu").hide(100);
+	});
+
 	$('#save').click(function(){	//get x y and size of all assets in all pages
 		var attr = '{"height":"' + $('#workspace').css('height') + '", "width":"' + $('#workspace').css('width') + '" , "pages":{';		
 		var getBack = currentPage;

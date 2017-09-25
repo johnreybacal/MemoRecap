@@ -16,10 +16,10 @@
 		<input type="submit" name="create" value = "Create" />
 	</form>
 	List of scrapbooks
-	<ul>
+	<ol>
 		<?php
 			echo $list_of_scrapbooks;
 		?>
-	</ul>
+	</ol>
 </body>
 </html>

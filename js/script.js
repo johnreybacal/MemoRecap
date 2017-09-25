@@ -1,18 +1,13 @@
+function deleteAsset(){
+	alert(assets[currentPage]);
+	var selectedAsset = $('#selectedAsset').html();			
+	$('#' + selectedAsset).remove();	//delete asset
+	$('#' + selectedAsset + "-z").remove();		//delete on z-order
+	assets[currentPage] = assets[currentPage].replace(selectedAsset + "/", "");		//delete asset data
+	alert(assets[currentPage]);
+}
+
 $(document).ready(function(){    
-	/*Dynamic shits starts here*/
-	// $("#fileChooser").change(function(event){//upload images
-	// 	var tgt = event.target || window.event.srcElement, files = tgt.files;
-	// 	//kinuha ko lng to sa internet i dunno what it does lol
-	// 	var fr = new FileReader();
-	// 	fr.onload = function(){							//dagdag sa asset picker
-	// 		$("#asset-picker").append("<li><div class = \"first ui-draggable ui-draggable-handle\"><img src = \"" + fr.result + "\" /></div></li>");
-	// 		$(".first").draggable({
-	// 	    	helper: "clone", revert: "invalid",
-	// 	    	scroll: false							//para gumana ung uploaded na image
-	// 	    });
-	// 	}
-	// 	fr.readAsDataURL(files[0]);
-	// });
 
 	$("#addPage").click(function(){
 		$("#workspace").append("<div id = \"p-" + pageCount + "\" class = \"pages ui-droppable\"></div>");
@@ -46,38 +41,7 @@ $(document).ready(function(){
 				$(ui.helper).addClass("asset");
 				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
 				$('.rotatable').rotatable().removeClass('rotatable');
-				$('#' + id).resizable({
-					containment: "#workspace",		//para hanggang workspace lng ung laki
-			    	// animate: true, ghost: true,		    	
-			    	minHeight: 50, minWidth: 50,
-			    	resize: function(event, ui){
-			    		$('#siz').html("w: " + ui.size.width + "<br />h: " + ui.size.height);
-			    	}
-			    	//handles: "n, e, s, w, nw, ne, sw, se"
-			    }).draggable({
-	    			containment: "#workspace", 		//para di lumabas sa workspace
-	    			helper: "original", cursor: "move",
-					drag: function(){
-						var $this = $(this);
-			    		var thisPos = $this.position();
-			    		var parPos = $this.parent().position();
-			    		var x = thisPos.left - parPos.left;
-			    		var y = thisPos.top - parPos.top;
-			    		$('#pos').html("x: " + x + "<br />y: " + y);
-					}
-	    		}).css("z-index", assets[currentPage].split('/').length - 1);
-	    		$('#' + id).mousedown(function(){
-	    			$('#selectedAsset').html($(this).attr('id'));
-    				var $this = $(this);
-		    		var thisPos = $this.position();
-		    		var parPos = $this.parent().position();
-		    		var x = thisPos.left - parPos.left;
-		    		var y = thisPos.top - parPos.top;
-		    		var angle = getAngle($this);
-		    		$('#pos').html("x: " + x + "<br />y: " + y);
-		    		$('#siz').html("w: " + $this.css('width') + "<br />h: " + $this.css('height'));
-		    		$('#ang').html(angle);
-	    		});
+				assetInteractability(id);
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
 			}
 		});		
@@ -90,14 +54,7 @@ $(document).ready(function(){
 		pageCount++;
 	});		
 
-	$('#delete-asset').click(function(){
-		alert(assets[currentPage]);
-		var selectedAsset = $('#selectedAsset').html();			
-		$('#' + selectedAsset).remove();	//delete asset
-		$('#' + selectedAsset + "-z").remove();		//delete on z-order
-		assets[currentPage] = assets[currentPage].replace(selectedAsset + "/", "");		//delete asset data
-		alert(assets[currentPage]);
-	});
+	$('#delete-asset').click(function(){deleteAsset();});
 	
 	$('#delete-page').click(function(){
 		var selectedPage = $('#currentPage').html();
