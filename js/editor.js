@@ -27,11 +27,13 @@ function paste(y, x){
 		$('.rotatable').rotatable({ angle: ang }).removeClass('rotatable');
 		if(isCut){
 			$('#' + clipboard).remove();
+			$('#' + clipboard + "-z").remove();
 			assets[pageClipboarded] = assets[pageClipboarded].replace(clipboard + '/', '');
 			isCut = false;
 		}
 		assets[currentPage] += id + '/'
 		assetInteractability(id);
+		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
 		$('#' + id).animate({
 			'top': y, 'left': x
 		});

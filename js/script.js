@@ -27,7 +27,7 @@ $(document).ready(function(){
 				var order = $(this).sortable("toArray");
 				order.reverse();
 				for(var i = 0; i < order.length; i++){
-					$("#" + order[i].replace("-z", "")).css("z-index", i);					
+					$("#" + order[i].replace("-z", "")).css("z-index", i);
 				}
 			}
 		});		
@@ -39,8 +39,7 @@ $(document).ready(function(){
 	    		assetID++;
 				$(ui.helper).removeClass("first");
 				$(ui.helper).addClass("asset");
-				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
-				$('.rotatable').rotatable().removeClass('rotatable');
+				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));				
 				assetInteractability(id);
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
 			}
@@ -121,5 +120,5 @@ $(document).ready(function(){
 	$('#changeBG').click(function(){		
 		$('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
 	});
-	
+
 });

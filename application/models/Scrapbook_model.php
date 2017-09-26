@@ -288,7 +288,8 @@
 									'"width": "'.$attr['w'].'", '.
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
-									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({angle: '.($attr['a'] * pi() / 180).'});';
+									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));}}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
+									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({rotate: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));},angle: '.($attr['a'] * pi() / 180).'});';
 								}
 							}
 						}
@@ -328,42 +329,6 @@
 			$scriptHTML .= '</script>';
 			return $scriptHTML;
 		}
-
-		public function functionalityScript(){
-			return '<script>
-			$(\'.asset\').resizable({
-				containment: "#workspace",		//para hanggang workspace lng ung laki
-		    	// animate: true, ghost: true,		    	
-		    	minHeight: 50, minWidth: 50,
-		    	resize: function(event, ui){
-		    		$(\'#siz\').html("w: " + ui.size.width + "<br />h: " + ui.size.height);
-		    	}
-		    	//handles: "n, e, s, w, nw, ne, sw, se"
-		    }).draggable({
-				containment: "#workspace", 		//para di lumabas sa workspace
-				helper: "original", cursor: "move",
-				drag: function(){
-					var $this = $(this);
-		    		var thisPos = $this.position();
-		    		var parPos = $this.parent().position();
-		    		var x = thisPos.left - parPos.left;
-		    		var y = thisPos.top - parPos.top;
-		    		$(\'#pos\').html("x: " + x + "<br />y: " + y);
-				}
-			});			
-			$(\'.asset\').mousedown(function(){//gawing focusable lol kinuha ko lng ung id haha
-				$(\'#selectedAsset\').html($(this).attr(\'id\'));
-				var $this = $(this);
-	    		var thisPos = $this.position();
-	    		var parPos = $this.parent().position();
-	    		var x = thisPos.left - parPos.left;
-	    		var y = thisPos.top - parPos.top;	    		
-	    		var angle = getAngle($this);
-	    		$(\'#pos\').html("x: " + x + "<br />y: " + y);
-	    		$(\'#siz\').html("w: " + $this.css(\'width\') + "<br />h: " + $this.css(\'height\'));
-	    		$(\'#ang\').html(angle);
-			});</script>';
-		}
-
+		
 	}
 ?>

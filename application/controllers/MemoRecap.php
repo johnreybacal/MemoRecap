@@ -44,8 +44,7 @@ class MemoRecap extends CI_Controller {
 		$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
 		$data['loadPagination'] = $this->scrapbook->loadPagination();
 		$data['loadZOrder'] = $this->scrapbook->loadZOrder();
-		$data['script'] = $this->scrapbook->script();
-		$data['functionalityScript'] = $this->scrapbook->functionalityScript();
+		$data['script'] = $this->scrapbook->script();		
 		$this->load->view('editor', $data);		
 	}
 

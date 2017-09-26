@@ -70,8 +70,7 @@
 			<button id = "save">Save</button>
 		</div>
 		<?php
-			echo $script;
-			echo $functionalityScript;
+			echo $script;			
 		?>
 		<script>
 			function getSaveURL(){
