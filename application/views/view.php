@@ -12,6 +12,7 @@
 		<script type = "text/javascript" src = "<?php echo base_url('js/FileSaver.min.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/Blob.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/canvas-toBlob.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/globals.js'); ?>"></script>
 		<?php
 			echo $assignAssets;
 		?>
@@ -44,7 +45,7 @@
 			<ol id = "pagination">
 				<?php					
 					echo $loadPagination;
-				?>				
+				?>
 			</ol>
 		</div>
 		<a href = '<?php echo base_url('MemoRecap/editor/'.$id); ?>'>Edit</a>

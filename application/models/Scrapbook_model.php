@@ -266,7 +266,7 @@
 			        $w = $global_val;		       
 			    }			    
 			}
-	    	return '$(\'#workspace\').css({"height":"'.$h.'", "width":"'.$w.'"});';
+	    	return '$(\'#workspace\').animate({"height":"'.$h.'", "width":"'.$w.'"});';
 		}
 
 		public function applyAttributes(){
@@ -288,7 +288,7 @@
 									'"width": "'.$attr['w'].'", '.
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
-									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));}}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
+									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));},handles: "n, e, s, w, nw, ne, sw, se"}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
 									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({rotate: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));},angle: '.($attr['a'] * pi() / 180).'});';
 								}
 							}
