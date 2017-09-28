@@ -17,11 +17,11 @@
 		?>
 	</head>
 	<body>
-		<ul class='context-menu'>
-			<li data-action = "copy">Copy</li>
-			<li data-action = "cut">Cut</li>
-			<li data-action = "paste">Paste</li>
-			<li data-action = "delete">Delete</li>
+		<ul class='context-menu clear'>
+			<li data-action = "copy"  >	<span class= "glyphicon glyphicon-copy"></span>Copy</li>
+			<li data-action = "cut"	  >	<span class= "glyphicon glyphicon-scissors"></span>Cut</li>
+			<li data-action = "paste" >	<span class= "glyphicon glyphicon-paste"></span>Paste</li>
+			<li data-action = "delete">	<span class= "glyphicon glyphicon-remove"></span>Delete</li>
 		</ul>	
 		<div id = "assets">
 			<ul id = "asset-picker">				
