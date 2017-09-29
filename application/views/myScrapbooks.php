@@ -5,7 +5,7 @@
 </head>
 <body>
 	<p>Temporarily signed is as user 0001</p>
-	<form action = "<?php echo base_url('MemoRecap/editor/new'); ?>" method = "POST">
+	<form action = "<?php echo base_url('editor/new'); ?>" method = "POST">
 		Name:<input type="text" name="name" required /><br />
 		Number of pages:<input type="number" name="pages" min = "3" max = "999" required /><br />
 		Size:<br />
@@ -21,5 +21,8 @@
 			echo $list_of_scrapbooks;
 		?>
 	</ol>
+	<?php
+		include 'includes/imageUpload.php';
+	?>
 </body>
 </html>
