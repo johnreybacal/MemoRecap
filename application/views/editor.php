@@ -122,7 +122,7 @@
 			</div>
 			</div>
 			</div>
-		</div>
+		</div>		
 		<script>
 			function getSaveURL(){
 				return "<?php echo base_url('MemoRecap/save'); ?>";
@@ -130,6 +130,6 @@
 		</script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/editor.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/Zoom.js'); ?>"></script>
-				<script type = "text/javascript" src = "<?php echo base_url('js/HideShow.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/HideShow.js'); ?>"></script>
 	</body>
 </html>

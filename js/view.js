@@ -3,6 +3,7 @@ function toHex(n) {
 	while (hex.length < 2) {hex = "0" + hex; }
 	return hex;
 }
+
 function gene(){				
 	for(var counter = 0; counter < pageCount; counter++){
 		$('body').append('<canvas id = "c-' + counter + '" height = "' + $('#workspace').css('height') + '" width = "' + $('#workspace').css('width') + '"></canvas>');
@@ -166,10 +167,10 @@ function onload(){
 		currentPage = p;					
 		if(assets[p].length > 0){							
 			var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");
-			for(var i = 0; i < assetsInThisPage.length; i++){							
+			for(var i = 0; i < assetsInThisPage.length; i++){
+				$('#' + assetsInThisPage[i]).draggable('destroy').resizable('destroy');
 				$('#' + assetsInThisPage[i]).removeClass('ui-draggable').removeClass('ui-draggable-handle').removeClass('ui-resizable').removeClass('asset');
-				$('#' + assetsInThisPage[i]).children('div.rotate').css({'border': 'none'});
-				// $('#' + assetsInThisPage[i] + ' div').remove();
+				$('#' + assetsInThisPage[i]).children('div.rotate').css({'border': 'none'});				
 			}
 		}
 	}

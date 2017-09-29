@@ -55,19 +55,28 @@ $(document).ready(function(){
 
 	$('#delete-asset').click(function(){deleteAsset();});
 	
-	$('#delete-page').click(function(){
-		var selectedPage = $('#currentPage').html();
-		alert(selectedPage);
-		$('#' + selectedPage).remove();	//delete pagination
-		$('#p-' + selectedPage.substring(5)).remove();		//delete page
-		$('#z-' + selectedPage.substring(5)).remove();		//delete z-order		
-		assets.splice(selectedPage.substring(5), 1)		//delete asset data
-		for(var i = selectedPage.substring(5); i < pageCount; i++){//fix pagination
+	$('#delete-page').click(function(){				
+		$('#page-' + currentPage).remove();	//delete pagination
+		$('#p-' + currentPage).remove();		//delete page
+		$('#z-' + currentPage).remove();		//delete z-order		
+		assets.splice(currentPage, 1)		//delete asset data
+		for(var i = currentPage; i < pageCount; i++){//fix pagination
 			$('#page-' + i).html(i);
 			$('#page-' + i).attr('id', 'tempPage');			
-			$('#tempPage').attr('id', 'page-' + (i - 1));			
+			$('#tempPage').attr('id', 'page-' + (i - 1));
+			$('#p-' + i).attr('id', 'tempPage');
+			$('#tempPage').attr('id', 'p-' + (i - 1));
+			$('#z-' + i).attr('id', 'tempPage');
+			$('#tempPage').attr('id', 'z-' + (i - 1));
+
 		}
 		pageCount--;
+		if(currentPage == pageCount){
+			currentPage--;
+		}
+		$('#p-' + currentPage).show();
+		$('#z-' + currentPage).show();
+		$("#currentPage").html(Number(currentPage) + 1);
 	});
 
 	$('#pagination').sortable({
