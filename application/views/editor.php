@@ -26,6 +26,7 @@
 			</style>
 	</head>
 	<body>
+
 		<ul class='context-menu'>
 			<li data-action = "copy">Copy</li>
 			<li data-action = "cut">Cut</li>
@@ -33,6 +34,7 @@
 			<li data-action = "delete">Delete</li>
 			<li data-action = "frontsend">Send to front</li>
 			<li data-action = "backsend">Send to back</li>
+
 		</ul>	
 
 		<div class="container-fluid">

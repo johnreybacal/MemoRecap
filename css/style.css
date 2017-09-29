@@ -58,3 +58,8 @@ body{
 .context-menu li:hover {
     background-color: #DEF;
 }
+ul.clear {	/* class para matanggal yung padding/margin sa context menu*/
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
