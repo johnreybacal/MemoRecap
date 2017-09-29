@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$("#addPage").click(function(){
 		$("#workspace").append("<div id = \"p-" + pageCount + "\" class = \"pages ui-droppable\"></div>");
 		$("#pagination").append("<li id = \"page-" + pageCount + "\" class = \"page-button ui-sortable-handle\">" + (pageCount + 1) + "</li>");
-		$("#z-order-container").append("<ol reversed id = \"z-" + pageCount + "\" class = \"z_order\"></ol>");
+		$("#z-order-container").append("<ol reversed id = \"z-" + pageCount + "\" class = \"z-order\"></ol>");
 		$("#page-" + pageCount.toString()).click(function(){	//para sa mga generated buttons
 			var page = $(this).attr("id");				//kunin ung pinindot
 			$("#p-" + currentPage.toString()).hide();	//hide page and z-order of current page
@@ -21,16 +21,19 @@ $(document).ready(function(){
 			$("#p-" + currentPage.toString()).show();	//show selected page and z-order
 			$("#z-" + currentPage.toString()).show();
 			$("#currentPage").html($(this).attr('id'));
+			$('.attr').html('');
 		});
+
 		$("#z-" + pageCount.toString()).sortable({			//para sa generated na z-order
 			update: function(){
 				var order = $(this).sortable("toArray");
 				order.reverse();
 				for(var i = 0; i < order.length; i++){
-					$("#" + order[i].replace("-z", "")).css("z-index", i);
+					$("#" + order[i].replace("-z", "")).css("z-index", i + 1);
 				}
 			}
-		});		
+		});
+
 		$("#p-" + pageCount.toString()).droppable({
 			accept: ".first",						//para sa generated pages
 			drop: function(event, ui){
@@ -42,6 +45,9 @@ $(document).ready(function(){
 				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));				
 				assetInteractability(id);
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
+	    		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
+					displayAssetAttributes($('#' + id));
+				});
 			}
 		});		
 		$("#p-" + currentPage.toString()).hide();
@@ -128,6 +134,7 @@ $(document).ready(function(){
 
 	$('#changeBG').click(function(){		
 		$('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
+		$('#p-' + currentPage).attr('data-bg', 'rgb');
 	});
 
 });

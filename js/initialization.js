@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	/*Initializations*/	
-
+	
     $(".first").draggable({
 		helper: "clone", revert: "invalid", 
 		scroll: false							//para mag-clone from asset picker to workspace
@@ -17,11 +17,14 @@ $(document).ready(function(){
 			$(ui.helper).addClass("asset");
 			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
 			assetInteractability(id);
-    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
+    		$("#z-" + currentPage).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
+    		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
+				displayAssetAttributes($('#' + id));
+			});			
 		}
 	});
 
-	$(".z_order").sortable({							//z-order or layer
+	$(".z-order").sortable({							//z-order or layer
 		update: function(){
 			var order = $(this).sortable("toArray");	//gawing array ung list na element
 			order.reverse();
@@ -29,7 +32,9 @@ $(document).ready(function(){
 				$("#" + order[i].replace("-z", "")).css("z-index", i + 1);	//ayusin ung z order				
 			}
 		}
-	});
+	}).children('li').mousedown(function(){
+		displayAssetAttributes($('#' + $(this).attr('id').replace('-z', '')));
+	});	
 
 	$(".page-button").click(function(){					//initialize	lipat ng page
 		var page = $(this).attr("id");				//kunin ung pinindot
@@ -39,13 +44,16 @@ $(document).ready(function(){
 		$("#p-" + currentPage).show();	//show selected page and z-order
 		$("#z-" + currentPage).show();
 		$("#currentPage").html(Number(currentPage) + 1);
+		$('.attr').html('');
 	});
 
-
-	// $('div.asset').children('div.rotate').children('div.ui-rotatable-handle').mousedown(function(){
-	// 	var angle = getAngle($(this).parent().parent());
-	// 	$('#ang').html(angle);
-	// });	
+	$('.setBG').click(function(){
+		var id = $(this).data('id');
+		// alert(id + ' ' + $('#' + id).children('img').attr('src'));
+		// alert($('#p-' + currentPage).data('bg'));
+		$('#p-' + currentPage).css({'background-image': 'url("' + $('#' + id).children('img').attr('src') + '")'});
+		$('#p-' + currentPage).attr('data-bg', id);
+	});
 
 	/*End of initializations*/
 });

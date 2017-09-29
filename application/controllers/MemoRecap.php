@@ -6,13 +6,12 @@ class MemoRecap extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Scrapbook_model', 'scrapbook');
-		$this->load->model('User_model', 'user');
-		$this->load->helper('url');
+		$this->load->model('User_model', 'user');		
 	}
 
 	public function index(){
 		//redirect muna kase wala pang parent page
-		redirect(base_url('MemoRecap/myScrapbooks'));
+		redirect(base_url('myScrapbooks'));
 	}
 
 	public function myScrapbooks(){
@@ -35,7 +34,7 @@ class MemoRecap extends CI_Controller {
 	public function editor($id){
 		if($id == 'new'){
 			$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('pages'), $this->input->post('size'));
-			redirect(base_url('MemoRecap/editor/'.$id));
+			redirect(base_url('editor/'.$id));
 		}
 		$data['title'] = 'MemoRecap';
 		$this->scrapbook->loadJSON($id);
@@ -44,20 +43,22 @@ class MemoRecap extends CI_Controller {
 		$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
 		$data['loadPagination'] = $this->scrapbook->loadPagination();
 		$data['loadZOrder'] = $this->scrapbook->loadZOrder();
-		$data['script'] = $this->scrapbook->script();		
+		$data['script'] = $this->scrapbook->script();
 		$this->load->view('editor', $data);		
 	}
-
-	public function uploadAsset($c, $f, $p){// controller function parameter
-		if(getimagesize($_FILES['image']['tmp_name'])== FALSE){
-			echo "Choose effing Image";
-		}else{
-			$image = addslashes($_FILES['image']['tmp_name']);			
-			$image = file_get_contents($image);
-			$image = base64_encode($image);
-			$this->scrapbook->uploadAsset($image);
-		}
-		redirect(base_url($c.'/'.$f.'/'.$p));
+	
+	public function uploadAsset(){
+        $config['upload_path'] = './assets/'.$this->input->post('category');
+        $config['allowed_types'] = 'gif|jpg|png';
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('image')){//lol imposibleng mag-error 'to
+            $error = array('error' => $this->upload->display_errors());            
+            print_r($error);
+        }else{
+            $data = array('upload_data' => $this->upload->data());
+            echo $this->scrapbook->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
+            redirect('myScrapbooks');
+        }
 	}
 
 	public function save(){		
@@ -71,7 +72,7 @@ class MemoRecap extends CI_Controller {
 
 	public function delete($id){
 		$this->scrapbook->delete($id);
-		redirect(base_url('MemoRecap/myScrapbooks'));
+		redirect(base_url('myScrapbooks'));
 	}
 	
 }
