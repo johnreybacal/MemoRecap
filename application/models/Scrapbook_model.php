@@ -69,7 +69,7 @@
 				$assetsHTML .= '
 					<li>
 						<div class = "first" id = "'.$row["asset_id"].'">
-							<img src="'.base_url('assets/').$row['category'].$row["file"].'" />
+							<img src="'.base_url('uploaded_assets/').$row['category'].$row["file"].'" />
 						</div>
 						<button data-id = "'.$row["asset_id"].'" class = "setBG">Set as BG</button>
 					</li>
@@ -169,7 +169,7 @@
 			$str = '';
 			$query = $this->db->query("SELECT * from assets WHERE asset_id = $id");
 			foreach($query->result_array() as $row){				
-				$str .= base_url('assets/').$row['category'].$row['file'];
+				$str .= base_url('uploaded_assets/').$row['category'].$row['file'];
 			}
 			return $str;
 		}

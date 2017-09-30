@@ -9,9 +9,61 @@ class MemoRecap extends CI_Controller {
 		$this->load->model('User_model', 'user');		
 	}
 
-	public function index(){
-		//redirect muna kase wala pang parent page
-		redirect(base_url('myScrapbooks'));
+	public function Home(){		
+		$this->load->view('includes/header');			
+		$this->load->view('includes/nav');			
+		$this->load->view('includes/modal');			
+		$this->load->view('home');
+		$this->load->view('includes/footer');			
+	}
+
+	public function Account($options = null){
+		$this->load->view('includes/header');			
+		$this->load->view('includes/navLoggedin');
+		$this->load->view('includes/modal');
+		$this->load->view('includes/sidebar');
+		switch($options){
+			case "activities":	$this->load->view('Account/activities');	break;			
+			case "dp":	$this->load->view('Account/profilepicture');	break;			
+			case "username":	$this->load->view('Account/username');	break;			
+			case "password":	$this->load->view('Account/password');	break;			
+			case "manage":	$this->load->view('Account/manage');	break;			
+			default:	$this->load->view('account');	break;
+		}		
+		$this->load->view('includes/footer');
+	}
+
+	public function Scrapbooks($gallery = null){		
+		$this->load->view('includes/header');			
+		$this->load->view('includes/nav');			
+		$this->load->view('includes/modal');
+		switch($gallery){
+			case "Editors_Pick":	$this->load->view('Gallery/editorsPick');	break;
+			case "Featured_Works":	$this->load->view('Gallery/featuredWorks');	break;
+			case "Latest_Works":	$this->load->view('Gallery/latestWorks');	break;
+			default:	$this->load->view('scrapbooks');	break;
+		}		
+		$this->load->view('includes/footer');			
+	}
+
+	public function Assets(){
+		echo 'Nani?';
+	}
+
+	public function Profile(){
+		$this->load->view('includes/header');			
+		$this->load->view('includes/navLoggedin');
+		$this->load->view('includes/modal');		
+		$this->load->view('profile');		
+		$this->load->view('includes/footer');			
+	}
+
+	public function About(){
+		$this->load->view('includes/header');			
+		$this->load->view('includes/navLoggedin');
+		$this->load->view('includes/modal');		
+		$this->load->view('about');		
+		$this->load->view('includes/footer');	
 	}
 
 	public function myScrapbooks(){
@@ -48,7 +100,7 @@ class MemoRecap extends CI_Controller {
 	}
 	
 	public function uploadAsset(){
-        $config['upload_path'] = './assets/'.$this->input->post('category');
+        $config['upload_path'] = './uploaded_assets/'.$this->input->post('category');
         $config['allowed_types'] = 'gif|jpg|png';
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('image')){//lol imposibleng mag-error 'to

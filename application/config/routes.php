@@ -49,11 +49,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['Assets'] = 'MemoRecap/Assets';
+$route['About'] = 'MemoRecap/About';
+$route['Profile'] = 'MemoRecap/Profile';
+$route['Account/(:any)'] = 'MemoRecap/Account/$1';
+$route['Account'] = 'MemoRecap/Account';
+$route['Scrapbooks/(:any)'] = 'MemoRecap/Scrapbooks/$1';
+$route['Scrapbooks'] = 'MemoRecap/Scrapbooks';
 $route['uploadAsset'] = 'MemoRecap/uploadAsset';
 $route['editor/(:any)'] = 'MemoRecap/editor/$1';
 $route['view/(:any)'] = 'MemoRecap/view/$1';
 $route['delete/(:any)'] = 'MemoRecap/delete/$1';
 $route['myScrapbooks'] = 'MemoRecap/myScrapbooks';
-$route['default_controller'] = 'MemoRecap';
+$route['Home'] = 'MemoRecap/Home';
+$route['default_controller'] = 'MemoRecap/Home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
