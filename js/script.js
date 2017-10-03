@@ -20,7 +20,7 @@ $(document).ready(function(){
 			currentPage = page.substring(5);			
 			$("#p-" + currentPage.toString()).show();	//show selected page and z-order
 			$("#z-" + currentPage.toString()).show();
-			$("#currentPage").html($(this).attr('id'));
+			$("#currentPage").html(Number(currentPage) + 1);
 			$('.attr').html('');
 		});
 
@@ -61,28 +61,31 @@ $(document).ready(function(){
 
 	$('#delete-asset').click(function(){deleteAsset();});
 	
-	$('#delete-page').click(function(){				
-		$('#page-' + currentPage).remove();	//delete pagination
-		$('#p-' + currentPage).remove();		//delete page
-		$('#z-' + currentPage).remove();		//delete z-order		
-		assets.splice(currentPage, 1)		//delete asset data
-		for(var i = currentPage; i < pageCount; i++){//fix pagination
-			$('#page-' + i).html(i);
-			$('#page-' + i).attr('id', 'tempPage');			
-			$('#tempPage').attr('id', 'page-' + (i - 1));
-			$('#p-' + i).attr('id', 'tempPage');
-			$('#tempPage').attr('id', 'p-' + (i - 1));
-			$('#z-' + i).attr('id', 'tempPage');
-			$('#tempPage').attr('id', 'z-' + (i - 1));
-
+	$('#delete-page').click(function(){
+		if(pageCount > 1){			
+			$('#page-' + currentPage).remove();	//delete pagination
+			$('#p-' + currentPage).remove();		//delete page
+			$('#z-' + currentPage).remove();		//delete z-order		
+			assets.splice(currentPage, 1)		//delete asset data
+			for(var i = currentPage; i < pageCount; i++){//fix pagination
+				$('#page-' + i).html(i);
+				$('#page-' + i).attr('id', 'tempPage');			
+				$('#tempPage').attr('id', 'page-' + (i - 1));
+				$('#p-' + i).attr('id', 'tempPage');
+				$('#tempPage').attr('id', 'p-' + (i - 1));
+				$('#z-' + i).attr('id', 'tempPage');
+				$('#tempPage').attr('id', 'z-' + (i - 1));
+			}
+			pageCount--;
+			if(currentPage == pageCount){
+				currentPage--;
+			}
+			$('#p-' + currentPage).show();
+			$('#z-' + currentPage).show();
+			$("#currentPage").html(Number(currentPage) + 1);
+		}else{
+			alert("NANI???");
 		}
-		pageCount--;
-		if(currentPage == pageCount){
-			currentPage--;
-		}
-		$('#p-' + currentPage).show();
-		$('#z-' + currentPage).show();
-		$("#currentPage").html(Number(currentPage) + 1);
 	});
 
 	$('#pagination').sortable({

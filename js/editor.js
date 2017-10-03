@@ -157,8 +157,8 @@ $(document).ready(function(){
 	    	contentType: 'application/json',
 	    	data: c + attr,
 	    	dataType: 'json',
-	    	success: function(data){
-	    		alert(data);
+	    	success: function(res){
+	    		alert(res);
 	    	}
 	    });	    
 	});

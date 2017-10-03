@@ -58,3 +58,27 @@ function assetInteractability(id){
 		displayAssetAttributes($(this));
 	});
 }
+
+$(document).ready(function(){
+	$('#prevPage').click(function(){
+		if(currentPage > 0){
+			$("#p-" + currentPage).hide();
+			$("#z-" + currentPage).hide();		
+			currentPage--;		
+			$("#p-" + currentPage).show();
+			$("#z-" + currentPage).show();	
+			$('#currentPage').html(Number(currentPage + 1));
+		}
+	});
+
+	$('#nextPage').click(function(){
+		if(currentPage < pageCount - 1){
+			$("#p-" + currentPage).hide();
+			$("#z-" + currentPage).hide();		
+			currentPage++;		
+			$("#p-" + currentPage).show();
+			$("#z-" + currentPage).show();	
+			$('#currentPage').html(Number(currentPage + 1));
+		}
+	});
+});
