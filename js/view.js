@@ -1,4 +1,4 @@
-function toHex(n) {
+function toHex(n){
 	var hex = n.toString(16);
 	while (hex.length < 2) {hex = "0" + hex; }
 	return hex;
@@ -10,10 +10,20 @@ function gene(){
 		var p = $('#p-' + counter);
 		var c = document.getElementById('c-' + counter);
 		var ctx = c.getContext("2d");
-		var rgb = p.css('background-color').replace('rgb(', '').replace(')', '').split(',');
-		var hex = '#' + toHex(Number(rgb[0])) + toHex(Number(rgb[1])) + toHex(Number(rgb[2]));
-		ctx.fillStyle = hex;
-		ctx.fillRect(-2,-2,Number($('#workspace').css('width').replace('px','')) + 2, Number($('#workspace').css('height').replace('px','')) + 2);
+		if($('#p-' + counter).attr('data-bg') == 'rgb'){// if bg is rgb			
+			var rgb = p.css('background-color').replace('rgb(', '').replace(')', '').split(',');
+			var hex = '#' + toHex(Number(rgb[0])) + toHex(Number(rgb[1])) + toHex(Number(rgb[2]));
+			ctx.fillStyle = hex;
+			ctx.fillRect(-2,-2,Number($('#workspace').css('width').replace('px','')) + 2, Number($('#workspace').css('height').replace('px','')) + 2);
+		}else{ // if bg is an asset			
+			var bg = $('#p-' + counter).css('background-image');
+			bg = bg.replace('url(','').replace(')','').replace('"','').replace('"','');		
+			var img=new Image();
+			img.src=bg;		  	
+		  	var ptrn = ctx.createPattern(img, 'repeat');
+		    ctx.fillStyle = ptrn;
+		    ctx.fillRect(0, 0, c.width, c.height);
+		}
 		if(assets[counter].length > 0){						
 			var assetsInThisPage = assets[counter].substring(0, assets[counter].length - 1).split("/");
 			for(var i = 0; i < assetsInThisPage.length; i++){							
@@ -50,10 +60,6 @@ function downloadAsPNG(){
 }
 
 function facebook(){
-	FB.getLoginStatus(function(response){
-	    console.log(response);
-	    if(response.status !== "connected"){}else{FB.login(function(response){}, {scope: "publish_actions"});}
-	});
 	var page_counter = 1;
 	for(var counter = 0; counter < pageCount; counter++){
 		var canvas = document.getElementById('c-' + counter);
@@ -142,17 +148,22 @@ $('#saveAsImage').click(function(){
 });
 
 $('#shareToFB').click(function(){
-	gene();
-	facebook();
+	FB.getLoginStatus(function(response){
+	    console.log(response);
+	    if(response.status !== "connected"){
+			gene();
+			facebook();	    	
+	    }
+	});
 });
 
 $(".page-button").click(function(){					//initialize	lipat ng page
 	var page = $(this).attr("id");				//kunin ung pinindot
-	$("#p-" + currentPage.toString()).hide();	//hide page and z-order of current page
-	$("#z-" + currentPage.toString()).hide();		
+	$("#p-" + currentPage).hide();	//hide page and z-order of current page
+	$("#z-" + currentPage).hide();		
 	currentPage = page.substring(5);		
-	$("#p-" + currentPage.toString()).show();	//show selected page and z-order
-	$("#z-" + currentPage.toString()).show();				
+	$("#p-" + currentPage).show();	//show selected page and z-order
+	$("#z-" + currentPage).show();				
 });
 
 function onload(){
