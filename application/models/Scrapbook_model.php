@@ -37,7 +37,7 @@
 			return $scrapbook_id;
 		}
 
-		public function uploadAsset($image){
+		public function uploadAsset($image, $category, $privacy){
 			$asset_id = "0000";
 			$query = $this->db->query("SELECT asset_id FROM assets order by asset_id ASC");			
 			foreach($query->result_array() as $row){
@@ -46,7 +46,7 @@
 			$temp = (int)$asset_id + 1;
 			$asset_id = "0000".$temp;
 			$asset_id = substr($asset_id,strlen($asset_id)-4,strlen($asset_id));
-			$qry = "INSERT into assets (asset_id, file, owner, upload_date) values ('$asset_id', '$image', '0001', '".date("Y/m/d")."')";			
+			$qry = "INSERT into assets (asset_id, file, category, owner, privacy, upload_date) VALUES ('".$asset_id."', '".$image."', '".$category."', '0001', '".$privacy."', '".date("Y/m/d")."')";
 			return ($this->db->simple_query($qry))?"Image Uploaded Successfully <br/>":"Not <br/>";
 		}
 
@@ -56,7 +56,7 @@
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE user_id = $user_id order by scrapbook_id ASC");
 			foreach($query->result_array() as $row){
 				$sbHTML .= '
-					<li>'.$row["name"].' | <a href = "'.base_url('MemoRecap/editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('MemoRecap/view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('MemoRecap/delete/'.$row["scrapbook_id"]).'">Delete</a></li>
+					<li>'.$row["name"].' | <a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a></li>
 				';
 			}
 			return $sbHTML;
@@ -69,15 +69,16 @@
 				$assetsHTML .= '
 					<li>
 						<div class = "first" id = "'.$row["asset_id"].'">
-							<img src="data:image;base64,'.$row["file"].'" />
+							<img src="'.base_url('uploaded_assets/').$row['category'].$row["file"].'" />
 						</div>
+						<button data-id = "'.$row["asset_id"].'" class = "setBG">Set as BG</button>
 					</li>
 					';
 			}		
 			return $assetsHTML;
 		}
 
-		/*functions for loading a scrapbook in editor*/
+		/*functions for loading a scrapbook*/
 		public function loadJSON($id){
 			// end($this->uri->segment_array())
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = ".$id." ");
@@ -132,7 +133,7 @@
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
 			        foreach($global_val as $pages => $assets){
-						$str .= '<div id = "p-'.$pages.'" class = "pages ui-droppable" style = "background: ';
+						$str .= '<div id = "p-'.$pages.'" class = "pages ui-droppable" style = "background';
 			            if(is_array($assets)){
 			                foreach($assets as $asset_id => $attr){
 			                    if(is_array($attr)){
@@ -148,12 +149,12 @@
 									$str .= '<img src="'.$this->getImage(substr($asset_id,strlen($asset_id)-4,strlen($asset_id))).'" />';
 									$str .= '</div></div>';
 			                    }else{
-		                        	$str .= $attr.';">';
-			                    	// if(strpos($attr, 'rgb') > 0){
-			                    	// }
-			                    	// else{//will try later: image background
-			                    	// 	$str .= '"'.$this->getImage(substr($attr, 6)).'";">';
-			                     //    }			                        
+			                    	if(strlen($attr) > 4){
+		                        		$str .= ': '.$attr.';" data-bg = "rgb">';
+			                    	}
+			                    	else{
+			                    		$str .= '-image: url('.$this->getImage($attr).');" data-bg = "'.$attr.'">';
+			                        }			                        
 			                    }			                    			                   
 			                }
 			            }
@@ -166,9 +167,9 @@
 
 		public function getImage($id){
 			$str = '';
-			$query = $this->db->query("SELECT file from assets WHERE asset_id = $id");
+			$query = $this->db->query("SELECT * from assets WHERE asset_id = $id");
 			foreach($query->result_array() as $row){				
-				$str .= 'data:image;base64,'.$row['file'];
+				$str .= base_url('uploaded_assets/').$row['category'].$row['file'];
 			}
 			return $str;
 		}
@@ -192,7 +193,7 @@
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
 			        foreach($global_val as $pages => $assets){
-						$str .= '<ol reversed id = "z-'.$pages.'" class="z_order ui-sortable">';
+						$str .= '<ol reversed id = "z-'.$pages.'" class="z-order ui-sortable">';
 						if(is_array($assets)){
 							$x = [];
 							foreach($assets as $asset_id => $attr){
@@ -211,7 +212,7 @@
 			}			
 			return $str;
 		}
-		/*end of functions for loading a scrapbook in editor*/
+		/*end of functions for loading a scrapbook*/
 		
 		//U
 		public function save($id, $json){
@@ -266,7 +267,7 @@
 			        $w = $global_val;		       
 			    }			    
 			}
-	    	return '$(\'#workspace\').css({"height":"'.$h.'", "width":"'.$w.'"});';
+	    	return '$(\'#workspace\').animate({"height":"'.$h.'", "width":"'.$w.'"});';
 		}
 
 		public function applyAttributes(){
@@ -288,7 +289,7 @@
 									'"width": "'.$attr['w'].'", '.
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
-									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));}}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
+									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));},handles: "n, e, s, w, nw, ne, sw, se"}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
 									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({rotate: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));},angle: '.($attr['a'] * pi() / 180).'});';
 								}
 							}

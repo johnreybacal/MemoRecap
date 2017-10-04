@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `memo_recap`
 --
+CREATE DATABASE IF NOT EXISTS `memo_recap` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `memo_recap`;
 
 -- --------------------------------------------------------
 
@@ -87,6 +89,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`username`, `name`, `password`) VALUES
 ('jb', 'Johnrey Bacal', '0010');
+
+('0001', '0001', 'colors', '{"height":"512px", "width":"768px" , "pages":{"0":{"bg":"0001","0-0002":{"x": "150", "y": "273", "w": "100px", "h": "100px", "z": "1","a": "0"}},"1":{"bg":"rgb(225, 225, 225)"},"2":{"bg":"rgb(225, 225, 225)"},"3":{"bg":"rgb(225, 225, 225)"}}}');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -18,7 +18,7 @@ class MemoRecap extends CI_Controller {
 			$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
 		}
 	}
-
+  
 	public function Home(){		
 		$this->load->view('includes/header');			
 		$this->load->view('includes/nav');			

@@ -12,7 +12,7 @@ $(document).ready(function(){
 	$("#addPage").click(function(){
 		$("#workspace").append("<div id = \"p-" + pageCount + "\" class = \"pages ui-droppable\"></div>");
 		$("#pagination").append("<li id = \"page-" + pageCount + "\" class = \"page-button ui-sortable-handle\">" + (pageCount + 1) + "</li>");
-		$("#z-order-container").append("<ol reversed id = \"z-" + pageCount + "\" class = \"z_order\"></ol>");
+		$("#z-order-container").append("<ol reversed id = \"z-" + pageCount + "\" class = \"z-order\"></ol>");
 		$("#page-" + pageCount.toString()).click(function(){	//para sa mga generated buttons
 			var page = $(this).attr("id");				//kunin ung pinindot
 			$("#p-" + currentPage.toString()).hide();	//hide page and z-order of current page
@@ -20,17 +20,20 @@ $(document).ready(function(){
 			currentPage = page.substring(5);			
 			$("#p-" + currentPage.toString()).show();	//show selected page and z-order
 			$("#z-" + currentPage.toString()).show();
-			$("#currentPage").html($(this).attr('id'));
+			$("#currentPage").html(Number(currentPage) + 1);
+			$('.attr').html('');
 		});
+
 		$("#z-" + pageCount.toString()).sortable({			//para sa generated na z-order
 			update: function(){
 				var order = $(this).sortable("toArray");
 				order.reverse();
 				for(var i = 0; i < order.length; i++){
-					$("#" + order[i].replace("-z", "")).css("z-index", i);
+					$("#" + order[i].replace("-z", "")).css("z-index", i + 1);
 				}
 			}
-		});		
+		});
+
 		$("#p-" + pageCount.toString()).droppable({
 			accept: ".first",						//para sa generated pages
 			drop: function(event, ui){
@@ -42,6 +45,9 @@ $(document).ready(function(){
 				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));				
 				assetInteractability(id);
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
+	    		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
+					displayAssetAttributes($('#' + id));
+				});
 			}
 		});		
 		$("#p-" + currentPage.toString()).hide();
@@ -56,18 +62,30 @@ $(document).ready(function(){
 	$('#delete-asset').click(function(){deleteAsset();});
 	
 	$('#delete-page').click(function(){
-		var selectedPage = $('#currentPage').html();
-		alert(selectedPage);
-		$('#' + selectedPage).remove();	//delete pagination
-		$('#p-' + selectedPage.substring(5)).remove();		//delete page
-		$('#z-' + selectedPage.substring(5)).remove();		//delete z-order		
-		assets.splice(selectedPage.substring(5), 1)		//delete asset data
-		for(var i = selectedPage.substring(5); i < pageCount; i++){//fix pagination
-			$('#page-' + i).html(i);
-			$('#page-' + i).attr('id', 'tempPage');			
-			$('#tempPage').attr('id', 'page-' + (i - 1));			
+		if(pageCount > 1){			
+			$('#page-' + currentPage).remove();	//delete pagination
+			$('#p-' + currentPage).remove();		//delete page
+			$('#z-' + currentPage).remove();		//delete z-order		
+			assets.splice(currentPage, 1)		//delete asset data
+			for(var i = currentPage; i < pageCount; i++){//fix pagination
+				$('#page-' + i).html(i);
+				$('#page-' + i).attr('id', 'tempPage');			
+				$('#tempPage').attr('id', 'page-' + (i - 1));
+				$('#p-' + i).attr('id', 'tempPage');
+				$('#tempPage').attr('id', 'p-' + (i - 1));
+				$('#z-' + i).attr('id', 'tempPage');
+				$('#tempPage').attr('id', 'z-' + (i - 1));
+			}
+			pageCount--;
+			if(currentPage == pageCount){
+				currentPage--;
+			}
+			$('#p-' + currentPage).show();
+			$('#z-' + currentPage).show();
+			$("#currentPage").html(Number(currentPage) + 1);
+		}else{
+			alert("NANI???");
 		}
-		pageCount--;
 	});
 
 	$('#pagination').sortable({
@@ -119,6 +137,7 @@ $(document).ready(function(){
 
 	$('#changeBG').click(function(){		
 		$('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
+		$('#p-' + currentPage).attr('data-bg', 'rgb');
 	});
 
 });

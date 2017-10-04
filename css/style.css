@@ -26,7 +26,7 @@ body{
 	float:left; background: #fdc; overflow: hidden;
 }
 #z-order-container{
-	border: solid thin black; height: 150px; width: 200px; float: right;
+	border: solid thin black; height: 150px; width: 200px; float: right; overflow: auto;
 }
 #asset-attribute{
 	border: solid thin black; height: 175px; width: 200px; float: right;
@@ -55,7 +55,6 @@ body{
 .context-menu li {
     padding: 8px 12px; cursor: pointer;    
 }
-
 .context-menu li:hover {
     background-color: #DEF;
 }

@@ -42,6 +42,31 @@ function paste(y, x){
 	}
 }
 
+function sendTo(somewhere){
+	var selectedAsset = $('#selectedAsset').html();	
+	var assetsInThisPage = assets[currentPage].substring(0, assets[currentPage].length - 1).split("/");
+	var assetIndex = 0;
+	for(var i = 0; i < assetsInThisPage.length; i++){
+		if(assetsInThisPage[i] == selectedAsset){
+			assetIndex = i;
+			break;
+		}
+	}	
+	$('#' + assetsInThisPage[assetIndex] + '-z').remove();
+	if(somewhere == 'Front'){
+		$('#z-' + currentPage).prepend("<li id = \"" + assetsInThisPage[assetIndex] + "-z\">" + assetsInThisPage[assetIndex] + "</li>")	
+	}else if(somewhere == 'Back'){
+		$('#z-' + currentPage).append("<li id = \"" + assetsInThisPage[assetIndex] + "-z\">" + assetsInThisPage[assetIndex] + "</li>")			
+	}else{
+		alert('Nani?');
+	}
+	var order = $('#z-' + currentPage).sortable("toArray");
+	order.reverse();
+	for(var i = 0; i < order.length; i++){
+		$("#" + order[i].replace("-z", "")).css("z-index", i + 1);
+	}	
+}
+
 $(document).ready(function(){
 
 	$('#workspace').bind("contextmenu", function (event) {
@@ -65,6 +90,8 @@ $(document).ready(function(){
 	        case "cut": cut(); break;
 	        case "paste": paste($(".context-menu").css('top'), $(".context-menu").css('left')); break;
 	        case "delete": deleteAsset(); break;
+	        case "frontSend": sendTo('Front'); break;
+	        case "backSend": sendTo('Back'); break;
 	    }
 	    $(".context-menu").hide(100);
 	});
@@ -84,13 +111,15 @@ $(document).ready(function(){
 				attr += ',';
 			}
 			attr += '"' + p + '":{';
-			attr += '"bg":"' + $('#p-' + p.toString()).css("background-color") + '"';
+			if($('#p-' + p).attr('data-bg') == 'rgb'){// if bg is rgb
+				attr += '"bg":"' + $('#p-' + p).css("background-color") + '"';
+			}else{ // if bg is an asset
+				attr += '"bg":"' + $('#p-' + p).attr('data-bg') + '"';
+			}
 			// alert(assets[p]);
 			if(assets[p].length > 0){//check kung merong asset sa page
 				//kunin lahat ng assets sa isang page
-				var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");				
-				//assets[p] => 0-1-2- => substring(0, assets[p].length - 1) => 0-1-2 => split("/") => [0, 1, 2]
-				//		string 						inalis ung / sa dulo 					ginawang array
+				var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");								
 				for(var i = 0; i < assetsInThisPage.length; i++){//loop ng assets
 					//alert(p + " " + assetsInThisPage[i]);							
 					attr += ',';
@@ -128,8 +157,8 @@ $(document).ready(function(){
 	    	contentType: 'application/json',
 	    	data: c + attr,
 	    	dataType: 'json',
-	    	success: function(data){
-	    		alert(data);
+	    	success: function(res){
+	    		alert(res);
 	    	}
 	    });	    
 	});
