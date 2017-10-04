@@ -9,6 +9,16 @@ class MemoRecap extends CI_Controller {
 		$this->load->model('User_model', 'user');		
 	}
 
+	public function Login(){
+		$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
+	}
+	
+	public function Signup(){
+		if($this->user->Signup($this->input->post('username'), $this->input->post('name'), $this->input->post('password'))){
+			$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
+		}
+	}
+  
 	public function Home(){		
 		$this->load->view('includes/header');			
 		$this->load->view('includes/nav');			
@@ -34,8 +44,8 @@ class MemoRecap extends CI_Controller {
 	}
 
 	public function Scrapbooks($gallery = null){		
-		$this->load->view('includes/header');			
-		$this->load->view('includes/nav');			
+		$this->load->view('includes/header');
+		$this->load->view('includes/nav');
 		$this->load->view('includes/modal');
 		switch($gallery){
 			case "Editors_Pick":	$this->load->view('Gallery/editorsPick');	break;
@@ -47,7 +57,15 @@ class MemoRecap extends CI_Controller {
 	}
 
 	public function Assets(){
-		echo 'Nani?';
+		$this->load->view('includes/header');
+		$this->load->view('includes/nav');
+		$this->load->view('includes/modal');
+		$data['user_images'] = $this->scrapbook->getAssets('user_images/');
+		$data['stickers'] = $this->scrapbook->getAssets('stickers/');
+		$data['backgrounds'] = $this->scrapbook->getAssets('backgrounds/');
+		$data['shapes'] = $this->scrapbook->getAssets('shapes/');
+		$this->load->view('assets', $data);
+		$this->load->view('includes/footer');			
 	}
 
 	public function Profile(){
