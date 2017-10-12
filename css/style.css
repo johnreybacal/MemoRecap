@@ -1,11 +1,17 @@
 body{
 	background: #cfd;
 }
-#assets{
-	float: left; width: 120px; height: 550px; border: solid thin black; overflow: auto; top: 10px; left: 10px;
+#tools{
+	display: inline-block;
 }
-#asset-picker{
-	list-style: none; padding: 0px; width: 100%;
+#assets{
+	/*width: 28vh; height: 80vh;*/ list-style: none; border: solid red; overflow: auto;
+}
+.asset-picker{
+	display: inline-block; border:solid red; list-style: none; /*width: auto; height: auto;*/
+}
+.asset-picker li{
+    display: inline-block; list-style: none;
 }
 .first{
 	border: solid thin black; width: 100px; height: 100px; padding: 0;
@@ -23,25 +29,19 @@ body{
 	width: 100%; height: 100%;
 }
 #workspace{
-	float:left; background: #fdc; overflow: hidden;
+	background: #fdc; overflow: hidden; /*position: relative;*/
 }
 #z-order-container{
-	border: solid thin black; height: 150px; width: 200px; float: right; overflow: auto;
+	border: solid thin black; height: 25vh; width: 100%; overflow: auto; background-color: #aaa;
 }
 #asset-attribute{
-	border: solid thin black; height: 175px; width: 200px; float: right;
+	border: solid thin black; height: 35vh; width: 100%; background-color: #aaa;
 }
 #page-attribute{
-	border: solid thin black; height: 100px; width: 200px; float: right;
+	border: solid thin black; height: 25vh; width: 100%; background-color: #aaa;
 }
-#pagination-container{
-	border: solid thin black; float: left; height: 20px; width: auto;
-}
-#pagination{
-	list-style: none; padding: 0; margin: 0;
-}
-#pagination li{
-	float: left; border: solid thin black; margin-left: 2px;
+.pagination li{
+	border: solid thin white; padding: 8px; 
 }
 .pages{
 	height: 100%; width: 100%; overflow: hidden;
@@ -58,3 +58,54 @@ body{
 .context-menu li:hover {
     background-color: #DEF;
 }
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('images/pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
+    /*opacity: .8;*/
+}
+.clear{
+	
+}
+
+.nav-tabs > li > a
+{
+    /* adjust padding for height*/
+    font-size: 11px; 
+    padding: 0px;
+    margin: 0px;
+}
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 18px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: yellow;
+}
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+

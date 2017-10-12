@@ -33,7 +33,8 @@ function displayAssetAttributes($this){
 	$('#ang').html(angle)	
 }
 
-function assetInteractability(id){
+function assetInteractability(id){		
+	$('#' + id).css({'left': '0px' , 'top': '0px'});
 	$('#' + id).resizable({
 		containment: "#workspace",		//para hanggang workspace lng ung laki
 		// animate: true, ghost: true,		    	

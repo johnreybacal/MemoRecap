@@ -9,6 +9,10 @@ function deleteAsset(){
 
 $(document).ready(function(){    
 
+	$('#tools').sortable({
+		revert: 'invalid', scroll: false
+	});
+
 	$("#addPage").click(function(){
 		$("#workspace").append("<div id = \"p-" + pageCount + "\" class = \"pages ui-droppable\"></div>");
 		$("#pagination").append("<li id = \"page-" + pageCount + "\" class = \"page-button ui-sortable-handle\">" + (pageCount + 1) + "</li>");
@@ -50,11 +54,14 @@ $(document).ready(function(){
 				});
 			}
 		});		
-		$("#p-" + currentPage.toString()).hide();
-		$("#z-" + currentPage.toString()).hide();
-		$("#p-" + pageCount.toString()).show();
-		$("#z-" + pageCount.toString()).show();
+		$("#p-" + currentPage).hide();
+		$("#z-" + currentPage).hide();
+		$("#p-" + pageCount).show();
+		$("#z-" + pageCount).show();
 		currentPage = pageCount;
+		$('#p-' + currentPage).css({'background': hexToRgb($('#bgc').val())});
+		$('#p-' + currentPage).attr('data-bg', 'rgb');
+		$('#currentPage').html(Number(currentPage + 1));
 		assets[pageCount] = "";
 		pageCount++;
 	});		
@@ -136,8 +143,22 @@ $(document).ready(function(){
 	});
 
 	$('#changeBG').click(function(){		
-		$('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
+		$('#p-' + currentPage).css({'background': hexToRgb($('#bgc').val())});
+		// $('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
 		$('#p-' + currentPage).attr('data-bg', 'rgb');
 	});
 
+	$('#bgc').change(function(){  
+	    $('#hexcolor').html($(this).val());
+	});
+
 });
+
+function hexToRgb(hex){
+    hex = hex.replace('#','');
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+    result = 'rgb('+r+','+g+','+b+')';    
+    return result;
+}						

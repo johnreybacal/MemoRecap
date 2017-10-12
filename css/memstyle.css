@@ -23,56 +23,61 @@ h1 {
 }
 
 .EPFW{
-	margin-left:75px;
+  margin-left:75px;
 }
 
 .VM{
-	margin-right:75px;
-	font-family: "Champagne & Limousines", Arial, serif;
+  margin-right:75px;
+  font-family: "Champagne & Limousines", Arial, serif;
+}
+
+.ass{
+   margin: 0px 0px 0px 125px;
+   position: absolute;
 }
 
 .puter{
-	color: white;
+  color: white;
 }
 
 .tablet{
-	margin-top: 60px;
-	margin-left:75px;
+  margin-top: 60px;
+  margin-left:75px;
 }
 
 .tablet2{
-	margin-top: 60px;
-	margin-right:75px;
+  margin-top: 60px;
+  margin-right:75px;
 }
 
 .hedest{
-	font-family: "Blacktear Script", cursive, sans-serif;
-	font-size:4em;
-	
+  font-family: "Blacktear Script", cursive, sans-serif;
+  font-size:4em;
+  
 }
 
 .hed{
-	font-family: "Brody", cursive, sans-serif;
-	font-size:2em;
-	text-align: center;
+  font-family: "Brody", cursive, sans-serif;
+  font-size:2em;
+  text-align: center;
 }
 
 .nav-row{
-	padding:0px 0px 0px 100px;
+  padding:0px 0px 0px 100px;
 }
 
 p {
-	font-family: "Champagne & Limousines", Arial, serif;
-	font-size: 1.5em;
+  font-family: "Champagne & Limousines", Arial, serif;
+  font-size: 1.5em;
 }
 
 .landi{
-	color: #705239;
+  color: #705239;
     text-shadow: 2px 2px 2px #000000, 0 0 25px white;
 }
 
 .landi2{
-	color: #f3ebc3;
+  color: #f3ebc3;
     text-shadow: 0 0 25px white;
 }
 
@@ -83,50 +88,50 @@ p {
 .parabooks{margin-left: 90px; margin-right: 80px; text-align: justify;}
 
 .userstuff{
-	position: static;
-	margin-left:105px;
-	padding: 5px 5px 5px 5px;
+  position: static;
+  margin-left:105px;
+  padding: 5px 5px 5px 5px;
 }
 
 .atl{
-	margin-bottom:210px;
-	margin-right: 50px;
+  margin-bottom:210px;
+  margin-right: 50px;
 }
 
 img{
-	height:220px;
-	width:250px;
-	
+  height:220px;
+  width:250px;
+  
 }
 
 .smol{
-	height:45px;
-	width:45px;
-	
+  height:45px;
+  width:45px;
+  
 }
 
 .login{
-	font-size:1.5rem;
-	padding-top: 15px;
-	text-align:center;
+  font-size:1.5rem;
+  padding-top: 15px;
+  text-align:center;
 }
 
 .titel{
-	margin: auto;
-	height:60%;
-	width: 10%;
+  margin: auto;
+  height:60%;
+  width: 10%;
     padding: 0px 100px 0px 100px;
 }
 
 .tinytitel{
-	height:10%;
-	width:10%;
-	padding: 0px 200px 0px 200px;
+  height:10%;
+  width:10%;
+  padding: 0px 200px 0px 200px;
 }
 
 .centerpic{
-	margin: auto;
-	padding: auto;
+  margin: auto;
+  padding: auto;
 }
 
 .pic{ margin-right: 5%; margin-left: 10%; margin-bottom:7%; margin-top:2%;}
@@ -155,25 +160,35 @@ img{
 }
 
 .bg {
-	
-	background: url('images/HERE.png') no-repeat center center;
-	background-size: 120% 105%;
+  
+  background: url('images/HERE.png') no-repeat center center;
+  background-size: 120% 105%;
+}
+
+.bgsmol {
+  
+  background: url('images/heresmol.png') no-repeat center center;
+  background-size: 220% 205%;
 }
 
 .bg-faded {
-	background: url('images/box.png') no-repeat center;
+  background: url('images/box.png') no-repeat center;
+  background-size: 120% 170%;
 }
+
+
+
 @media (min-width: 576px){
-	.bg-faded{
-		background-size: cover;
-		background-size: 120% 170%;
-	}
+  .bg-faded{
+    background-size: cover;
+    background-size: 120% 170%;
+  }
 }
 @media (min-width: 150%){
-	.bg-faded{
-		background: url('images/box.png') no-repeat center;
-		
-	}
+  .bg-faded{
+    background: url('images/box.png') no-repeat center;
+    
+  }
 }
 
 .bg-overlay {
@@ -185,32 +200,32 @@ img{
 }
 
 .padder{
-	padding: 0px 90px 0px 90px;
+  padding: 0px 90px 0px 90px;
 }
 
 .pad {
-	padding: 10px 50px 0px 0px;
+  padding: 10px 50px 0px 0px;
 }
 
 .paddy{
-	margin:auto;
-	padding: 50px 0px 50px 0px;
+  margin:auto;
+  padding: 50px 0px 50px 0px;
 }
 
 .tilt{
-	-webkit-transform: rotate(7deg);
+  -webkit-transform: rotate(7deg);
     transform: rotate(7deg);
-	margin-bottom:50px;
+  margin-bottom:50px;
 }
 
 .tilt2{
-	-webkit-transform: rotate(-7deg);
+  -webkit-transform: rotate(-7deg);
     transform: rotate(-7deg);
-	margin-bottom:50px;
+  margin-bottom:50px;
 }
 
 .img hover{
-	/* shet joke lang, i need to chill */
+  /* shet joke lang, i need to chill */
 }
 
 img {
@@ -229,48 +244,7 @@ img {
 
 
 
-/* The side navigation menu */
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgba(20, 5, 10, 0.5);
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    text-align:center;
-}
 
-.sidenav a {
-    padding: 30px 30px 30px 30px;
-    text-decoration: none;
-    font-size: 25px;
-	font-family: "Brody", cursive, sans-serif;
-    color: #000000;
-    display: block;
-    transition: 0.3s;
-
-}
-
-.sidenav a:hover{
-    color: white;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
 
 
 /* ICONS */
@@ -480,3 +454,5 @@ html {
 .wrapper .column:nth-child(13) .inner {
   background-image: url('https://igcdn-photos-d-a.akamaihd.net/hphotos-ak-xap1/t51.2885-15/10483455_592335754230795_537719826_n.jpg');
 }
+
+
