@@ -1,5 +1,6 @@
 # MemoRecap
 Web Dev <br />
+//ps. di pa tapos yung text asset hehe
 Woi guys gamitin nyo na lang ung system/ at user_guide/ nyo kasi di kaya >100 files na upload <br />
 Import nyo ung memo_recap.sql <br />
 Needed to be done:<br />

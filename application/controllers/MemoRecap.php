@@ -48,7 +48,7 @@ class MemoRecap extends CI_Controller {
 		}
 		$this->load->view('includes/header', $data);
 	}
-
+  
 	public function Home(){		
 		$this->loadHeader();
 		$this->loadNav();			

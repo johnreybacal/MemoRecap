@@ -3,7 +3,6 @@
 	<head>
 		<title><?php echo $title; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery-ui.css'); ?>" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/style.css'); ?>" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/bootstrap.css'); ?>" />
 		<link rel = "stylesheet" href = "<?php echo base_url('css/jquery.ui.rotatable.css'); ?>" />
@@ -24,6 +23,7 @@
 		<script type = "text/javascript" src = "<?php echo base_url('js/globals.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/script.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/initialization.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.ui.rotatable.min.js'); ?>"></script>
 		<?php
 			echo $assignAssets;
 		?>
@@ -153,5 +153,41 @@
 			}
 		</script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/editor.js'); ?>"></script>
+		<script>
+			$(document).ready(function(){
+				$('#addTxt').click(function(){
+					var id = assetID + "-TEXT";
+					$('#p-' + currentPage).append('<div class = "text-asset" id = "' + id + '"><div class = "rotate rotatable"><iframe name="texty" placeholder="Enter text ..."></iframe></div></div>');
+					enableEditMode();
+					// $('#' + id).resizable();
+					// $('#' + id).children('div.rotate').draggable().rotatable();
+					// <div class = "asset" id = "' + id + '"><div class = "rotate rotatable">
+					// $('#p-' + currentPage).append('<iframe name = "texty"></iframe>');
+					assetInteractability(id);
+		   			//$("#z-" + currentPage).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
+				   	//$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
+					// 	displayAssetAttributes($('#' + id));
+					// });			
+					// alert('lol');
+					
+				});
+			});
+			function enableEditMode(){
+         		texty.document.designMode = "on";
+         		alert("Enable Edit Mode On");
+         		// texty.document.designMode = "off";
+         		// alert("Enable Edit Mode off");
+      		}
+
+		   function execCmd(command){
+		      texty.document.execCommand(command, false, null);
+      		alert("Butbut click");
+		   }
+
+		   function execCommandWithArg(command, arg) {
+		      texty.document.execCommand(command, false, arg);
+      		alert("Butbut click");
+		   }
+		</script>
 	</body>
 </html>
