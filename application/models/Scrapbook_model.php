@@ -9,7 +9,8 @@
 
 		//Start of CRUD
 		//C
-		public function createScrapbook($name, $pages, $size){	
+		public function createScrapbook($name, $pages, $size, $privacy){
+			$username = $this->session->userdata['username'];
 			$scrapbook_id = "0000";
 			$query = $this->db->query("SELECT scrapbook_id FROM scrapbooks order by scrapbook_id ASC");
 			foreach($query->result_array() as $row){
@@ -28,7 +29,7 @@
 				}
 			}
 			$json .= '}}';
-			$qry = "INSERT into scrapbooks (scrapbook_id, user_id, name, json) VALUES ('$scrapbook_id', '0001', '".$name."', '".$json."')";			
+			$qry = "INSERT into scrapbooks (scrapbook_id, username, name, privacy, json) VALUES ('".$scrapbook_id."', '".$username."', '".$name."', '".$privacy."', '".$json."')";			
 			if($this->db->simple_query($qry)){
 				echo 'Ok';
 			}else{
@@ -38,6 +39,7 @@
 		}
 
 		public function uploadAsset($image, $category, $privacy){
+			$username = $this->session->userdata['username'];			
 			$asset_id = "0000";
 			$query = $this->db->query("SELECT asset_id FROM assets order by asset_id ASC");			
 			foreach($query->result_array() as $row){
@@ -46,14 +48,14 @@
 			$temp = (int)$asset_id + 1;
 			$asset_id = "0000".$temp;
 			$asset_id = substr($asset_id,strlen($asset_id)-4,strlen($asset_id));
-			$qry = "INSERT into assets (asset_id, file, category, owner, privacy, upload_date) VALUES ('".$asset_id."', '".$image."', '".$category."', '0001', '".$privacy."', '".date("Y/m/d")."')";
+			$qry = "INSERT into assets (asset_id, file, category, username, privacy, upload_date) VALUES ('".$asset_id."', '".$image."', '".$category."', '".$username."', '".$privacy."', '".date("Y/m/d")."')";
 			return ($this->db->simple_query($qry))?"Image Uploaded Successfully <br/>":"Not <br/>";
 		}
 
 		//R
-		public function displayScrapbooks($user_id){					
+		public function displayScrapbooks($username){					
 			$sbHTML = '';
-			$query = $this->db->query("SELECT * FROM scrapbooks WHERE user_id = $user_id order by scrapbook_id ASC");
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE username = '".$username."' order by scrapbook_id ASC");
 			foreach($query->result_array() as $row){
 				$sbHTML .= '
 					<li>'.$row["name"].' | <a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a></li>
@@ -62,29 +64,110 @@
 			return $sbHTML;
 		}
 
-		public function displayAssets(){
-			$query = $this->db->query("select * from assets");			
+		public function getLatestWorks(){
+			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Action</td></thead><tbody>';
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by scrapbook_id DESC");
+			foreach($query->result_array() as $row){
+				$sbHTML .= '
+					<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></tr>
+				';
+			}
+			return $sbHTML.'</tbody></table>';	
+		}
+
+		public function getFeaturedWorks(){
+			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by view_counter DESC");
+			foreach($query->result_array() as $row){
+				$sbHTML .= '
+					<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
+				';
+			}
+			return $sbHTML.'</tbody></table>';	
+		}
+
+		public function getEditorsPick(){
+			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
+			$epick = array('0001', '0002', '0003', '0004');
+			foreach($epick as $id){
+				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."'");
+				foreach($query->result_array() as $row){
+					$sbHTML .= '
+						<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
+					';
+				}				
+			}
+			return $sbHTML.'</tbody></table>';	
+		}
+
+		public function getAssets($category, $logged_in){
+			$where = "AND (privacy = 'public'";
+			if($logged_in){
+				$where .= " OR username = '".$this->session->userdata('username')."'";
+			}
+			$where .= ')';
+			$ass = [];
+			$query = $this->db->query("SELECT * FROM assets WHERE category = '".$category."' ".$where);
+			foreach($query->result_array() as $row){
+				$ass[] = $row;
+			}
+			return $ass;
+		}
+
+		public function displayAssetsLooper($category, $username){
 			$assetsHTML = '';				
+			$query = $this->db->query("SELECT * FROM assets WHERE category = '".$category."' AND (username = '".$username."' OR privacy = 'public')");			
 			foreach($query->result_array() as $row){
 				$assetsHTML .= '
 					<li>
 						<div class = "first" id = "'.$row["asset_id"].'">
 							<img src="'.base_url('uploaded_assets/').$row['category'].$row["file"].'" />
-						</div>
-						<button data-id = "'.$row["asset_id"].'" class = "setBG">Set as BG</button>
-					</li>
+						</div>';
+				if($category == 'User_Images/' || $category == 'Backgrounds/'){
+					$assetsHTML .=	'<button data-id = "'.$row["asset_id"].'" class = "setBG btn btn-default btn-md">Set as BG</button>';
+					
+				}		
+				$assetsHTML .= '</li>
 					';
-			}		
+			}
+			return $assetsHTML;
+		}
+
+		public function displayAssets($username){//for editor
+			$assetsHTML = '';				
+			$assetsHTML .= ' <div id="1" class="tab-pane active"><h4>User images</h4><ul class="asset-picker">'.$this->displayAssetsLooper('User_Images/', $username).'</ul></div>';
+			$assetsHTML .= ' <div id="2" class="tab-pane"><h4>Backgrounds</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Backgrounds/', $username).'</ul></div>';
+			$assetsHTML .= ' <div id="3" class="tab-pane"><h4>Stickers</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Stickers/', $username).'</ul></div>';
+			$assetsHTML .= ' <div id="4" class="tab-pane"><h4>Shapes</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Shapes/', $username).'</ul></div>';
 			return $assetsHTML;
 		}
 
 		/*functions for loading a scrapbook*/
-		public function loadJSON($id){
-			// end($this->uri->segment_array())
-			$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = ".$id." ");
-			foreach($query->result_array() as $row){
-				$this->obj = $row['json'];
+		public function loadJSON($flag, $id, $username = null){
+			$sql = "SELECT json FROM scrapbooks WHERE scrapbook_id = '".$id."'";
+			if(isset($username)){
+				$sql .= " AND (username = '".$username."'";
 			}			
+			if($flag == 1 && isset($username)){
+				$sql .= " OR ";
+			}
+			if($flag == 1){//view
+				if(!isset($username)){
+					$sql .= ' AND (';
+				}
+				$sql .= "privacy = 'public'";
+				$this->db->query("UPDATE scrapbooks SET view_counter = view_counter + 1 WHERE scrapbook_id = '".$id."' AND username != '".$username."'");		
+			}
+			if(isset($username) || $flag == 1){
+				$sql .= ")";				
+			}
+			$query = $this->db->query($sql);
+			$ok = false;
+			foreach($query->result() as $row){
+				$this->obj = $row->json;
+				$ok = true;
+			}
+			return $ok;
 		}
 		
 		public function assignAssets(){//asset id is sorted by its z-index
@@ -271,7 +354,8 @@
 		}
 
 		public function applyAttributes(){
-			$json = json_decode($this->obj, true);
+			$json = '';
+			$json = json_decode($this->obj, true);			
 			$str = 'var x = 0;var y = 0;';			
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
@@ -279,8 +363,8 @@
 						if(is_array($assets)){
 							foreach($assets as $asset_id => $attr){
 								if(is_array($attr)){
-									$str .= 'x = position.left + '.$attr['x'].';';
-									$str .= 'y = position.top + '.$attr['y'].';';
+									$str .= 'x = '.$attr['x'].';';
+									$str .= 'y = '.$attr['y'].';';
 									$str .=	'$(\'#'.$asset_id.'\').animate({';
 									$str .= '"position": "absolute", '.
 									'"left": x, '.					
@@ -290,7 +374,7 @@
 									'"z-index": "'.$attr['z'].'"';
 									$str .= '});';
 									$str .= '$(\'#'.$asset_id.'\').resizable({containment: "#workspace", minHeight: 50, minWidth: 50, resize: function(event, ui){displayAssetAttributes($(\'#'.$asset_id.'\'));},handles: "n, e, s, w, nw, ne, sw, se"}).draggable({containment: "#workspace",helper: "original", cursor: "move",drag: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));}});$(\'#'.$asset_id.'\').mousedown(function(){displayAssetAttributes($(this));});';
-									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({rotate: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));},angle: '.($attr['a'] * pi() / 180).'});';
+									$str .= '$(\'#'.$asset_id.'\').children(\'div.rotate\').rotatable({wheelRotate: false,rotate: function(){displayAssetAttributes($(\'#'.$asset_id.'\'));},angle: '.($attr['a'] * pi() / 180).'});';
 								}
 							}
 						}
@@ -312,7 +396,7 @@
 			$scriptHTML .= $this->setWorkspaceSize();
 			$scriptHTML .= '
 			var element = document.getElementById("workspace");
-			var position = element.getBoundingClientRect();			
+			var position = element.getBoundingClientRect();
 			'.$this->applyAttributes().'
 			for(var p = 0; p <= pageCount; p++){
 				if(currentPage != p){

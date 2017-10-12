@@ -190,4 +190,5 @@ function onload(){
 	currentPage = getBack;
 	$("#p-" + currentPage.toString()).show();
 	$("#z-" + currentPage.toString()).show();
+	$(".loader").fadeOut(4000);
 }

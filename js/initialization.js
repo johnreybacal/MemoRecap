@@ -3,8 +3,13 @@ $(document).ready(function(){
 	/*Initializations*/	
 	
     $(".first").draggable({
-		helper: "clone", revert: "invalid", 
+		helper: "clone", revert: "invalid", zIndex: 999,
 		scroll: false							//para mag-clone from asset picker to workspace
+    });
+
+    $('#workspace').draggable({
+    	//containment: 'document'
+    	//
     });
 
 	$(".pages").droppable({		
@@ -15,8 +20,8 @@ $(document).ready(function(){
     		assetID++;
 			$(ui.helper).removeClass("first");	//pra hindi mag-clone	
 			$(ui.helper).addClass("asset");
-			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
-			assetInteractability(id);
+			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));			
+			assetInteractability(id);									
     		$("#z-" + currentPage).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
     		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
 				displayAssetAttributes($('#' + id));

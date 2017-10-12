@@ -1,4 +1,4 @@
-<!-- SAYDFAKENGBAR -->
+<!-- SAYDFAKENGBAR 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="color:white"><p>x</p></a><br />
   <a class="landi2 hed" href="<?php echo base_url('Account/activities'); ?>">Activities</a>
@@ -22,4 +22,4 @@
 	function closeNav() {
 		document.getElementById("mySidenav").style.width = "0";
 	}
-</script>
+</script>-->

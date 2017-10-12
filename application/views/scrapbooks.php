@@ -9,7 +9,7 @@
 	
 <div class="container bg p-4 my-4">
 
-  <div class=" p-4 my-4">
+  <div class=" p-4 my-4" style="margin:0px 85px 0px 85px; padding-top:25%;">
   
     <div class="card card-inverse">
 	<div class="pic row">
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class=" p-4 my-4">
+  <div class=" p-4 my-4" style="margin:0px 85px 0px 85px;">
     <div class="card card-inverse">
 	<div class="pic row">
 					<div class="col-md-4 mb-3 mb-md-0"> <img class="card-img-top" src = "<?php echo base_url('css/images/FW1.jpg'); ?>" alt=""> </div>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class=" p-4 my-4">
+  <div class=" p-4 my-4" style="margin:0px 85px 0px 85px;">
     <div class="card card-inverse">
 	<div class="pic row">
 					<div class="col-md-4 mb-3 mb-md-0"> <img class="card-img-top" src = "<?php echo base_url('css/images/f1.jpg'); ?>" alt=""> </div>

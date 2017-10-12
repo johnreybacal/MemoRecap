@@ -1,8 +1,11 @@
 <!-- BAAAADEEEEEEHHH  -->
-	<div class="container bg p-4 my-4">
-	
-	<h3 class="landi hedest text-center ">Editors Picks</h3>
-	   <img class="d-block img-fluid w-50 paddy" src="<?php echo base_url('css/images/yato5.gif'); ?>" alt="" >
+  <div class="container bg p-4 my-4">
+  
+   <h3 class="landi hedest text-center ">Editors Pick</h3>
+     <!--<img class="d-block img-fluid w-50 paddy" src="<?php echo base_url('css/images/yato5.gif'); ?>" alt="" >-->
+    <div class="wrapper" style="width: 80%; margin: auto;">
+    <?php echo $ep; ?> 
+    </div>
    
    
    <div class=" p-4 my-4">
@@ -16,5 +19,5 @@
         </ul>
       </div>
 
-	  
-	</div>
+    
+  </div>

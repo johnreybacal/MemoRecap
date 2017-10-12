@@ -15,26 +15,35 @@ function paste(y, x){
 		var id = assetID + '-' + z[1];
 		assetID++;
 		$('#p-' + currentPage).hide();
-		$('#p-' + pageClipboarded).show();
-		var ang = getAngle($('#' + clipboard)) * Math.PI / 180;
+		$('#p-' + pageClipboarded).show();		
 		$('#p-' + pageClipboarded).hide();
-		$('#p-' + currentPage).show();
+		$('#p-' + currentPage).show();		
 		var pastedAsset = $('#' + clipboard).clone();
 		pastedAsset.removeClass('ui-draggable').removeClass('ui-draggable-handle').removeClass('ui-resizable');
 		pastedAsset.children('div.ui-resizable-handle').remove();
 		pastedAsset.children('div.rotate').addClass('rotatable').children('div.ui-rotatable-handle').remove();
-		$('#p-' + currentPage).append(pastedAsset.attr('id', id));
-		$('.rotatable').rotatable({ angle: ang }).removeClass('rotatable');
+		$('#p-' + currentPage).append(pastedAsset.attr('id', id));		
+		$('#' + id).css('display', 'none');
+		$('#' + id).fadeIn("slow");
+		$('.rotatable').rotatable({
+			rotate: function(){
+				displayAssetAttributes($('#' + id));
+			},
+			angle: getAngle($('#' + clipboard)) * Math.PI / 180
+		}).removeClass('rotatable');
 		if(isCut){
-			$('#' + clipboard).remove();
+			$('#' + clipboard).fadeOut(1000, function(){
+				$('#' + clipboard).remove();				
+			});
 			$('#' + clipboard + "-z").remove();
 			assets[pageClipboarded] = assets[pageClipboarded].replace(clipboard + '/', '');
 			isCut = false;
+			clipboard = '';
 		}
 		assets[currentPage] += id + '/'
 		assetInteractability(id);
 		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
-		$('#' + id).animate({
+		$('#' + id).css({
 			'top': y, 'left': x
 		});
 	}else{
