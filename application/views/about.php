@@ -24,19 +24,22 @@
         </div>
       </div>
 	  </div>
-
-      <div class="bg-faded boutus p-4 my-4">
+	
+	
+      <div class="bg-faded p-4 my-4" >
+	  
         
         <h2 class="landi hedest text-center ">Our Team</h2>
         
         <div class="row" style="margin:auto; padding:2% 0 0 0;">
 		<div class="col-md-12">
 		<div class="row" style="margin:auto;">
+		
           <div class="col-md-4"><!--col-->
               <div class=" text-center">
 			  <img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
               
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Johnrey Bacal<br />
                   <small class="text-muted">Leader</small>
                 </h4>
@@ -47,7 +50,7 @@
           <div class="col-md-4">
               <div class=" text-center">
               <img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Felipe Francisco<br />
                   <small class="text-muted">Member</small>
                 </h4>
@@ -56,9 +59,9 @@
             </div>
           
           <div class="col-md-4">
-              <div class="text-center">
+              <div class="text-center" >
               <img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Nathaniel Piquero<br />
                   <small class="text-muted">Member</small>
                 </h4>
@@ -70,9 +73,9 @@
 
 		  <div class="row"style="margin:auto; padding:2% 0 5% 0;">
 		  <div class="col-md-4">
-              <div class=" text-center">
+              <div class=" text-center" >
 		  <img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Christian Tuvieron<br />
                   <small class="text-muted">Member</small>
                 </h4>
@@ -83,7 +86,7 @@
 		  <div class="col-md-4">
               <div class=" text-center">
               <img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Angela Alfaro<br />
                   <small class="text-muted">Member</small>
                 </h4>
@@ -94,7 +97,7 @@
 		<div class="col-md-4">
               <div class=" text-center">
 			<img class="card-img-top smol centerpic" src="<?php echo base_url('css/images/ep1.jpg'); ?>" alt="">
-			  <hr class="divider">
+			  <hr class="divider" style="width:200px;">
                 <h4 class="">Lore Jane Reyes<br />
                   <small class="text-muted">Member</small>
                 </h4>

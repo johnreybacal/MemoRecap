@@ -2,18 +2,24 @@
 <html lang="en">
 
 <head>
-  	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="memstyle" href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<?php echo base_url('css/font-awesome.min.css'); ?>">
+
+  	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('css/images/logo_sana.ico'); ?>" />
+    <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
 
     <title>MemoRecap</title>
-
+    <?php
+        if(isset($Error)){
+            echo '<script>alert("'.$Error.'");</script>';
+        }
+    ?>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
 
@@ -23,6 +29,9 @@
 
     <!-- styles (!!!) -->
     <link href="<?php echo base_url('css/memstyle.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('css/modal.css'); ?>" rel="stylesheet">
+
+
 
 </head>
 <body>

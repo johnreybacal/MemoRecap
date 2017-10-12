@@ -1,30 +1,66 @@
 <!-- MODALSHIT -->
 
-	<div class="modal fade" id="mymodal" aria-hidden="true">
-	<div class="modal-dialog">
-	<div class="modal-content">
-	<div class="modal-header">
-		<h4 class="modal-title">New</h4>
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
-	</div>
-	<div class="modal-body">
-	<form action = "<?php echo base_url('editor/new'); ?>" method = "POST">
-		Name:<input type="text" name="name" required /><br />
-		Number of pages:<input type="number" name="pages" min = "3" max = "999" required /><br />
-		Size:<br />
-		<input type = "radio" name = "size" value = "512x768" required checked />512x768<br />
-		<input type = "radio" name = "size" value = "640x512" required />640x512<br />
-		<input type = "radio" name = "size" value = "512x512" required />512x512<br />
-		<input type = "radio" name = "size" value = "640x768" required />640x768<br />
-		<input type="submit" name="create" value = "Create" />
-	</form>
-	</div> <!--end modal body-->
-	<div class="modal-footer">
-		<input type="submit" name="create" value = "Create" />
-		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	</div>
-</div>
-	</div>
-	</div>
+<!-- Modal -->
+
+
+	<button id="myBtn" class="hedest landi"
+	style="padding:0.5% 1% 0% 1%;
+	box-shadow: 10px 10px 15px #2e2e1f;
+	border-radius:15px;
+	background-color:#ffe6b3;
+	float: right;
+	right: 25px;
+	bottom:25px;
+	position: fixed;z-index:1;
+	">
+	Create
+	</button>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" style = "width: 30%;">
+    <div class="modal-header" style="background-color:#ffe6b3;">
+      <span id = "xclose" class="close">&times;</span>
+      <center>
+	      <h2>Enter scrapbook details</h2>
+	  </center>
+    </div>
+    <div class="modal-body">
+    	<center>
+		    <form action = "<?php echo base_url('editor/new'); ?>" method = "POST">
+				<br />
+				<input type="text" name="name" placeholder = "Title" required />
+				<input type="number" name="pages" placeholder = "Pages" min = "3" max = "999" required /><br />
+				<br />
+				Size:<br />
+				<input type = "radio" name = "size" value = "512x768" required checked />512x768<br />
+				<input type = "radio" name = "size" value = "640x512" required />640x512<br />
+				<input type = "radio" name = "size" value = "512x512" required />512x512<br />
+				<input type = "radio" name = "size" value = "640x768" required />640x768<br />
+				<br />
+				Privacy:<br />
+				<input type = "radio" name = "privacy" value = "private" required />Private<br />
+				<input type = "radio" name = "privacy" value = "public" required />Public<br />
+				<?php
+					if($logged_in){
+						echo '<input type="submit" name="create" value = "Create" />';
+					}else{
+						echo '<h5>Please login first</h5>';
+					}
+				?>
+			</form>      
+		</center>
+    </div>
+    <div class="modal-footer" style="background-color:#ffe6b3;">
+    	<center>
+		    <h4>Let your creativity do the rest</h4>
+		</center>
+    </div>
+  </div>
+
+</div> 
+
+	
 
 	<!-- END OF MODALSHIT -->
