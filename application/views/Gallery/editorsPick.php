@@ -4,7 +4,31 @@
    <h3 class="landi hedest text-center ">Editors Pick</h3>
      <!--<img class="d-block img-fluid w-50 paddy" src="<?php echo base_url('css/images/yato5.gif'); ?>" alt="" >-->
     <div class="wrapper" style="width: 80%; margin: auto;">
-    <?php echo $ep; ?> 
+      <div class="container-fluid">
+        <div class="row">   
+          <div class="col-md-12">   
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead><tr><th>Scrapbook</th><th>Name</th><th>Owner</th><th>Views</th><th>Action</th></tr></thead>
+              <tbody>
+              <?php foreach($ep as $display): ?>
+                <tr>
+                  <td style="background-color: lightgrey;
+    width: 100px;
+    height:100px;
+    border: 1px solid green;"><?php echo $display['img'] ?></td>
+                  <td><?php echo $display['name'] ?></td>
+                  <td><?php echo $display['username'] ?></td>
+                  <td><?php echo $display['view_counter'] ?></td>
+                  <td><?php echo $display['view'] ?></td>
+                </tr>
+              <?php endforeach; ?>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
    
    
@@ -17,7 +41,7 @@
             <a class="landi hed float-left EPFW" href="<?php echo base_url('Scrapbooks/Latest_Works'); ?>">Latest Works</a>
           </li>
         </ul>
-      </div>
+  </div>
 
     
   </div>
