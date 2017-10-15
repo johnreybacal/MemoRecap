@@ -65,39 +65,53 @@
 		}
 
 		public function getLatestWorks(){
-			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Action</td></thead><tbody>';
+			$sbHTML = [];
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by scrapbook_id DESC");
 			foreach($query->result_array() as $row){
-				$sbHTML .= '
-					<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></tr>
-				';
+				$sbHTML[] = array(
+						'img' => '<img src="$row["firstpage"/>',
+						'name' => $row["name"],
+						'username' => $row["username"],
+						'view_counter' => $row["view_counter"],
+						'scrapbook_id' => $row["scrapbook_id"],
+						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
+						);
 			}
-			return $sbHTML.'</tbody></table>';	
+			return $sbHTML;	
 		}
 
 		public function getFeaturedWorks(){
-			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
+			$sbHTML = [];
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by view_counter DESC");
 			foreach($query->result_array() as $row){
-				$sbHTML .= '
-					<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
-				';
+				$sbHTML[] = array(
+						'name' => $row["name"],
+						'username' => $row["username"],
+						'view_counter' => $row["view_counter"],
+						'scrapbook_id' => $row["scrapbook_id"],
+						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
+						);
 			}
-			return $sbHTML.'</tbody></table>';	
+			return $sbHTML;	
 		}
 
 		public function getEditorsPick(){
-			$sbHTML = '<table><thead><tr><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
+			$sbHTML = [];
 			$epick = array('0001', '0002', '0003', '0004');
 			foreach($epick as $id){
 				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."'");
 				foreach($query->result_array() as $row){
-					$sbHTML .= '
-						<tr><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
-					';
+					$sbHTML[] = array(
+						'img' => '<img src="$row["firstpage"]',
+						'name' => $row["name"],
+						'username' => $row["username"],
+						'view_counter' => $row["view_counter"],
+						'scrapbook_id' => $row["scrapbook_id"],
+						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
+						);				
 				}				
 			}
-			return $sbHTML.'</tbody></table>';	
+			return $sbHTML;	
 		}
 
 		public function getAssets($category, $logged_in){
