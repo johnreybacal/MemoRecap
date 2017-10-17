@@ -38,8 +38,8 @@
 	</div>
 	<br />
     <!-- Bootstrap core JavaScript -->    
-    <script src="<?php echo base_url('js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('js/popper.min.js'); ?>"></script>
+    <script src="<?php echo base_url('js/bootstrap.min.js'); ?>"></script>
 <script>
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");

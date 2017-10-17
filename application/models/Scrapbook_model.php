@@ -58,60 +58,46 @@
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE username = '".$username."' order by scrapbook_id ASC");
 			foreach($query->result_array() as $row){
 				$sbHTML .= '
-					<li>'.$row["name"].' | <a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a></li>
+					<tr><td><img style = "width:auto;" src = "'.$row['first_page'].'" /></td><td>'.$row["name"].'</td><td> <a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a></td></tr>
 				';
 			}
 			return $sbHTML;
 		}
 
 		public function getLatestWorks(){
-			$sbHTML = [];
+			$sbHTML = '<table><thead><tr><td>Cover</td><td>Title</td><td>Owner</td><td>Action</td></thead><tbody>';
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by scrapbook_id DESC");
 			foreach($query->result_array() as $row){
-				$sbHTML[] = array(
-						'img' => '<img src="$row["firstpage"/>',
-						'name' => $row["name"],
-						'username' => $row["username"],
-						'view_counter' => $row["view_counter"],
-						'scrapbook_id' => $row["scrapbook_id"],
-						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
-						);
+				$sbHTML .= '
+					<tr><td><img style = "width:auto;" src = "'.$row['first_page'].'" /></td><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></tr>
+				';
 			}
-			return $sbHTML;	
+			return $sbHTML.'</tbody></table>';	
 		}
 
 		public function getFeaturedWorks(){
-			$sbHTML = [];
+			$sbHTML = '<table><thead><tr><td>Cover</td><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by view_counter DESC");
 			foreach($query->result_array() as $row){
-				$sbHTML[] = array(
-						'name' => $row["name"],
-						'username' => $row["username"],
-						'view_counter' => $row["view_counter"],
-						'scrapbook_id' => $row["scrapbook_id"],
-						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
-						);
+				$sbHTML .= '
+					<tr><td><img style = "width:auto;" src = "'.$row['first_page'].'" /></td><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
+				';
 			}
-			return $sbHTML;	
+			return $sbHTML.'</tbody></table>';	
 		}
 
 		public function getEditorsPick(){
-			$sbHTML = [];
+			$sbHTML = '<table><thead><tr><td>Cover</td><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
 			$epick = array('0001', '0002', '0003', '0004');
 			foreach($epick as $id){
 				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."'");
 				foreach($query->result_array() as $row){
-					$sbHTML[] = array(
-						'img' => '<img src="$row["firstpage"]',
-						'name' => $row["name"],
-						'username' => $row["username"],
-						'view_counter' => $row["view_counter"],
-						'scrapbook_id' => $row["scrapbook_id"],
-						'view' => '<a href= "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
-						);				
+					$sbHTML .= '
+						<tr><td><img style = "width:auto;" src = "'.$row['first_page'].'" /></td><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
+					';
 				}				
 			}
-			return $sbHTML;	
+			return $sbHTML.'</tbody></table>';	
 		}
 
 		public function getAssets($category, $logged_in){
@@ -272,16 +258,16 @@
 		}
 
 		public function loadPagination(){
-			$str = '';
+			$str = '<script>';
 			$json = json_decode($this->obj, true);
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
 			        foreach($global_val as $pages => $assets){
-						$str .= '<li id = "page-'.$pages.'" class = "page-button">'.($pages + 1).'</li>';
+						$str .= '$("#pagination").append("<li style = \"display: inline;\" id = \"page-'.$pages.'\" class = \"page-button\">'.($pages + 1).'</li>");';
 			        }
 			    }
 			}			
-			return $str;
+			return $str.'</script>';
 		}
 
 		public function loadZOrder(){//to do: bubble sort using z-index [/]
@@ -312,8 +298,9 @@
 		/*end of functions for loading a scrapbook*/
 		
 		//U
-		public function save($id, $json){
-			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."' WHERE scrapbook_id='".$id."'")){
+		public function save($id, $json, $blob){
+			// $json = json_decode($json)
+			if($this->db->simple_query("UPDATE scrapbooks set json='".$json."', first_page = '".$blob."' WHERE scrapbook_id='".$id."'")){
 				return 'Success';
 			}else{
 				return 'Fail';
@@ -334,23 +321,23 @@
 		//3. hindi pa ako marunong mag AJAX dati lol
 		public function getVariables($parameter){
 			$json = json_decode($this->obj, true);
-			$pageCount = 0;
-			$assetCount = 0;
+			$pageCount = 0;			
+			$highest = 0;
 			foreach($json as $global_attr => $global_val){
 			    if(is_array($global_val)){
 			        foreach($global_val as $pages => $assets){			
 						$pageCount++;
 						if(is_array($assets)){						
 							foreach($assets as $asset_id => $attr){
-								if(is_array($attr)){
-									$assetCount++;								
+								if(substr($asset_id, 0, strpos($asset_id, '-')) > $highest){
+									$highest = substr($asset_id, 0, strpos($asset_id, '-'));
 								}
 							}
 						}
 					}
 				}
 			}
-			return ($parameter == 'pages')?$pageCount:$assetCount;
+			return ($parameter == 'pages')?$pageCount:++$highest;
 		}
 
 		public function setWorkspaceSize(){

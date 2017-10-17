@@ -76,6 +76,133 @@ function sendTo(somewhere){
 	}	
 }
 
+function generateFirstPage(){
+	// $('#p-' + currentPage).hide();
+	// $('#p-0').show();
+	$('#divContent').css({'zoom': '100%'});
+    $('#workspace').css({'left': '0px', 'top': '0px'});
+	console.log('Generating the canvas for first page');	
+	$('body').append('<canvas id = "first-page" height = "' + $('#workspace').css('height') + '" width = "' + $('#workspace').css('width') + '"></canvas>');
+	var p = $('#p-0');
+	var c = document.getElementById('first-page');
+	var ctx = c.getContext("2d");
+	if($('#p-0').attr('data-bg') == 'rgb'){// if bg is rgb			
+		var rgb = p.css('background-color').replace('rgb(', '').replace(')', '').split(',');
+		var hex = '#' + toHex(Number(rgb[0])) + toHex(Number(rgb[1])) + toHex(Number(rgb[2]));
+		ctx.fillStyle = hex;
+		ctx.fillRect(-2,-2,Number($('#workspace').css('width').replace('px','')) + 2, Number($('#workspace').css('height').replace('px','')) + 2);
+	}else{ // if bg is an asset			
+		var bg = $('#p-0').css('background-image');
+		bg = bg.replace('url(','').replace(')','').replace('"','').replace('"','');		
+		var img = new Image();
+		img.src = bg;		
+  		var ptrn = ctx.createPattern(img, 'repeat');
+	    ctx.fillStyle = ptrn;
+	    ctx.fillRect(0, 0, c.width, c.height);					
+	}
+	if(assets[0].length > 0){						
+		var assetsInThisPage = assets[0].substring(0, assets[0].length - 1).split("/");
+		for(var i = 0; i < assetsInThisPage.length; i++){							
+			$('#' + assetsInThisPage[i]).children('div.rotate').children('img').attr('id', 'temp');
+		    var img = document.getElementById('temp');
+		    $('#temp').attr('id', '');			    			    
+		    var left = Number($('#' + assetsInThisPage[i]).css('left').replace('px',''));
+		    var top = Number($('#' + assetsInThisPage[i]).css('top').replace('px',''));
+		    var width = Number($('#' + assetsInThisPage[i]).css('width').replace('px','')); 
+		    var height = Number($('#' + assetsInThisPage[i]).css('height').replace('px',''));
+		    if(left < 0){left *= -1;}if(top < 0){top *= -1;}						    
+		    ctx.save();
+		    ctx.translate(
+		    	left + (width / 2), top + (height / 2)
+	    	);		    	
+		    ctx.rotate($('#' + assetsInThisPage[i]).data('angle') * Math.PI / 180);
+		    ctx.drawImage(img, width / -2, height / -2, width, height);			    
+		    ctx.restore();					
+		}
+	}
+	// $('#p-0').hide();
+	// $('#p-' + currentPage).show();
+	zoomOrig(true);
+}
+
+function getScrapbookID(url) {
+    if (!url) url = window.location.href;			    
+	return url.substring(url.length-4, url.length);
+}
+
+function save(saveURL, leaveFlag){
+	generateFirstPage();
+	var canvas = document.getElementById('first-page');
+	var fp = canvas.toDataURL();
+	var attr = '{"firstpage": "' + fp + '", "height":"' + $('#workspace').css('height') + '", "width":"' + $('#workspace').css('width') + '" , "pages":{';		
+	var getBack = currentPage;
+	for(var p = 0; p < pageCount; p++){//loop ng pages
+		if(currentPage != p){//lilipat ng page kasi hindi makukuha ung x at y kapag hidden ung page na naglalaman sa asset
+			$("#p-" + currentPage.toString()).hide();
+			$("#z-" + currentPage.toString()).hide();
+			$("#p-" + p.toString()).show();
+			$("#z-" + p.toString()).show();
+		}
+		currentPage = p;
+		if(p > 0){
+			attr += ',';
+		}
+		attr += '"' + p + '":{';
+		if($('#p-' + p).attr('data-bg') == 'rgb'){// if bg is rgb
+			attr += '"bg":"' + $('#p-' + p).css("background-color") + '"';
+		}else{ // if bg is an asset
+			attr += '"bg":"' + $('#p-' + p).attr('data-bg') + '"';
+		}
+		// alert(assets[p]);
+		if(assets[p].length > 0){//check kung merong asset sa page
+			//kunin lahat ng assets sa isang page
+			var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");	
+			for(var i = 0; i < assetsInThisPage.length; i++){//loop ng assets
+				//alert(p + " " + assetsInThisPage[i]);							
+				attr += ',';
+			 	attr += '"' + assetsInThisPage[i] + '":{';
+		 		var $this = $('#' + assetsInThisPage[i]);
+			 	var thisPos = $this.position();
+			 	var parPos = $this.parent().position();
+			 	var x = thisPos.left - parPos.left;
+			 	var y = thisPos.top - parPos.top;
+			 	var angle = getAngle($this);
+	     		attr += '"x": "' + x + '", "y": "' + y + '", ';
+	     		attr += '"w": "' + $this.css('width') + '", "h": "' + $this.css('height') + '", ';
+	     		attr += '"z": "' + $this.css('z-index') + '",';
+	     		attr += '"a": "' + angle + '"}';
+			}
+		}
+		attr += '}';
+	}
+	attr += '}}';
+	//get back to current page
+	$("#p-" + currentPage.toString()).hide();
+	$("#z-" + currentPage.toString()).hide();
+	currentPage = getBack;
+	$("#p-" + currentPage.toString()).show();
+	$("#z-" + currentPage.toString()).show();
+	// var obj = JSON.parse(attr);
+	// alert(attr);
+	//alert(attrjson);
+	//alert(JSON.stringify(attrjson));	
+	var c = getScrapbookID();
+    $.ajax({
+    	url: saveURL,
+    	type: 'POST',
+    	contentType: 'application/json',
+    	data: c + attr,
+    	dataType: 'json',
+    	success: function(res){
+    		console.log('save result: ' + res);
+    	}
+    });
+    console.log('leaveFlag in editor.js: ' + leaveFlag);
+	$('#first-page').remove();
+    if(leaveFlag){
+    	window.history.back();
+    }
+}
 $(document).ready(function(){
 
 	$('#workspace').bind("contextmenu", function (event) {
@@ -105,75 +232,4 @@ $(document).ready(function(){
 	    $(".context-menu").hide(100);
 	});
 
-	$('#save').click(function(){	//get x y and size of all assets in all pages
-		var attr = '{"height":"' + $('#workspace').css('height') + '", "width":"' + $('#workspace').css('width') + '" , "pages":{';		
-		var getBack = currentPage;
-		for(var p = 0; p < pageCount; p++){//loop ng pages
-			if(currentPage != p){//lilipat ng page kasi hindi makukuha ung x at y kapag hidden ung page na naglalaman sa asset
-				$("#p-" + currentPage.toString()).hide();
-				$("#z-" + currentPage.toString()).hide();
-				$("#p-" + p.toString()).show();
-				$("#z-" + p.toString()).show();
-			}
-			currentPage = p;
-			if(p > 0){
-				attr += ',';
-			}
-			attr += '"' + p + '":{';
-			if($('#p-' + p).attr('data-bg') == 'rgb'){// if bg is rgb
-				attr += '"bg":"' + $('#p-' + p).css("background-color") + '"';
-			}else{ // if bg is an asset
-				attr += '"bg":"' + $('#p-' + p).attr('data-bg') + '"';
-			}
-			// alert(assets[p]);
-			if(assets[p].length > 0){//check kung merong asset sa page
-				//kunin lahat ng assets sa isang page
-				var assetsInThisPage = assets[p].substring(0, assets[p].length - 1).split("/");								
-				for(var i = 0; i < assetsInThisPage.length; i++){//loop ng assets
-					//alert(p + " " + assetsInThisPage[i]);							
-					attr += ',';
-				 	attr += '"' + assetsInThisPage[i] + '":{';
-			 		var $this = $('#' + assetsInThisPage[i]);
-				 	var thisPos = $this.position();
-				 	var parPos = $this.parent().position();
-				 	var x = thisPos.left - parPos.left;
-				 	var y = thisPos.top - parPos.top;
-				 	var angle = getAngle($this);
-		     		attr += '"x": "' + x + '", "y": "' + y + '", ';
-		     		attr += '"w": "' + $this.css('width') + '", "h": "' + $this.css('height') + '", ';
-		     		attr += '"z": "' + $this.css('z-index') + '",';
-		     		attr += '"a": "' + angle + '"}';
-				}
-			}
-			attr += '}';
-		}
-		attr += '}}';
-		//get back to current page
-		$("#p-" + currentPage.toString()).hide();
-		$("#z-" + currentPage.toString()).hide();
-		currentPage = getBack;
-		$("#p-" + currentPage.toString()).show();
-		$("#z-" + currentPage.toString()).show();
-		// var obj = JSON.parse(attr);
-		// alert(attr);
-		//alert(attrjson);
-		//alert(JSON.stringify(attrjson));
-		var saveURL = getSaveURL();
-		var c = getScrapbookID();
-	    $.ajax({
-	    	url: saveURL,
-	    	type: 'POST',
-	    	contentType: 'application/json',
-	    	data: c + attr,
-	    	dataType: 'json',
-	    	success: function(res){
-	    		alert(res);
-	    	}
-	    });	    
-	});
-
-	function getScrapbookID(url) {
-	    if (!url) url = window.location.href;			    
-		return url.substring(url.length-4, url.length);
-	}
 });

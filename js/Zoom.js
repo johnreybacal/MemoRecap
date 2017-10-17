@@ -1,20 +1,22 @@
-function ZoomIn() {  
-    var ZoomInValue = parseInt(document.getElementById("divContent").style.zoom) + 10;      
-    if(ZoomInValue < 200){
-        document.getElementById("divContent").style.zoom = ZoomInValue + '%';  
-        return false;          
+function zoomIn() {  
+    if(zoomValue < 200){
+        zoomValue = Number(zoomValue) + 10;      
+        $('#divContent').animate({'zoom': zoomValue + '%'});        
     }
 }  
-
-function ZoomOut() {  
-    var ZoomOutValue = parseInt(document.getElementById("divContent").style.zoom) - 10;  
-    if(ZoomOutValue > 40){
-        document.getElementById("divContent").style.zoom = ZoomOutValue + '%';  
-        return false;          
+function zoomOut() {  
+    if(zoomValue > 40){
+        zoomValue -= 10
+        $('#divContent').animate({'zoom': zoomValue + '%'});
     }
 } 
- function Zoomorg() {  
-    var ZoomOutValue = parseInt(100) + '%';  
-    document.getElementById("divContent").style.zoom = ZoomOutValue;  
-    return false;  
+function zoomOrig(setDefault) {          
+    $('#divContent').animate({'zoom': '100%'});
+    $('#workspace').animate({'left': '0px', 'top': '0px'});
+    if(setDefault){
+        zoomValue = 100;
+    }
+}
+function zoomBack(){
+    $('#divContent').animate({'zoom': zoomValue + '%'});
 }

@@ -9,6 +9,10 @@ class MemoRecap extends CI_Controller {
 		$this->load->model('User_model', 'user');		
 	}
 
+	public function index(){
+		redirect(base_url('Home'));
+	}
+
 	public function Login($method, $param = null){
 		$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
 		$url = $method;
@@ -48,7 +52,7 @@ class MemoRecap extends CI_Controller {
 		}
 		$this->load->view('includes/header', $data);
 	}
-  
+
 	public function Home(){		
 		$this->loadHeader();
 		$this->loadNav();			
@@ -256,7 +260,10 @@ class MemoRecap extends CI_Controller {
 		$id = substr($json, 0, 4);
 		$json = substr($json, 4, strlen($json));
 		header('Content-type: application/json');
-		$result = $this->scrapbook->save($id, $json);
+		$json = json_decode($json, true);
+		$blob = array_shift($json);
+		$json = json_encode($json);		
+		$result = $this->scrapbook->save($id, $json, $blob);
 		echo $result;
 	}
 

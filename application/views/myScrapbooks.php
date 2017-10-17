@@ -1,11 +1,16 @@
 <div class="container bg-faded">
 	<!-- <center> -->
 	List of scrapbooks
-	<ol>
+	<table>
+	<thead>
+		<tr><td>Cover</td><td>Title</td><td>Actions</td></tr>
+	</thead>	
+	<tbody>
 		<?php
 			echo $list_of_scrapbooks;
 		?>
-	</ol>	
+	</tbody>
+	</table>	
 	<!-- </center> -->
 	<!-- <a href="<?php echo base_url('Home'); ?>" class="">Back to Home.</a> -->
 

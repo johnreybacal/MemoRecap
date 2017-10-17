@@ -67,6 +67,6 @@ $route['view/(:any)'] = 'MemoRecap/view/$1';
 $route['delete/(:any)'] = 'MemoRecap/delete/$1';
 $route['myScrapbooks'] = 'MemoRecap/myScrapbooks';
 $route['Home'] = 'MemoRecap/Home';
-$route['default_controller'] = 'MemoRecap/Home';
+$route['default_controller'] = 'MemoRecap';
 $route['404_override'] = 'MemoRecap/four_oh_four';
 $route['translate_uri_dashes'] = FALSE;
