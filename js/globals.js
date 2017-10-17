@@ -33,8 +33,7 @@ function displayAssetAttributes($this){
 	$('#ang').html(angle)	
 }
 
-function assetInteractability(id){		
-	$('#' + id).css({'left': '0px' , 'top': '0px'});
+function assetInteractability(id){	
 	$('#' + id).resizable({
 		containment: "#workspace",		//para hanggang workspace lng ung laki
 		// animate: true, ghost: true,		    	
@@ -60,7 +59,7 @@ function assetInteractability(id){
 	});
 }
 
-$(document).ready(function(){
+$(document).ready(function(){	
 	$('#prevPage').click(function(){
 		if(currentPage > 0){
 			$("#p-" + currentPage).hide();
@@ -83,3 +82,10 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function toHex(n){
+	var hex = n.toString(16);
+	while (hex.length < 2) {hex = "0" + hex; }
+	return hex;
+}
+

@@ -1,10 +1,64 @@
 function deleteAsset(){
-	alert(assets[currentPage]);
-	var selectedAsset = $('#selectedAsset').html();			
-	$('#' + selectedAsset).remove();	//delete asset
+	// alert(assets[currentPage]);
+	var selectedAsset = $('#selectedAsset').html();				
+	$('#' + selectedAsset).fadeOut(1000, function(){//delete asset
+		$('#' + selectedAsset).remove();				
+	});
 	$('#' + selectedAsset + "-z").remove();		//delete on z-order
 	assets[currentPage] = assets[currentPage].replace(selectedAsset + "/", "");		//delete asset data
-	alert(assets[currentPage]);
+	$('.attr').html('');
+	sortZ($('#z-' + currentPage).sortable("toArray").reverse());
+	// alert(assets[currentPage]);
+}
+
+function sortZ(order){
+	for(var i = 0; i < order.length; i++){
+		$("#" + order[i].replace("-z", "")).css("z-index", i + 1);	//ayusin ung z order				
+	}
+}
+
+function sortPages(){
+	var order = $('#pagination').sortable("toArray");
+	var tempAssets = assets;
+	var temp = "";			
+	//alert($(this).sortable("toArray") + "   " + assets);			
+	for(var i = 0; i < order.length; i++){//add temporary id
+		var li = $('#' + order[i]);						//pagination
+		var li2 = $('#p-' + order[i].substring(5));		//page
+		var li3 = $('#z-' + order[i].substring(5));		//z-order
+		li.attr('id', 'temp' + i);
+		li2.attr('id', 'temppage' + i);
+		li3.attr('id', 'tempz' + i);
+		li.html(i + 1);
+	}
+	for(var i = 0; i < order.length; i++){//fix id
+		$('#temp' + i).attr('id', 'page-' + i);
+		$('#temppage' + i).attr('id', 'p-' + i);
+		$('#tempz' + i).attr('id', 'z-' + i);
+	}
+	for(var i = 0; i < order.length; i++){//sort assets
+		for(var j = 0; j < order.length - i - 1; j++){
+			var wtf = Number(order[j].substring(5));					
+			temp = tempAssets[wtf];				
+			tempAssets[wtf] = tempAssets[j];
+			tempAssets[j] = temp;					
+		}
+	}
+	var getBack = currentPage;
+	for(var p = 0; p <= pageCount; p++){
+		if(currentPage != p){
+			$("#p-" + currentPage).hide();
+			$("#z-" + currentPage).hide();
+			$("#p-" + p).show();
+			$("#z-" + p).show();
+		}
+		currentPage = p;				
+	}		
+	$("#p-" + currentPage).hide();
+	$("#z-" + currentPage).hide();
+	currentPage = getBack;
+	$("#p-" + currentPage).show();
+	$("#z-" + currentPage).show();	
 }
 
 $(document).ready(function(){    
@@ -15,7 +69,7 @@ $(document).ready(function(){
 
 	$("#addPage").click(function(){
 		$("#workspace").append("<div id = \"p-" + pageCount + "\" class = \"pages ui-droppable\"></div>");
-		$("#pagination").append("<li id = \"page-" + pageCount + "\" class = \"page-button ui-sortable-handle\">" + (pageCount + 1) + "</li>");
+		$("#pagination").append("<li style='display: inline;' id = \"page-" + pageCount + "\" class = \"page-button ui-sortable-handle\">" + (pageCount + 1) + "</li>");
 		$("#z-order-container").append("<ol reversed id = \"z-" + pageCount + "\" class = \"z-order\"></ol>");
 		$("#page-" + pageCount.toString()).click(function(){	//para sa mga generated buttons
 			var page = $(this).attr("id");				//kunin ung pinindot
@@ -26,32 +80,32 @@ $(document).ready(function(){
 			$("#z-" + currentPage.toString()).show();
 			$("#currentPage").html(Number(currentPage) + 1);
 			$('.attr').html('');
+			sortPages();
 		});
 
 		$("#z-" + pageCount.toString()).sortable({			//para sa generated na z-order
 			update: function(){
-				var order = $(this).sortable("toArray");
-				order.reverse();
-				for(var i = 0; i < order.length; i++){
-					$("#" + order[i].replace("-z", "")).css("z-index", i + 1);
-				}
+				sortZ($(this).sortable("toArray").reverse());
 			}
 		});
 
 		$("#p-" + pageCount.toString()).droppable({
 			accept: ".first",						//para sa generated pages
 			drop: function(event, ui){
-				var id = assetID + '-' + $('#wtf').html();				
+				var id = assetID + '-' + $('#wtf').html();	
+				var pos = $('#workspace').position();					
 	    		assets[currentPage] += id + "/";
 	    		assetID++;
 				$(ui.helper).removeClass("first");
 				$(ui.helper).addClass("asset");
-				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));				
+				$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
+				$('#' + id).css({position:"absolute", left:ui.offset.left-pos.left, top:ui.offset.top-pos.top});
 				assetInteractability(id);
 	    		$("#z-" + currentPage.toString()).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
 	    		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
 					displayAssetAttributes($('#' + id));
 				});
+				assets[currentPage] += id + '/';
 			}
 		});		
 		$("#p-" + currentPage).hide();
@@ -92,53 +146,6 @@ $(document).ready(function(){
 			$("#currentPage").html(Number(currentPage) + 1);
 		}else{
 			alert("NANI???");
-		}
-	});
-
-	$('#pagination').sortable({
-		containment: "#pagination-container",
-		update: function(){
-			var order = $(this).sortable("toArray");
-			var tempAssets = assets;
-			var temp = "";			
-			//alert($(this).sortable("toArray") + "   " + assets);			
-			for(var i = 0; i < order.length; i++){//add temporary id
-				var li = $('#' + order[i]);						//pagination
-				var li2 = $('#p-' + order[i].substring(5));		//page
-				var li3 = $('#z-' + order[i].substring(5));		//z-order
-				li.attr('id', 'temp' + i);
-				li2.attr('id', 'temppage' + i);
-				li3.attr('id', 'tempz' + i);
-				li.html(i + 1);
-			}
-			for(var i = 0; i < order.length; i++){//fix id
-				$('#temp' + i).attr('id', 'page-' + i);
-				$('#temppage' + i).attr('id', 'p-' + i);
-				$('#tempz' + i).attr('id', 'z-' + i);
-			}
-			for(var i = 0; i < order.length; i++){//sort assets
-				for(var j = 0; j < order.length - i - 1; j++){
-					var wtf = Number(order[j].substring(5));					
-					temp = tempAssets[wtf];				
-					tempAssets[wtf] = tempAssets[j];
-					tempAssets[j] = temp;					
-				}
-			}
-			var getBack = currentPage;
-			for(var p = 0; p <= pageCount; p++){
-				if(currentPage != p){
-					$("#p-" + currentPage).hide();
-					$("#z-" + currentPage).hide();
-					$("#p-" + p).show();
-					$("#z-" + p).show();
-				}
-				currentPage = p;				
-			}		
-			$("#p-" + currentPage).hide();
-			$("#z-" + currentPage).hide();
-			currentPage = getBack;
-			$("#p-" + currentPage).show();
-			$("#z-" + currentPage).show();	
 		}
 	});
 

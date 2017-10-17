@@ -5,3 +5,5 @@ var assets = [];
 var clipboard = '';
 var pageClipboarded = 0;
 var isCut = false;
+var saveBeforeUnload = true;
+var zoomValue = 100;

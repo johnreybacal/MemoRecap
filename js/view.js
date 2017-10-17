@@ -1,12 +1,8 @@
-function toHex(n){
-	var hex = n.toString(16);
-	while (hex.length < 2) {hex = "0" + hex; }
-	return hex;
-}
-
-function gene(){				
+function gene(){
+	$('#divContent').css({'zoom': '100%'});
+    $('#workspace').css({'left': '0px', 'top': '0px'});
 	for(var counter = 0; counter < pageCount; counter++){
-		$('body').append('<canvas id = "c-' + counter + '" height = "' + $('#workspace').css('height') + '" width = "' + $('#workspace').css('width') + '"></canvas>');
+		$('body').append('<canvas id = "c-' + counter + '" height = "' + $('#workspace').css('height') + '" width = "' + $('#workspace').css('width') + '"></canvas>');		
 		var p = $('#p-' + counter);
 		var c = document.getElementById('c-' + counter);
 		var ctx = c.getContext("2d");
@@ -30,8 +26,8 @@ function gene(){
 				$('#' + assetsInThisPage[i]).children('div.rotate').children('img').attr('id', 'temp');
 			    var img = document.getElementById('temp');
 			    $('#temp').attr('id', '');			    			    
-			    var left = Number($('#' + assetsInThisPage[i]).css('left').replace('px','')) - position.left;
-			    var top = Number($('#' + assetsInThisPage[i]).css('top').replace('px','')) - position.top;
+			    var left = Number($('#' + assetsInThisPage[i]).css('left').replace('px',''));
+			    var top = Number($('#' + assetsInThisPage[i]).css('top').replace('px',''));
 			    var width = Number($('#' + assetsInThisPage[i]).css('width').replace('px','')); 
 			    var height = Number($('#' + assetsInThisPage[i]).css('height').replace('px',''));
 			    if(left < 0){left *= -1;}if(top < 0){top *= -1;}						    
@@ -45,7 +41,7 @@ function gene(){
 			}
 		}
 	}
-	
+	zoomOrig(true);
 }
 
 function downloadAsPNG(){
@@ -64,6 +60,16 @@ function facebook(){
 	for(var counter = 0; counter < pageCount; counter++){
 		var canvas = document.getElementById('c-' + counter);
 		canvas.toBlob(function(blob) {						
+			// var formData = new FormData()
+			// formData.append('token', token)
+			// formData.append('source', blob)
+
+			// var xhr = new XMLHttpRequest();
+			// xhr.open( 'POST', 'https://graph.facebook.com/me/photos', true )
+			// xhr.onload = xhr.onerror = function() {
+			// console.log( xhr.responseText )
+			// };
+			// xhr.send( formData )
 		 	FB.getLoginStatus(function (response) {
 		        console.log(response);
 		        if (response.status === "connected") {
@@ -142,19 +148,21 @@ function postImageToFacebook(token, filename, mimeType, imageData, message, mes)
     });
 }
 
+$('#workspace').draggable({cursor: "move"});
+
 $('#saveAsImage').click(function(){
 	gene();
 	downloadAsPNG();
 });
 
 $('#shareToFB').click(function(){
+	gene();	
 	FB.getLoginStatus(function(response){
 	    console.log(response);
 	    if(response.status !== "connected"){
-			gene();
 			facebook();	    	
 	    }
-	});
+	});	
 });
 
 $(".page-button").click(function(){					//initialize	lipat ng page

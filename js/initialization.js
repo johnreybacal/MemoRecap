@@ -4,38 +4,47 @@ $(document).ready(function(){
 	
     $(".first").draggable({
 		helper: "clone", revert: "invalid", zIndex: 999,
-		scroll: false							//para mag-clone from asset picker to workspace
+		scroll: false,//para mag-clone from asset picker to workspace
+		start: function(){
+			zoomOrig(false);
+		}
     });
 
     $('#workspace').draggable({
-    	//containment: 'document'
-    	//
+    	cursor: 'move'
     });
 
 	$(".pages").droppable({		
 		accept: ".first",						//para saluhin from asset picker
 		drop: function(event, ui){				//make asset draggable and resizable
 			var id = assetID + '-' + $('#wtf').html();
-    		assets[currentPage] += id + "/";    		
+			var pos = $('#workspace').position();		
     		assetID++;
 			$(ui.helper).removeClass("first");	//pra hindi mag-clone	
 			$(ui.helper).addClass("asset");
-			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));			
+			$(this).append($(ui.helper).clone().wrapInner('<div class = "rotatable rotate"></div>').attr('id', id));
+			$('#' + id).css({position:"absolute", left:ui.offset.left-pos.left, top:ui.offset.top-pos.top});
 			assetInteractability(id);									
     		$("#z-" + currentPage).prepend("<li id = \"" + id + "-z\">" + id + "</li>");
     		$("#z-" + currentPage).children('#' + id + '-z').mousedown(function(){
 				displayAssetAttributes($('#' + id));
-			});			
+			});	
+			assets[currentPage] += id + '/';
+			zoomBack();
+		}
+	});
+
+	$('#pagination').sortable({
+		// containment: "#pagination-container",
+		revert: "invalid",
+		update: function(){
+			sortPages();
 		}
 	});
 
 	$(".z-order").sortable({							//z-order or layer
 		update: function(){
-			var order = $(this).sortable("toArray");	//gawing array ung list na element
-			order.reverse();
-			for(var i = 0; i < order.length; i++){
-				$("#" + order[i].replace("-z", "")).css("z-index", i + 1);	//ayusin ung z order				
-			}
+			sortZ($(this).sortable("toArray").reverse());
 		}
 	}).children('li').mousedown(function(){
 		displayAssetAttributes($('#' + $(this).attr('id').replace('-z', '')));
