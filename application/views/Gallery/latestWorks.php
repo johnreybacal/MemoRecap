@@ -2,28 +2,8 @@
 	
 	<h3 class="landi hedest text-center ">Latest Works</h3>
 	   <!--<img class="d-block img-fluid w-50 paddy" src="<?php echo base_url('css/images/yato5.gif'); ?>" alt="" >-->
-	 <div class="wrapper" style="width: 80%; margin: auto;">
-      <div class="container-fluid">
-        <div class="row">   
-          <div class="col-md-12">   
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead><tr><th>Name</th><th>Owner</th><th>Action</th></tr></thead>
-              <tbody>
-              <?php foreach($lw as $display): ?>
-                <tr>
-                  <!-- dito yung image thumbnail lang siguro yun -->
-                  <td><?php echo $display['name'] ?></td>
-                  <td><?php echo $display['username'] ?></td>
-                  <td><?php echo $display['view'] ?></td>
-                </tr>
-              <?php endforeach; ?>
-              </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+	  <div class="wrapper" style="width: 80%; margin: auto;">
+	  <?php echo $lw; ?> 
     </div>
 
    

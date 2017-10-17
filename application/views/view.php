@@ -60,34 +60,33 @@
 
 						<div  class="col-md-1" style="border: solid thin white;z-index:1000; position:relative; left: 20px; top: 20px">
 							<!-- <br/><br/><br/><br/><br/> -->
-						    <button type="button" value="Zoom out" OnClick="return ZoomOut();" class="btn btn-default btn-md"><span class="glyphicon glyphicon-minus"></span></button><br/><br/>	
-							<!-- <button type="button" value="Orignal Size" OnClick="return Zoomorg();"class="btn btn-default btn-sm">Original Size</button> -->
-							<button type="button" value="Zoom In" OnClick="return ZoomIn();" class="btn btn-default btn-md"><span class="glyphicon glyphicon-plus"></span></button>
+						    <button type="button" value="Zoom out" OnClick="zoomOut();" class="btn btn-default btn-md"><span class="glyphicon glyphicon-minus"></span></button>
+						    <hr />
+							<button type="button" value="Orignal Size" OnClick="zoomOrig();"class="btn btn-default btn-sm">Original Size</button>
+						    <hr />
+							<button type="button" value="Zoom In" OnClick="zoomIn();" class="btn btn-default btn-md"><span class="glyphicon glyphicon-plus"></span></button>
 						</div>
 					</div>
 				</div>
 	
 				<div class="col-md-2" style="height:90vh;">	
 					<div class="row" style="height:45vh;">
-						<div style="margin: auto;">
-							<br/><br/><br/><br/><br/><br/>
-							<a href = '<?php echo base_url('editor/'.$id); ?>'  class="btn btn-success btn-lg" role="button">Edit</a></div>
+						<div style="margin: auto;">							
+							<a href = '<?php echo base_url('editor/'.$id); ?>'  class="btn btn-success btn-lg" role="button">Edit</a>
+							<button type="button" id = 'saveAsImage' class="btn btn-info btn-lg">Download as image</button>						
+							<button type="button" id = 'shareToFB' class="btn btn-primary btn-lg">Share to facebook</button>
+						</div>							
 					</div>
 					<div class="row" align="center" style="height:45vh;">
-						<div style="margin: auto;">
-							<button type="button" id = 'saveAsImage' class="btn btn-info btn-lg">Download as image</button>
-						<br/><br/>
-						<button type="button" id = 'shareToFB' class="btn btn-primary btn-lg">Share to facebook</button>
 					</div>
+						<div style="margin: auto;">
 					</div>								
 				</div>
 				<div class="row" style="height:10vh;">
 					<div id = "pagination-container" class="col-md-10" align="center">
 						<button class="btn btn-default" id = "prevPage">&laquo;</button>&nbsp;
 						<ol id = "pagination" class = "pagination">
-								<?php					
-									echo $loadPagination;
-								?>				
+				
 						</ol>
 						<button class="btn btn-default" id = "nextPage">&raquo;</button>					
 					</div>	
@@ -110,6 +109,9 @@
 				</div>
 		</div> -->
 			<!-- </div> -->	
+		<?php					
+			echo $loadPagination;
+		?>
 		<?php
 			echo $script;
 		?>		
