@@ -54,12 +54,16 @@
 
 		//R
 		public function displayScrapbooks($username){					
-			$sbHTML = '';
+			$sbHTML = [];
 			$query = $this->db->query("SELECT * FROM scrapbooks WHERE username = '".$username."' order by scrapbook_id ASC");
 			foreach($query->result_array() as $row){
-				$sbHTML .= '
-					<li>'.$row["name"].' | <a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a> | <a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a> | <a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a></li>
-				';
+				$sbHTML[] = array(
+						'name' => $row['name'],
+						'edit' => '<a href = "'.base_url('editor/'.$row["scrapbook_id"]).'">Edit</a>',
+						'view' => '<a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a>',
+					  'delete' => '<a href = "'.base_url('delete/'.$row["scrapbook_id"]).'">Delete</a>',
+				);
+				
 			}
 			return $sbHTML;
 		}
