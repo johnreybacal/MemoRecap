@@ -28,11 +28,6 @@ class MemoRecap extends CI_Controller {
 		redirect(base_url('Home'));		
 	}
 
-	public function Logout(){
-		$this->session->sess_destroy();
-		redirect(base_url('Home'));
-	}
-
 	public function loadNav(){
 		if($this->session->userdata('logged_in')){
 			$this->load->view('includes/navLoggedIn');
@@ -74,44 +69,13 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('includes/footer');
 	}
 
-	public function changeDP(){
-		$config['upload_path'] = './dp/';
-        $config['allowed_types'] = 'gif|jpeg|jpg|png';
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('image')){
-            $error = array('error' => $this->upload->display_errors());            
-            print_r($error);
-        }else{
-            $data = array('upload_data' => $this->upload->data());
-            $this->session->set_userdata(
-            	$this->user->changeDP(
-            		$this->session->userdata('username'),
-            		$data['upload_data']['file_name']
-            	)
-            );
-        }
-        redirect(base_url('Profile'));  
-	}
-
-	public function updateAccount(){		
-        $this->session->set_userdata(
-        	$this->user->updateAccount(
-        		$this->session->userdata('username'),
-        		$this->input->post('name'),
-        		$this->input->post('newpassword'),
-        		$this->input->post('curpassword')
-        	)
-        );
-        redirect(base_url('Profile'));  
-	}
-
 	public function Scrapbooks($gallery = null){		
 		$this->loadHeader();
 		$this->loadNav();
 		$this->load->view('includes/modal');
 		switch($gallery){
 			case "Editors_Pick":				
-				$data['ep'] = $this->scrapbook->getEditorsPick();
+				$data['editors_pick'] = $this->scrapbook->getEditorsPick();
 				$this->load->view('Gallery/editorsPick', $data);
 				break;
 			case "Featured_Works":
@@ -139,23 +103,29 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('includes/footer');			
 	}
 
-	public function Profile(){
-		if($this->session->has_userdata('Error')){
-			$data['Error'] = $this->session->userdata('Error');
-			$this->session->unset_userdata('Error');
-			$this->load->view('includes/header', $data);
-		}else{
-			$this->loadHeader();
-		}			
+	public function Profile($username){
+		$this->loadHeader();
 		$this->loadNav();
-		if($this->session->userdata('logged_in')){
-			$this->load->view('includes/modal');		
-			$data['profile'] = $this->session->userdata();
-			$this->load->view('profile', $data);					
-		}else{
-			$this->load->view('errors/MemoRecap_errors/loginPoMuna');
-		}
+		$this->load->view('includes/modal');		
+		$data['profile'] = $this->user->getProfile($username);
+		$this->load->view('profile', $data);
 		$this->load->view('includes/footer');
+		// if($this->session->has_userdata('Error')){
+		// 	$data['Error'] = $this->session->userdata('Error');
+		// 	$this->session->unset_userdata('Error');
+		// 	$this->load->view('includes/header', $data);
+		// }else{
+		// 	$this->loadHeader();
+		// }			
+		// $this->loadNav();
+		// if($this->session->userdata('logged_in')){
+		// 	$this->load->view('includes/modal');		
+		// 	$data['profile'] = $this->user->getProfile($username);
+		// 	$this->load->view('profile', $data);
+		// }else{
+		// 	$this->load->view('errors/MemoRecap_errors/loginPoMuna');
+		// }
+		// $this->load->view('includes/footer');
 	}
 
 	public function About(){
@@ -241,37 +211,6 @@ class MemoRecap extends CI_Controller {
 		}
 	}
 	
-	public function uploadAsset(){
-        $config['upload_path'] = './uploaded_assets/'.$this->input->post('category');
-        $config['allowed_types'] = 'gif|jpeg|jpg|png';
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('image')){//lol imposibleng mag-error 'to
-            $error = array('error' => $this->upload->display_errors());            
-            print_r($error);
-        }else{
-            $data = array('upload_data' => $this->upload->data());
-            echo $this->scrapbook->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
-            redirect(base_url('Assets'));
-        }
-	}
-
-	public function save(){		
-		$json = file_get_contents('php://input');
-		$id = substr($json, 0, 4);
-		$json = substr($json, 4, strlen($json));
-		header('Content-type: application/json');
-		$json = json_decode($json, true);
-		$blob = array_shift($json);
-		$json = json_encode($json);		
-		$result = $this->scrapbook->save($id, $json, $blob);
-		echo $result;
-	}
-
-	public function delete($id){
-		$this->scrapbook->delete($id);
-		redirect(base_url('myScrapbooks'));
-	}
-
 	public function four_oh_four(){
 		$this->loadHeader();
 		$this->loadNav();
@@ -280,3 +219,5 @@ class MemoRecap extends CI_Controller {
 	}
 	
 }
+
+?>

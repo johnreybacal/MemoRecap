@@ -70,6 +70,30 @@
 				);
 			}			
 		}
+
+		public function getProfile($username){
+			$query = $this->db->query('SELECT * FROM users WHERE username = "'.$username.'"');
+			foreach($query->result() as $row){
+				return array(
+					'username' => $row->username,
+					'name' => $row->name,
+					'dp' => $row->dp,
+					'blocked' => $row->blocked
+				);
+			}
+		}
+
+		public function likeScrapbook($username, $scrapbook_id){
+			$this->db->query('INSERT INTO likes_scrapbooks (username, scrapbook_id) VALUES ("'.$username.'", "'.$scrapbook_id.'")');
+		}
+
+		public function unlikeScrapbook($username, $scrapbook_id){
+			$this->db->query('DELETE FROM likes_scrapbooks WHERE username = "'.$username.'" AND scrapbook_id = "'.$scrapbook_id.'"');
+		}
+
+		public function report($scrapbook_id, $reporter, $reason, $type){
+			$this->db->query('INSERT INTO reports (type, reporter, target, reason) VALUES ("'.$type.'", "'.$reporter.'", "'.$scrapbook_id.'", "'.$reason.'")');
+		}
 		
 	}
 ?>

@@ -51,7 +51,7 @@
 			<li data-action = "backSend"><i class="material-icons">flip_to_back</i>Send to back</li>
 		</ul>
 		<div id="backModal" class="modal">							  
-		  <div class="modal-content">
+		  <div class="modal-content" style = "width: 30%;">
 			  <div class="modal-header">
 			    <span class="close">&times;</span>
 			    <h4>Save your work!</h4>
@@ -177,7 +177,7 @@
 			saveBeforeUnload = true;
 			function saveScrapbook(leaveFlag){
 				console.log('save, leaveFlag: ' + leaveFlag);
-				save("<?php echo base_url('MemoRecap/save'); ?>", leaveFlag);
+				save("<?php echo base_url('save'); ?>", leaveFlag);
 			}
 			function saveScrapbookBeforeUnload(){
 				console.log('save before unload: ' + saveBeforeUnload);

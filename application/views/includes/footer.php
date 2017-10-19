@@ -63,6 +63,11 @@ window.onclick = function(event) {
 		    smodal.style.display = "none";
 		}
 	}
+    if(typeof document.getElementById('scrapbookReportModal') !== 'undefined'){
+    	if (event.target == document.getElementById('scrapbookReportModal')) {
+			document.getElementById('scrapbookReportModal').style.display = "none";
+		}
+	}
 }
 </script>
 

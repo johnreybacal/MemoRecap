@@ -1,5 +1,23 @@
 <!-- PPPPPPRRRRRRRRRROOOOOOOOOOFFFFFFIIIIIIIIIIILLLLLLLLLLLEEEEEEEEE	 -->
-
+<div id="userReportModal" class="modal">                
+  <div class="modal-content" style = "width: 50%;">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h4>Report this user</h4>
+    </div>
+    <div class="modal-body">
+      <h5 style = "color: black">Why are you reporting this user?</h5>
+      <form method = "POST" action = "<?php echo base_url('reportUser'); ?>">
+        <input type = "text" name = "id" id = "id" readonly /><br />
+        Reason: <input type = "text" value = "Abusive" name = "reason" /><br />
+        <input type = "submit" value = "Report" />
+      </form>
+    </div>
+    <div class="modal-footer">      
+      <h3>We are very sorry that you've experienced this</h3>
+    </div>
+  </div>
+</div>
 <div class="container">
 
       <div class=" p-4 my-4 bg-faded">
@@ -15,12 +33,17 @@
                         <p><?php echo $profile['name']; ?></p>
                         <p><?php echo $profile['username']; ?></p>
                         <div >
-                            
-                                <a href="<?php echo base_url('Account'); ?>">Account Options</a>
-                            
+                            <?php 
+                              if($this->session->userdata('username') == $profile['username']){
+                                echo '<a href="'.base_url('Account').'">Account Options</a>';
+                              }
+                            ?>
                                 <span class="caret"></span><span class="sr-only">Display Picture</span>
-                            </button>
-                            
+                            <?php 
+                              if($this->session->userdata('username') != $profile['username']){
+                                echo '<button id = "reportButton" data-id = "'.$profile['username'].'">Report this user</button>';
+                              }
+                              ?>
                         </div>
                     </div>
                 </div>
@@ -84,3 +107,14 @@
       </div>
 
     </div>
+
+     <script>
+    document.getElementsByClassName("close")[0].onclick = function(){
+          document.getElementById('userReportModal').style.display = "none";        
+      }      
+      $('#reportButton').click(function(){
+        var id = $(this).data('id');        
+        $('#id').val(id);
+        $('#userReportModal').css('display', 'block');
+      });
+  </script>

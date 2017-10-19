@@ -49,19 +49,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['changeDP'] = 'MemoRecap/changeDP';
-$route['updateAccount'] = 'MemoRecap/updateAccount';
-$route['Logout'] = 'MemoRecap/Logout';
+$route['reportUser'] = 'Functions/reportUser';
+$route['reportScrapbook'] = 'Functions/reportScrapbook';
+$route['unlikeScrapbook/(:any)'] = 'Functions/unlikeScrapbook/$1';
+$route['likeScrapbook/(:any)'] = 'Functions/likeScrapbook/$1';
+$route['changeDP'] = 'Functions/changeDP';
+$route['updateAccount'] = 'Functions/updateAccount';
+$route['uploadAsset'] = 'Functions/uploadAsset';
+$route['save'] = 'Functions/save';
+$route['Logout'] = 'Functions/Logout';
 $route['Login/(:any)/(:any)'] = 'MemoRecap/Login/$1/$2';
 $route['Login/(:any)'] = 'MemoRecap/Login/$1';
 $route['Signup'] = 'MemoRecap/Signup';
 $route['Assets'] = 'MemoRecap/Assets';
 $route['About'] = 'MemoRecap/About';
-$route['Profile'] = 'MemoRecap/Profile';
+$route['Profile/(:any)'] = 'MemoRecap/Profile/$1';
 $route['Account'] = 'MemoRecap/Account';
 $route['Scrapbooks/(:any)'] = 'MemoRecap/Scrapbooks/$1';
 $route['Scrapbooks'] = 'MemoRecap/Scrapbooks';
-$route['uploadAsset'] = 'MemoRecap/uploadAsset';
 $route['editor/(:any)'] = 'MemoRecap/editor/$1';
 $route['view/(:any)'] = 'MemoRecap/view/$1';
 $route['delete/(:any)'] = 'MemoRecap/delete/$1';
