@@ -87,17 +87,44 @@
 		}
 
 		public function getEditorsPick(){
-			$sbHTML = '<table><thead><tr><td>Cover</td><td>Title</td><td>Owner</td><td>Views</td><td>Action</td></thead><tbody>';
-			$epick = array('0001', '0002', '0003', '0004');
+			$query = $this->db->query('SELECT * FROM editors_pick');
+			$epick = [];
+			foreach($query->result() as $row){
+				$epick[] = $row->scrapbook_id;
+			}
+			$ep = [];			
 			foreach($epick as $id){
 				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."'");
-				foreach($query->result_array() as $row){
-					$sbHTML .= '
-						<tr><td><img style = "width:auto;" src = "'.$row['first_page'].'" /></td><td>'.$row["name"].'</td><td>'.$row['username'].'</td><td>'.$row['view_counter'].'</td><td><a href = "'.base_url('view/'.$row["scrapbook_id"]).'">View</a></td></li>
-					';
+				foreach($query->result() as $row){
+					if($row->blocked == 0){
+						$ep[] = array(
+							'scrapbook_id' => $row->scrapbook_id,
+							'first_page' => $row->first_page,
+							'username' => $row->username,
+							'name' => $row->name,
+							'like' => $this->checkLike($row->scrapbook_id),
+							'view_counter' => $row->view_counter,
+							'likes' => $this->getNumberOfLikes($row->scrapbook_id),						
+						);					
+					}
 				}				
 			}
-			return $sbHTML.'</tbody></table>';	
+			return $ep;
+		}
+
+		public function checkLike($scrapbook_id){
+			if(!$this->session->has_userdata('username')){
+				return 0;
+			}
+			$query = $this->db->query('SELECT * FROM likes_scrapbooks WHERE username = "'.$this->session->userdata('username').'" AND scrapbook_id = "'.$scrapbook_id.'"');
+			foreach($query->result() as $row){
+				return 1;
+			}
+			return 2;
+		}
+
+		public function getNumberOfLikes($scrapbook_id){
+			return $this->db->query('SELECT * FROM likes_scrapbooks WHERE scrapbook_id = "'.$scrapbook_id.'"')->num_rows();			
 		}
 
 		public function getAssets($category, $logged_in){
