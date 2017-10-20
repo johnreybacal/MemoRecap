@@ -68,6 +68,16 @@ window.onclick = function(event) {
 			document.getElementById('scrapbookReportModal').style.display = "none";
 		}
 	}
+	if(typeof document.getElementById('userReportModal') !== 'undefined'){
+    	if (event.target == document.getElementById('userReportModal')) {
+			document.getElementById('userReportModal').style.display = "none";
+		}
+	}
+	if(typeof document.getElementById('editDescModal') !== 'undefined'){
+    	if (event.target == document.getElementById('editDescModal')) {
+			document.getElementById('editDescModal').style.display = "none";
+		}
+	}
 }
 </script>
 

@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>MemoRecap - Admin</title>
-</head>
-<body>
 	<h1>Users</h1>
 	<table>
 		<thead>
@@ -25,15 +19,13 @@
 					<td><?php echo $asset->username; ?></td>
 					<td><?php echo $asset->upload_date; ?></td>
 					<td><?php
-						if($asset->blocked == 0){
-							echo '<a href = "'.base_url('Admin/blockAsset/'.$asset->asset_id).'">Block</a>';
-						}else{
-							echo '<a href = "'.base_url('Admin/unblockAsset/'.$asset->asset_id).'">Unblock</a>';
+						if($asset->blocked == 0){							
+							echo '<button class = "block" data-table = "Asset" data-id = "'.$asset->asset_id.'">Block</button>';
+						}else{							
+							echo '<button class = "unblock" data-table = "Asset" data-id = "'.$asset->asset_id.'">Unblock</button>';
 						}
 					?></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
-	</table>
-</body>
-</html>
+	</table>	

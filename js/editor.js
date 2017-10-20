@@ -186,7 +186,7 @@ function save(saveURL, leaveFlag){
 	// alert(attr);
 	//alert(attrjson);
 	//alert(JSON.stringify(attrjson));	
-	var c = getScrapbookID();
+	var c = getScrapbookID();	
     $.ajax({
     	url: saveURL,
     	type: 'POST',
