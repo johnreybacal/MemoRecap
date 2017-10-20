@@ -5,6 +5,26 @@
 			parent::__construct();
 		}
 
+		public function login($username, $password){
+			$query = $this->db->query("SELECT * FROM admins WHERE username = '".$username."' AND password = '".$password."'");
+			$ok = false;
+			$session_data = [];
+			foreach($query->result() as $row){
+				$session_data = array(
+					'username' => $row->username,
+					'name' => $row->name,
+					'dp' => $row->dp,
+					'logged_in' => 1
+				);
+				$ok = true;
+			}
+			if($ok){
+				return $session_data;
+			}else{
+				return array("Error" => "Invalid username or password", 'logged_in' => 0);
+			}
+		}
+
 		public function getUsers(){			
 			return $this->db->query('SELECT * FROM users')->result();
 		}
@@ -99,7 +119,9 @@
 			$this->db->query('DELETE FROM reports WHERE report_id = "'.$report_id.'"');	
 		}
 
-
+		public function addAdmin($username, $name, $password){
+			$this->db->query("INSERT INTO admins (username, name, password, dp) VALUES ('".$username."', '".$name."', '".$password."', 'default.png')");
+		}
 
 
 	}

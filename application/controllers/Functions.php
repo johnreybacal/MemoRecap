@@ -4,9 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Functions extends CI_Controller {
 	
 	public function __construct(){
-		parent::__construct();
-		$this->load->model('Scrapbook_model', 'scrapbook');
-		$this->load->model('User_model', 'user');		
+		parent::__construct();		
 	}
 
 	public function reportScrapbook(){
@@ -22,11 +20,24 @@ class Functions extends CI_Controller {
 	}
 
 	public function likeScrapbook($scrapbook_id){
-		$this->user->likeScrapbook($this->session->userdata('username'), $scrapbook_id);
+		echo $this->user->likeScrapbook($this->session->userdata('username'), $scrapbook_id);
 	}
 
 	public function unlikeScrapbook($scrapbook_id){
-		$this->user->unlikeScrapbook($this->session->userdata('username'), $scrapbook_id);
+		echo $this->user->unlikeScrapbook($this->session->userdata('username'), $scrapbook_id);
+	}
+
+	public function editDescription(){
+		$this->memorecap->editDescription($this->input->post('id'), $this->input->post('description'));
+	}
+
+	public function togglePrivacy($table, $target, $privacy){
+		$priv = 'private';
+		if($privacy == $priv){
+			$priv = 'public';
+		}
+		$this->memorecap->togglePrivacy($table, $target, $priv);
+		echo $priv;
 	}
 
 	public function Logout(){
@@ -74,7 +85,7 @@ class Functions extends CI_Controller {
             print_r($error);
         }else{
             $data = array('upload_data' => $this->upload->data());
-            echo $this->scrapbook->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
+            echo $this->asset->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
             redirect(base_url('Assets'));
         }
 	}

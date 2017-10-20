@@ -33,6 +33,7 @@
 				<input type="text" name="name" placeholder = "Title" required />
 				<input type="number" name="pages" placeholder = "Pages" min = "3" max = "999" required /><br />
 				<br />
+				<input type = "text" name = "description" placeholder = "description" /><br />
 				Size:<br />
 				<input type = "radio" name = "size" value = "512x768" required checked />512x768<br />
 				<input type = "radio" name = "size" value = "640x512" required />640x512<br />

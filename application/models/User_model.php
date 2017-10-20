@@ -10,7 +10,7 @@
 			foreach($query->result() as $row){
 				return array("Error" => "Username already taken");
 			}
-			$this->db->query("INSERT INTO users (username, name, password, dp) VALUES ('".$username."', '".$name."', '".$password."', 'default.png')");
+			$this->db->query("INSERT INTO users (username, name, password, dp, blocked) VALUES ('".$username."', '".$name."', '".$password."', 'default.png', 0)");
 			return array(
 				'username' => $username,
 				'name' => $name,
@@ -85,10 +85,12 @@
 
 		public function likeScrapbook($username, $scrapbook_id){
 			$this->db->query('INSERT INTO likes_scrapbooks (username, scrapbook_id) VALUES ("'.$username.'", "'.$scrapbook_id.'")');
+			return $this->db->query('SELECT * FROM likes_scrapbooks WHERE scrapbook_id = "'.$scrapbook_id.'"')->num_rows();
 		}
 
 		public function unlikeScrapbook($username, $scrapbook_id){
 			$this->db->query('DELETE FROM likes_scrapbooks WHERE username = "'.$username.'" AND scrapbook_id = "'.$scrapbook_id.'"');
+			return $this->db->query('SELECT * FROM likes_scrapbooks WHERE scrapbook_id = "'.$scrapbook_id.'"')->num_rows();
 		}
 
 		public function report($scrapbook_id, $reporter, $reason, $type){
