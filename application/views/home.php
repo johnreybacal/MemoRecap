@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row" >
-		<div class="container bg-overlay col-md-4" style="margin:3% 0% 3% 5%; width:350px; height:350px;">
-        <!-- CAROUSEL -->
+		<!--<div class="container bg-overlay col-md-4" style="margin:3% 0% 3% 5%; width:350px; height:350px;">
+         CAROUSEL 
         
 		<div id="carouselExampleIndicators" class="carousel slide" style="padding:25px 10px 0px 10px;" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -44,20 +44,20 @@
 				</a>
 			</div>
 		</div>
+		-->
 		
 		<div class="col-sm-6 col-md-6 container">
 			<img style="width:500px; height:150px; padding-left:25px;" src = "<?php echo base_url('css/images/TAYTEL.png'); ?>" alt=""/>
-						
-	
+			
+			
 		<div class="tagline-lower text-expanded text-shadow " style="margin-left:25%;">
 			<p style="font-size: 1em text-align:center;">&nbsp;Create. Share. Inspire.
 			<br />Unleash the Artist within.</p>
-			
-		</div><p class="tagline-lower text-expanded text-shadow " style="font-size:35px; text-align:center;">Start making your scrapbooks<br />right here!</p>
+		</div>	</div>
 		
 		
-	<div style="margin-left:30%;"><button id="myBtn" class="hedest landi"
-	style="font-size:3em;padding:0.5% 15% 0% 15%;
+	<div style="margin:1% 0% 1% 40%;"><button id="myBtn" class="hed landi"
+	style="font-size:3em;padding:10px 55px 10px 55px;
 	border-radius:15px;
 	background-color:#ffe6b3;
 	margin:auto;">
@@ -113,64 +113,26 @@
 		</div></div></div>
 	  
 	<!-- BAAAADEEEEEEHHH  -->
-	<div class="container bg p-4 my-4"> <!--style="background-color: rgba(236,161,166,0.5);"--> 
-	<!-- 3rd SECTION  -->
-	<br />
-			<div class = "container">
-				<br />
-				<br />
-				<h3 class="landi hedest text-center ">Create Your Own</h3><BR/>
-			<!-- 3.1 (!!!) -->
-			<div class=" p-4 my-4">
-			<div class="row">
-				<div class="col-md-4">
-				<img class="tilt tablet img-fluid mb-4 mb-lg-0" src = "<?php echo base_url('css/images/f1.jpg'); ?>" alt="" width="300" height="300"/>
-				</div>
-				<div class="col-md-8"><h6 class=" landi tilt hed"><strong >Just Drag 'n Drop!</strong></h6>
-					<p class="para1 ">You build up the conflict to a crisis point, where things just can't continue the way
-					they are. A decision has to be made or some thing has to change. This point is called the
-					story climax. If the story is a road map, this is the major fork in the road. The character
-					can turn left and wind up in Alabama with her ex-lover or turn right and end up back
-					in Illinois with her husband and kids.
-					</p>
-				</div>
-			</div>
-			</div>
-			<!-- 3.2 (!!!) -->
-			<div class=" p-4 my-4">
-			<div class="row">
-				<div class="col-md-8"><h6 class="landi tilt2 hed"><strong  >Access your Scrapbooks<br />anytime, anywhere</strong>
-				</h6>
-					<p class="para2">Farcical: Comedy based on improbable coincidences and with satirical elements,
-					punctuated at times with overwrought, frantic action. (It, like screwball comedy
-					— see below — shares many elements with a comedy of errors.) Movies and
-					plays featuring the Marx Brothers are epitomes of farce. The adjective also
-					refers to incidents or proceedings that seem too ridiculous to be true.
-					</p>
-				</div>
-				<div class="col-md-4">
-				<img class="img-fluid mb-4 mb-lg-0 tilt2 tablet2" src = "<?php echo base_url('css/images/f2.jpg'); ?>" alt="" width="300" height="300"/>
-				</div>
-			</div>
-			</div>	
-			<!-- 3.3 (!!!) -->
-			<div class=" p-4 my-4">
-				<div class="row">
-					<div class="col-md-4">
-					<img class="tilt tablet img-fluid mb-4 mb-lg-0" src = "<?php echo base_url('css/images/f3.jpg'); ?>" alt="" width="300" height="300"/>
-					</div>
-				<div class="col-md-8"><h6 class="landi tilt hed text-center"> <strong  >Share it to the world</strong></h6>
-					<p class="para3 ">Don't get too colorful with the dialogue tags. "Hello," she shouted;
-					"Hi there," he cried; "How are you?" she queried," "Fine thanks," he shrilled"...
-					too much of this stuff gets distracting fast. Put your thesaurus away. The basic
-					dialogue verbs "say," "tell," and "ask," have the advantage of fading in the back
-					ground, letting the reader focus on what your character is saying.
-					</p>
-				</div>
-				</div>
-			</div>
-			</div>
+	<div class=" "> <!--style="background-color: rgba(236,161,166,0.5);"--> 
 	
+			<div class=" p-4 my-4 section">
+			<h1 class="hedest landi">Create your own Scrapbooks in three easy steps</h1>
+		
+			<div class=" p-4 my-4">
+				
+			<div class="row">
+						<div class="col-md-4 ">
+							<img class="card-img-top" style="height:100%;" src = "<?php echo base_url('css/images/step1.png'); ?>" alt=""/>
+						</div>
+						<div class="col-md-4 ">
+							<img class="card-img-top" style="height:100%;" src = "<?php echo base_url('css/images/step2.png'); ?>" alt="">			
+						</div>
+						<div class="col-md-4">
+							<img class="card-img-top" style="height:100%;" src = "<?php echo base_url('css/images/step3.png'); ?>" alt="">
+						</div>
+					</div>
+			</div>
+	</div>
 		<!-- 1st SECTION  -->
 		
 			<br />
