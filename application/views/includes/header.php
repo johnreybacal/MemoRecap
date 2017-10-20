@@ -30,10 +30,25 @@
     <!-- styles (!!!) -->
     <link href="<?php echo base_url('css/memstyle.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('css/modal.css'); ?>" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="<?php echo base_url('css/w3.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('fonts/font-awesome.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('fonts/font-awesome.min.css'); ?>" rel="stylesheet">
+    
+   <style type="text/css">
+@font-face {
+    font-family: "Black Tear Script";
+    src: url(../fonts/Brody.ttf) format("truetype");
+    src: url(../fonts/Black.ttf) format("truetype");
+}
+p.customfont { 
+    font-family: "My Custom Font", Verdana, Tahoma;
+}
+</style>
 
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ -->
 
 
 </head>
