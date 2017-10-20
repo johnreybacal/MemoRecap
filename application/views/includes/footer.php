@@ -27,16 +27,16 @@
 				<a href="#" class="fa fa-pinterest" style="margin:5px;"> </a>
 				<a href="#" class="fa fa-tumblr" style="margin:5px;"> </a>
 				</div>
-				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T1.png'); ?>" alt=""> -->
-				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T2.png'); ?>" alt=""> -->
-				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T3.png'); ?>" alt=""> -->
+				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T1.png'); ?>" alt=""> 
+				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T2.png'); ?>" alt=""> 
+				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T3.png'); ?>" alt="">
 				<!-- <img class="img-fluid  smol" src = "<?php echo base_url('css/images/T4.png'); ?>" alt=""> -->
 			</div>
 		</div>
 		</div>
     </footer>
 	</div>
-	<br />
+	
     <!-- Bootstrap core JavaScript -->    
     <script src="<?php echo base_url('js/popper.min.js'); ?>"></script>
 	<script src="<?php echo base_url('js/bootstrap.min.js'); ?>"></script>
