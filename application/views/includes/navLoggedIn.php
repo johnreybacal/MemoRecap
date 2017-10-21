@@ -33,7 +33,7 @@
           <a class="hed landi2 nav-link text-uppercase text-expanded" href="<?php echo base_url('About'); ?>">About</a>
         </li>
         <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Profile')>-1)?'active':''; ?>">
-		<a class="nav-link text-expanded text-uppercase landi2 hed" href="<?php echo base_url('Profile'); ?>"><strong>Profile</strong></a>
+		<a class="nav-link text-expanded text-uppercase landi2 hed" href="<?php echo base_url('Profile/'.$profile['username']); ?>"><strong>Profile</strong></a>
         </li>
         <li class="nav-item">
           <a class="hed landi2 nav-link text-uppercase text-expanded" href="<?php echo base_url('Logout'); ?>">Logout</a>

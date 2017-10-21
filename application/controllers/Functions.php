@@ -77,17 +77,21 @@ class Functions extends CI_Controller {
 	}
 
 	public function uploadAsset(){
-        $config['upload_path'] = './uploaded_assets/'.$this->input->post('category');
-        $config['allowed_types'] = 'gif|jpeg|jpg|png';
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload('image')){//lol imposibleng mag-error 'to
-            $error = array('error' => $this->upload->display_errors());            
-            print_r($error);
-        }else{
-            $data = array('upload_data' => $this->upload->data());
-            echo $this->asset->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
-            redirect(base_url('Assets'));
-        }
+		if(isset($_FILES['image']) && !empty($_FILES['image'])){
+			if($_FILES['image']['error'] != 4){
+		        $config['upload_path'] = './uploaded_assets/'.$this->input->post('category');
+		        $config['allowed_types'] = 'gif|jpeg|jpg|png';
+		        $this->load->library('upload', $config);
+		        if (!$this->upload->do_upload('image')){//lol imposibleng mag-error 'to
+		            $error = array('error' => $this->upload->display_errors());            
+		            print_r($error);
+		        }else{
+		            $data = array('upload_data' => $this->upload->data());
+		            echo $this->asset->uploadAsset($data['upload_data']['file_name'], $this->input->post('category'), $this->input->post('privacy'));
+		            // redirect(base_url('Assets'));
+		        }
+		    }
+	    }
 	}
 
 	public function save(){		
@@ -103,14 +107,8 @@ class Functions extends CI_Controller {
 	}
 
 	public function delete($id){
-		$this->scrapbook->delete($id);
-		redirect(base_url('myScrapbooks'));
+		$this->scrapbook->delete($id);		
 	}
-
-
-
-
-
 
 }
 

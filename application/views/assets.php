@@ -9,7 +9,7 @@
 	
 	<div class="col-md-10 bg-overlay" style = " padding: 7px; overflow: auto; margin-left:10%; margin-right:10%; width: 90%; height:167px;  list-style: none;">
 		<?php foreach($user_images as $ui): ?>
-			<li style = "float: left;">
+			<li style = "float: left;" id = "user_images">
 				<div style = "width:150px;height:150px;border:solid thin black; margin: 3px;">
 					<img style = "width:150px;height:150px;" src = "<?php echo base_url('uploaded_assets/'.$ui['category'].$ui['file']); ?>" />
 				</div>
@@ -22,7 +22,7 @@
 <h2 class="landi hedest text-center ">Stickers</h2><br />
 	<div class="col-md-10 bg-overlay" style = " padding: 7px; overflow: auto; margin-left:10%; margin-right:10%; width: 90%; height:167px;  list-style: none;">
 		<?php foreach($stickers as $st): ?>
-			<li style = "float: left;">
+			<li style = "float: left;" id = "stickers">
 				<div style = "width:150px;height:150px;border:solid thin black; margin: 3px">
 					<img style = "width:150px;height:150px;" src = "<?php echo base_url('uploaded_assets/'.$st['category'].$st['file']); ?>" />
 				</div>
@@ -34,7 +34,7 @@
 <h2 class="landi hedest text-center ">Backgrounds</h2><br />
 	<div class="col-md-10 bg-overlay" style = " padding: 7px; overflow: auto; margin-left:10%; margin-right:10%; width: 90%; height:167px;  list-style: none;">
 		<?php foreach($backgrounds as $bg): ?>
-			<li style = "float: left;">
+			<li style = "float: left;" id = "backgrounds">
 				<div style = "width:150px;height:150px;border:solid thin black; margin: 3px">
 					<img style = "width:150px;height:150px;" src = "<?php echo base_url('uploaded_assets/'.$bg['category'].$bg['file']); ?>" />
 				</div>
@@ -46,7 +46,7 @@
 <h2 class="landi hedest text-center ">Shapes</h2><br />
 	<div class="col-md-10 bg-overlay" style = " padding: 7px; overflow: auto; margin-left:10%; margin-right:10%; width: 90%; height:167px;  list-style: none;">
 		<?php foreach($shapes as $sh): ?>
-			<li style = "float: left;">
+			<li style = "float: left;" id = "shapes">
 				<div style = "width:150px;height:150px;border:solid thin black; margin: 3px">
 					<img style = "width:150px;height:150px;" src = "<?php echo base_url('uploaded_assets/'.$sh['category'].$sh['file']); ?>" />
 				</div>
@@ -79,7 +79,7 @@
 				<span id = "uclose" class="close">&times;</span>
 				<h4>Sharing is caring</h4>
 			</div>
-			<form method= "POST" enctype= "multipart/form-data" action = "<?php echo base_url('uploadAsset'); ?>">
+			<form method= "POST" id = "uploadForm" enctype= "multipart/form-data" action = "<?php echo base_url('uploadAsset'); ?>">
 			<br/>
 			<center>
 			<div id = "imgHERE" style = "border:solid thin black; height:150px; width: 150px;"><img src = '' alt = "pick an image" style = "width: 100%; height: 100%" /></div>
@@ -125,14 +125,38 @@ uspan.onclick = function() {
 </script>
 <script>
 $(document).ready(function(){
-	$("#imageChooser").change(function(event){		
+	$("#imageChooser").change(function(event){						
+		// console.log($(this).val().toString().substring($(this).val().toString().lastIndexOf('\\') + 1));
 		var tgt = event.target || window.event.srcElement, files = tgt.files;		
 		var fr = new FileReader();
 		fr.onload = function(){
 			// $("#imgHERE").children().remove();
+			// alert(fr.result);
 			$("#imgHERE").children('img').attr('src', fr.result);
 		}
 		fr.readAsDataURL(files[0]);
+	});
+	$('#uploadForm').submit(function(evt){	
+		var cat = $('input[name="category"]:checked').val();
+		var val = $('#imageChooser').val().toString().substring($('#imageChooser').val().toString().lastIndexOf('\\') + 1);		
+		evt.preventDefault();
+		// alert(cat + val);
+		var url = $(this).attr('action');
+		var formData = new FormData($(this)[0]);
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data){
+				console.log('upload: ' + data);
+				$('#' + cat.substring(0, cat.length - 1)).append('<div style = "width:150px;height:150px;border:solid thin black; margin: 3px"><img style = "width:150px;height:150px;" src = "' + '<?php echo base_url('uploaded_assets/'); ?>' + cat + val + '" /></div>');
+			},
+			error: function(data){
+				console.log('upload: ' + data);
+			}
+		});
 	});
 });
 </script>

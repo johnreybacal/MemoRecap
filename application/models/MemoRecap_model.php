@@ -27,7 +27,7 @@
 
 		public function getLatestWorks(){			
 			$lw = [];
-			$query = $this->db->query("SELECT * FROM scrapbooks WHERE privacy = 'public' order by scrapbook_id DESC");
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE blocked = 0 privacy = 'public' order by scrapbook_id DESC");
 			foreach($query->result() as $row){
 				if($row->blocked == 0){
 					$lw[] = array(
@@ -49,7 +49,7 @@
 			$fw = [];			
 			$query = $this->db->query("SELECT scrapbook_id, COUNT(scrapbook_id) as frequency FROM likes_scrapbooks GROUP BY scrapbook_id ORDER BY frequency DESC");
 			foreach($query->result() as $x){
-				$query = $this->db->query('SELECT * FROM scrapbooks WHERE scrapbook_id = "'.$x->scrapbook_id.'" AND privacy = "public"');
+				$query = $this->db->query('SELECT * FROM scrapbooks WHERE scrapbook_id = "'.$x->scrapbook_id.'" AND privacy = "public" AND blocked = 0');
 				foreach($query->result() as $y){
 					if($y->blocked == 0){
 						$fw[] = array(
@@ -76,7 +76,7 @@
 			}
 			$ep = [];			
 			foreach($epick as $id){
-				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."' AND privacy = 'public'");
+				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$id."' AND privacy = 'public' AND blocked = 0");
 				foreach($query->result() as $row){
 					if($row->blocked == 0){
 						$ep[] = array(
@@ -117,7 +117,6 @@
 		public function togglePrivacy($table, $target, $value){
 			$this->db->query('UPDATE '.$table.' SET privacy = "'.$value.'" WHERE '.substr($table, 0, strlen($table) - 1).'_id = "'.$target.'"');
 		}
-
 
 	}
 

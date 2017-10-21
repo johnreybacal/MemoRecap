@@ -11,24 +11,42 @@ class MemoRecap extends CI_Controller {
 		redirect(base_url('Home'));
 	}
 
-	public function Login($method, $param = null){
+	public function Login(){
+		$this->loadHeader();
+		$this->loadNav();
+		$this->load->view('login');
+		$this->load->view('includes/footer');
+	}
+
+	public function loginAction(){
 		$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
-		$url = $method;
-		if(isset($param)){
-			$url .= '/'.$param;
+		if(!$this->session->has_userdata('Error')){
+			redirect(base_url('Home'));
+		}else{
+			redirect(base_url('Login'));
 		}
-		echo $url;
-		redirect(base_url($url));
+	}
+
+	public function Signup(){
+		$this->loadHeader();
+		$this->loadNav();
+		$this->load->view('signup');
+		$this->load->view('includes/footer');
 	}
 	
-	public function Signup(){
+	public function signupAction(){
 		$this->session->set_userdata($this->user->Signup($this->input->post('username'), $this->input->post('name'), $this->input->post('password')));
-		redirect(base_url('Home'));		
+		if(!$this->session->has_userdata('Error')){
+			redirect(base_url('Home'));
+		}else{
+			redirect(base_url('Signup'));
+		}
 	}
 
 	public function loadNav(){
 		if($this->session->userdata('logged_in')){
-			$this->load->view('includes/navLoggedIn');
+			$data['profile'] = $this->session->userdata();
+			$this->load->view('includes/navLoggedIn', $data);
 		}else{
 			$this->load->view('includes/nav');
 		}
@@ -106,9 +124,13 @@ class MemoRecap extends CI_Controller {
 	public function Profile($username){
 		$this->loadHeader();
 		$this->loadNav();
-		$this->load->view('includes/modal');		
+		$this->load->view('includes/modal');
 		$data['profile'] = $this->user->getProfile($username);
-		$this->load->view('profile', $data);
+		if($data['profile'] == 'No such user'){
+			echo '<h1>No such user</h1>';
+		}else{
+			$this->load->view('profile', $data);
+		}
 		$this->load->view('includes/footer');
 		// if($this->session->has_userdata('Error')){
 		// 	$data['Error'] = $this->session->userdata('Error');
@@ -191,7 +213,7 @@ class MemoRecap extends CI_Controller {
 			$data['title'] = 'MemoRecap';
 			if($this->scrapbook->loadJSON(0, $id, $this->session->userdata('username'))){
 				$data['assignAssets'] = $this->scrapbook->assignAssets();
-				$data['displayAssets'] = $this->scrapbook->displayAssets($this->session->userdata('username'));
+				$data['displayAssets'] = $this->asset->displayAssets($this->session->userdata('username'));
 				$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
 				$data['loadPagination'] = $this->scrapbook->loadPagination();
 				$data['loadZOrder'] = $this->scrapbook->loadZOrder();
@@ -217,6 +239,7 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('errors/MemoRecap_errors/four_zero_four');
 		$this->load->view('includes/footer');
 	}
+
 	
 }
 

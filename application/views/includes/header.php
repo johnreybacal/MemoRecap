@@ -14,12 +14,7 @@
   	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('css/images/logo_sana.ico'); ?>" />
     <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
 
-    <title>MemoRecap</title>
-    <?php
-        if(isset($Error)){
-            echo '<script>alert("'.$Error.'");</script>';
-        }
-    ?>
+    <title>MemoRecap</title>    
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
 
