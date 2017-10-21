@@ -240,6 +240,19 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('includes/footer');
 	}
 
+	public function Search(){
+		$this->loadHeader();
+		$this->loadNav();
+		if(null !== $this->input->get('search')){
+			$data['scrapbooks'] = $this->memorecap->searchScrapbooks(strtolower($this->input->get('search')), $this->session->userdata('username'));
+			$data['users'] = $this->memorecap->searchUsers(strtolower($this->input->get('search')));
+			$this->load->view('search', $data);
+		}else{
+			$this->load->view('search');
+		}
+		$this->load->view('Gallery/includes/script');	
+		$this->load->view('includes/footer');	
+	}
 	
 }
 
