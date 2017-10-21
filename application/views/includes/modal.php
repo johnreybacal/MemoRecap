@@ -3,7 +3,7 @@
 <!-- Modal -->
 
 
-	<button id="myBtn" class="hedest landi"
+	<!-- <a id="myBtn" class="hedest landi"
 	style="padding:0.5% 1% 0% 1%;
 	box-shadow: 10px 10px 15px #2e2e1f;
 	border-radius:15px;
@@ -14,11 +14,20 @@
 	position: fixed;z-index:1;
 	">
 	Create
-	</button>
+	</a> -->
+	<a href = "<?php echo base_url('Create'); ?>" class="hedest landi" style="padding:0.5% 1% 0% 1%;
+	box-shadow: 10px 10px 15px #2e2e1f;
+	border-radius:15px;
+	background-color:#ffe6b3;
+	float: right;
+	right: 25px;
+	bottom:25px;
+	position: fixed;z-index:1;
+	">Create</a>
 
-<div id="myModal" class="modal">
+<!-- <div id="myModal" class="modal">
 
-  <!-- Modal content -->
+  
   <div class="modal-content" style = "width: 30%;">
     <div class="modal-header" style="background-color:#ffe6b3;">
       <span id = "xclose" class="close">&times;</span>
@@ -61,7 +70,7 @@
   </div>
 
 </div> 
-
+ -->
 	
 
 	<!-- END OF MODALSHIT -->

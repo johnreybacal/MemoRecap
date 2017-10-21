@@ -1,44 +1,42 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-overlay  nav-row">
-<div class="container">
-	<a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none landi2 hed" href="<?php echo base_url('Home'); ?>">MemoRecap</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-	<ul class="navbar-nav mx-auto">
-        <li class="nav-item px-lg-4">
-            <a href="#" class="navbar-link">
-            <img class="smol" src="<?php echo base_url('css/images/logo_sana.png'); ?>"  alt="" ></a>
-        </li> 
-	<!-- <li class="nav-item px-lg-4">
-		<a href="#" class="navbar-link">
-		<img class="d-block img-fluid w-50" src="<?php echo base_url('css/images/TAYTEL.png'); ?>" alt="" ></a>
-	</li> -->
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Home')>-1)?'active':''; ?>">
-          <a class="hed landi2 nav-link text-uppercase text-expanded" href="<?php echo base_url('Home'); ?>">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-	<!-- <li class="nav-item px-lg-4">
-		<a class="hed nav-link text-uppercase text-expanded landi2 " href="">Create</a>
-        </li> -->
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Assets')>-1)?'active':''; ?>">
-    		<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Assets'); ?>">Box of Assets</a>
-        </li>
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'myScrapbooks')>-1)?'active':''; ?>">
-		<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('myScrapbooks'); ?>">My Scrapbooks</a>
-        </li>
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'About')>-1)?'active':''; ?>">
-          <a class="hed landi2 nav-link text-uppercase text-expanded" href="<?php echo base_url('About'); ?>">About</a>
-        </li>
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Profile')>-1)?'active':''; ?>">
-		<a class="nav-link text-expanded text-uppercase landi2 hed" href="<?php echo base_url('Profile/'.$profile['username']); ?>"><strong>Profile</strong></a>
-        </li>
-        <li class="nav-item">
-          <a class="hed landi2 nav-link text-uppercase text-expanded" href="<?php echo base_url('Logout'); ?>">Logout</a>
-        </li>        
-	</ul>
-    </div>
-</div>
-</nav>
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+    <div id="nav" class="w3-bar w3-theme-d2 w3-left-align">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);"    onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="<?php echo base_url('Home')?>" class="w3-bar-item w3-button <?php echo (strpos(uri_string(), 'Home')>-1)?'w3-red':''; ?>">MemoRecap<i class="fa fa-home w3-margin-left"></i></a>
+
+        <a href="<?php echo base_url('Logout')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Log Out</a>
+        <a href="<?php echo base_url('Profile/'.$profile['username'])?>" class="w3-bar-item w3-button w3-hide-small w3-right <?php echo (strpos(uri_string(), 'Profile')>-1)?'w3-red':''; ?>"><i class="fa fa-sign-in"></i> Profile</a>
+        <a href="<?php echo base_url('About')?>" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right <?php echo (strpos(uri_string(), 'About')>-1)?'w3-red':''; ?>">About</a>
+
+        <a href="<?php echo base_url('Scrapbooks')?>" class="w3-bar-item w3-button w3-hide-small w3-right <?php echo (strpos(uri_string(), 'Scrapbooks')>-1)?'w3-red':''; ?>"><i class="fa fa-envelope"></i> Scrapbooks</a>
+        
+        <a href="<?php echo base_url('Search')?>" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal <?php echo (strpos(uri_string(), 'Search')>-1)?'w3-red':''; ?>" title="Search"><i class="fa fa-search"></i></a>
+  </div>
+ 
+ 
+ </div>
+ 
+
+  <!-- Navbar on small screens -->
+  <div id="nav" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+    <a href="<?php echo base_url('Logout')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Log Out</a>
+    <a href="<?php echo base_url('Profile/'.$profile['username'])?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Profile</a>
+    <a href="#about" class="w3-bar-item w3-button">About</a>
+   
+   
+    <a href="#" class="w3-bar-item w3-button">Search</a>
+  </div>
+
+<script type="text/javascript">
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+
+</script>

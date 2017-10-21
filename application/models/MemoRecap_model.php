@@ -25,9 +25,9 @@
 			return $scrapbooks;
 		}
 
-		public function getLatestWorks(){			
+		public function getLatestWorks($limit = null){			
 			$lw = [];
-			$query = $this->db->query("SELECT * FROM scrapbooks WHERE blocked = 0 privacy = 'public' order by scrapbook_id DESC");
+			$query = $this->db->query("SELECT * FROM scrapbooks WHERE blocked = 0 AND privacy = 'public' order by scrapbook_id DESC ".$limit);
 			foreach($query->result() as $row){
 				if($row->blocked == 0){
 					$lw[] = array(
@@ -45,9 +45,9 @@
 			return $lw;
 		}
 
-		public function getFeaturedWorks(){
+		public function getFeaturedWorks($limit = null){
 			$fw = [];			
-			$query = $this->db->query("SELECT scrapbook_id, COUNT(scrapbook_id) as frequency FROM likes_scrapbooks GROUP BY scrapbook_id ORDER BY frequency DESC");
+			$query = $this->db->query("SELECT scrapbook_id, COUNT(scrapbook_id) as frequency FROM likes_scrapbooks GROUP BY scrapbook_id ORDER BY frequency DESC ".$limit);
 			foreach($query->result() as $x){
 				$query = $this->db->query('SELECT * FROM scrapbooks WHERE scrapbook_id = "'.$x->scrapbook_id.'" AND privacy = "public" AND blocked = 0');
 				foreach($query->result() as $y){
@@ -68,8 +68,8 @@
 			return $fw;
 		}
 
-		public function getEditorsPick(){
-			$query = $this->db->query('SELECT * FROM editors_pick');
+		public function getEditorsPick($limit = null){
+			$query = $this->db->query('SELECT * FROM editors_pick '.$limit);
 			$epick = [];
 			foreach($query->result() as $row){
 				$epick[] = $row->scrapbook_id;

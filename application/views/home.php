@@ -1,166 +1,199 @@
-
-
-
-
-	<img class="d-block img-fluid w-50 titel" src = "<?php echo base_url('css/images/TAYTEL.png'); ?>" alt="" >
-    <div class="tagline-lower text-center text-expanded text-shadow ">
-		<p style="font-size: 25px">Create. Share. Inspire.
-		<br />Unleash the Artist within.</p>
-	</div>
-    <div class="container">
-		<div class="bg-overlay p-4 my-4">
-        <!-- CAROUSEL -->
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-			</ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-				<img class="d-block img-fluid w-100" src = "<?php echo base_url('css/images/slider1.jpg'); ?>" alt="">
-				<div class="carousel-caption d-none d-md-block">
-					<h3 class="text-shadow">Keeping up</h3>
-					<p class="text-shadow">with every season.</p>
-				</div>
+<div class="bgimg-1 w3-display-container w3-opacity-min" >
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <!-- <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Memo <span class="w3-hide-small">Recap</span> </span> -->
+    <!--style="background-color: rgba(236,161,166,0.5);"--> 
+      <h1 class="hedest landi">Create your own Scrapbooks in three easy steps</h1>
+    
+      <div class=" p-4 my-4">
+        
+      <div class="row">
+            <div class="col-md-4 ">
+              <img class="card-img-top" style="width: :100%;" src = "<?php echo base_url('css/images/1.png'); ?>" alt=""/>
             </div>
-            <div class="carousel-item">
-				<img class="d-block img-fluid w-100" src = "<?php echo base_url('css/images/slider2.jpg'); ?>" alt="">
-				<div class="carousel-caption d-none d-md-block">
-					<h3 class="text-shadow">Have fun</h3>
-					<p class="text-shadow">customizing stuff.</p>
-				</div>
+            <div class="col-md-4 ">
+              <img class="card-img-top" style="height:100%;" src = "<?php echo base_url('css/images/2.png'); ?>" alt="">      
             </div>
-            <div class="carousel-item">
-				<img class="d-block img-fluid w-100" src = "<?php echo base_url('css/images/slider3.jpg'); ?>" alt="">
-				<div class="carousel-caption d-none d-md-block">
-					<h3 class="text-shadow">Digital</h3>
-					<p class="text-shadow">basic, chill, easy.</p>
-				</div>
+            <div class="col-md-4">
+              <img class="card-img-top" style="height:100%;" src = "<?php echo base_url('css/images/3.png'); ?>" alt="">
             </div>
-			</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-			</div>
-		
-		
-	  
-	<!-- BAAAADEEEEEEHHH  -->
-		<!-- 1st SECTION  -->
-		<div class="container bg p-4 my-4">
-			<br />
-	  		<div class=" container bg-faded p-4 my-4">
-				<br />
-				<h2 class="landi hedest text-center ">Come and Visit Our Galleries </h2>
-					<div class="pic row">
-						<div class="col-md-4 mb-4 mb-md-0">
-							<img class="card-img-top" src = "<?php echo base_url('css/images/ep1.jpg'); ?>" alt=""/>
-						</div>
-						<div class="col-md-4 mb-4 mb-md-0">
-							<img class="card-img-top" src = "<?php echo base_url('css/images/ep2.jpg'); ?>" alt="">			
-						</div>
-						<div class="col-md-4">
-							<img class="card-img-top" src = "<?php echo base_url('css/images/ep3.jpg'); ?>" alt="">
-						</div>
-					</div>
-					<div  >
-	  					<div >
-							<div>
-								<a class="nav-link float-right VM landi" href="<?php echo base_url('Scrapbooks/Editors_Pick'); ?>">
-									<p>View More...</p>
-								</a>
-							</div>
-				  			<div>
-								<h6 class=" landi hed float-left EPFW" href="">Editor's Picks</h6>
-							</div>
-				  		</div>
-					</div>
-			</div>
-			<!-- 2nd SECTION  -->
-	  		<div class="bg-faded p-4 my-4">
-	  			<table >
-					<br />
-					<h2 class="landi hedest text-center ">Check Out<br />What Your Friends Made </h2>
-        			<div class="pic row">
-						<div class="col-md-4 mb-3 mb-md-0"> <img class="card-img-top" src = "<?php echo base_url('css/images/FW1.jpg'); ?>" alt=""> </div>
-						<div class="col-md-4 mb-3 mb-md-0"> <img class="card-img-top" src = "<?php echo base_url('css/images/FW2.jpg'); ?>" alt=""> </div>
-						<div class="col-md-4 mb-3 mb-md-0"> <img class="card-img-top" src = "<?php echo base_url('css/images/FW3.jpg'); ?>" alt=""> </div>
-					</div>
-					<div  >
-				  		<div >
-				  			<div>
-								<h6 class=" landi hed float-left EPFW" href="">Featured Works</h6>
-							</div>
-				  			<div>
-								<a class="nav-link float-right VM landi" href="<?php echo base_url('Scrapbooks/Featured_Works'); ?>">
-									<p>View More...</p>
-								</a>
-							</div>
-				  		</div>
-					</div>
-	  			</table>
-	  		</div>
-			<!-- 3rd SECTION  -->
-			<div class = "container">
-				<br />
-				<br />
-				<h3 class="landi hedest text-center ">Create Your Own</h3><BR/>
-			<!-- 3.1 (!!!) -->
-			<div class=" p-4 my-4">
-			<div class="row">
-				<div class="col-md-4">
-				<img class="tilt tablet img-fluid mb-4 mb-lg-0" src = "<?php echo base_url('css/images/f1.jpg'); ?>" alt="" width="300" height="300"/>
-				</div>
-				<div class="col-md-8"><h6 class=" landi tilt hed"><strong >Just Drag 'n Drop!</strong></h6>
-					<p class="para1 ">You build up the conflict to a crisis point, where things just can't continue the way
-					they are. A decision has to be made or some thing has to change. This point is called the
-					story climax. If the story is a road map, this is the major fork in the road. The character
-					can turn left and wind up in Alabama with her ex-lover or turn right and end up back
-					in Illinois with her husband and kids.
-					</p>
-				</div>
-			</div>
-			</div>
-			<!-- 3.2 (!!!) -->
-			<div class=" p-4 my-4">
-			<div class="row">
-				<div class="col-md-8"><h6 class="landi tilt2 hed"><strong  >Access your Scrapbooks<br />anytime, anywhere</strong>
-				</h6>
-					<p class="para2">Farcical: Comedy based on improbable coincidences and with satirical elements,
-					punctuated at times with overwrought, frantic action. (It, like screwball comedy
-					— see below — shares many elements with a comedy of errors.) Movies and
-					plays featuring the Marx Brothers are epitomes of farce. The adjective also
-					refers to incidents or proceedings that seem too ridiculous to be true.
-					</p>
-				</div>
-				<div class="col-md-4">
-				<img class="img-fluid mb-4 mb-lg-0 tilt2 tablet2" src = "<?php echo base_url('css/images/f2.jpg'); ?>" alt="" width="300" height="300"/>
-				</div>
-			</div>
-			</div>	
-			<!-- 3.3 (!!!) -->
-			<div class=" p-4 my-4">
-				<div class="row">
-					<div class="col-md-4">
-					<img class="tilt tablet img-fluid mb-4 mb-lg-0" src = "<?php echo base_url('css/images/f3.jpg'); ?>" alt="" width="300" height="300"/>
-					</div>
-				<div class="col-md-8"><h6 class="landi tilt hed text-center"> <strong  >Share it to the world</strong></h6>
-					<p class="para3 ">Don't get too colorful with the dialogue tags. "Hello," she shouted;
-					"Hi there," he cried; "How are you?" she queried," "Fine thanks," he shrilled"...
-					too much of this stuff gets distracting fast. Put your thesaurus away. The basic
-					dialogue verbs "say," "tell," and "ask," have the advantage of fading in the back
-					ground, letting the reader focus on what your character is saying.
-					</p>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
+          </div>
+      </div>
+  
+    <!-- 1st SECTION  -->
     </div>
+  </div>
+</div>
+<div class="container" style="margin-top: 100px;">
+    <div class="row" >		
+		<div class="col-sm-6 col-md-6 container">
+		
+		<div class="tagline-lower text-expanded text-shadow " style="margin-left:25%;">
+			<p  style="font-size: 1em text-align:center;">&nbsp;Create. Share. Inspire.
+			<br />Unleash the Artist within.</p>
+		</div>	</div>
+		
+		
+	<div style="margin:1% 0% 1% 40%;"><button id="myBtn" class="hed landi"
+	style="font-size:3em;padding:10px 55px 10px 55px;
+	border-radius:15px;
+	background-color:#ffe6b3;
+	margin:auto;">
+	Create
+	</button></div>
+</div> 
+
+	
+		</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" style = "width: 30%;">
+    <div class="modal-header" style="background-color:#ffe6b3;">
+      <span id = "xclose" class="close">&times;</span>
+      <center>
+	      <h2 class="hed" style="color: #705239;">Enter Scrapbook Details</h2>
+	  </center>
+    </div>
+    <div class="modal-body">
+    	<center>
+		    <form action = "<?php echo base_url('editor/new'); ?>" method = "POST">
+				<br />
+				<input type="text" name="name" placeholder = "Title" required />
+				<input type="number" name="pages" placeholder = "Pages" min = "3" max = "999" required /><br />
+				<br />
+				Size:<br />
+				<input type = "radio" name = "size" value = "512x768" required checked />512x768<br />
+				<input type = "radio" name = "size" value = "640x512" required />640x512<br />
+				<input type = "radio" name = "size" value = "512x512" required />512x512<br />
+				<input type = "radio" name = "size" value = "640x768" required />640x768<br />
+				<br />
+				Privacy:<br />
+				<input type = "radio" name = "privacy" value = "private" required />Private<br />
+				<input type = "radio" name = "privacy" value = "public" required />Public<br />
+				<?php
+					if($logged_in){
+						echo '<input type="submit" name="create" value = "Create" />';
+					}else{
+						echo '<p style="color: #cc0000;">Please login first</p>';
+					}
+				?>
+			</form>      
+		</center>
+    </div>
+    <div class="modal-footer" style="background-color:#ffe6b3;">
+    	<center>
+		    <h4 class="hed" style="color: #705239;">Let your creativity do the rest</h4>
+		</center>
+    </div>
+  </div>
+</div>
+
+
+<div class="bgimg-2 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+    <span class="w3-xxlarge w3-text-white w3-wide">Scrapbooks</span>
+  </div>
+</div>
+
+    <!-- might use w3-margin-bottom na class -->
+    <div class="w3-row-padding w3-center">
+      <h1>Recent</h1>
+      <div class="w3-col m4">
+        <img src = "<?php echo base_url('css/images/ep1.jpg'); ?>" style="width:80%" onclick="onClick(this)" class="pointer w3-round-xlarge w3-margin-bottom" alt="The mist over the mountains">
+        <div class="w3-container">
+        <h4><b>Title</b></h4>
+        <a href="#"><h6>Owner</h6></a>
+          <div class="row">
+            <div class="w3-col m6" style="float: left;">          
+              <p>
+            32&nbsp;<span class="glyphicon glyphicon-heart" style="margin: 0 30px 0 0;"></span>
+            31&nbsp;<span class= "glyphicon glyphicon-eye-open"></span>
+            </p>
+            </div>
+          </div>
+          <div>
+            <h5>Description</h5>
+          </div>
+        </div>
+      </div>
+<!-- end of 1st -->
+      <div class="w3-col m4">
+        <img src = "<?php echo base_url('css/images/f1.jpg'); ?>" style="width:80%" onclick="onClick(this)" class="pointer w3-round-xlarge w3-margin-bottom" alt="The mist over the mountains">
+        <div class="w3-container">
+        <h4><b>Title</b></h4>
+       <a href="#"><h6>Owner</h6></a>
+          <div class="row">
+            <div class="w3-col m6" style="float: left;">          
+              <p>
+            32&nbsp;<span class="glyphicon glyphicon-heart" style="margin: 0 30px 0 0;"></span>
+            31&nbsp;<span class= "glyphicon glyphicon-eye-open"></span>
+            </p>
+            </div>
+          </div>
+          <div>
+            <h5>Description</h5>
+          </div>
+        </div>
+      </div>
+<!-- end of 2nd -->
+      <div class="w3-col m4">
+        <img src = "<?php echo base_url('css/images/feps.jpg'); ?>" style="width:80%" onclick="onClick(this)" class="pointer w3-round-xlarge w3-margin-bottom" alt="The mist over the mountains">
+        <div class="w3-container">
+        <h4><b>Title</b></h4>
+        <a href="#"><h6>Owner</h6></a>
+          <div class="row">
+            <div class="w3-col m6" style="float: left;">          
+              <p>
+            32&nbsp;<span class="glyphicon glyphicon-heart" style="margin: 0 30px 0 0;"></span>
+            31&nbsp;<span class= "glyphicon glyphicon-eye-open"></span>
+            </p>
+            </div>
+          </div>
+          <div>
+            <h5>Description</h5>
+          </div>
+        </div>
+      </div>
+      <!-- end of 3rd -->
+      <h3 style="float: right;">Log in to See More</h3>
+   </div>
+
+   <div class="bgimg-3 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+    <span class="w3-xxlarge w3-text-white w3-wide">About Us</span>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal " onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" style="margin-top: 60px;" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-opacity w3-display-right w3-transparent ">
+    <img id="img01" class="w3-round-xlarge w3-image" style="width: auto;">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+  <div style="position:relative;">
+    <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+      <p><h1> MemoRecap</h1> (Memory Recaptured) is a website where users can freely mess around with their photos and recreate something refreshing; where they can express their artistic side and bring art justice to the sceneries or persons they have captured with their camera lense; where they can easily revisit their memories in a unique way. Remember, Redesign, Recapture.</p>
+    </div>
+  </div>
+<div class="bgimg-4 w3-display-container w3-opacity-min">
+  <div class="w3-display-middle">
+    <span class="w3-xxlarge w3-text-white w3-wide">About Us</span>
+  </div>
+</div>
+  
+<script type="text/javascript">
+	function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>

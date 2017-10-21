@@ -7,43 +7,53 @@
 	    <input type="password" id="inputPassword" name = "password" class="form-control" placeholder="Password" required>    
 	    <input style="background-color:#e4b4b4; width:100%;" name = "submit" type="submit" value = "Sign in"></input>
 	</form> -->
-
-
-<div class="container" style="margin-top: 5%;">
+	<style type="text/css">
+		body{
+			background-image: url ("<?php echo base_url('css/images/TAYTEL.png'); ?>");
+		}
+	</style>
+ <div class="container"  style="height: 700px;">
 	<div class="row">
-		<div class="col-md-3"></div>
 		<div class="col-md-8">
+				<div class="col-md-10 ">
+					<img style="width:100%; height:auto; margin:7% 0 0 0;" src = "<?php echo base_url('css/images/TAYTEL.png'); ?>" alt=""/>
+				</div>
+		</div>
+		<div class="col-md-4" style="float:right; margin:7% 0 0 0;">
 			<fieldset>
-				<p><h1> Log In</h1></p>
+				<p><h1> Login</h1></p>
 				<form class="form-horizontal" role="form" method="POST" action="<?php echo base_url('loginAction/'); ?>">
 				 
 				  <div class="form-group">
-				    <label for="name" class="col-sm-2 control-label">Userame</label>
-				    <div class="col-sm-5">
+				    <label for="name" class="col-md-1 control-label">Userame</label>
+				    <div class="col-md-12">
 				      <input type="text" class="form-control" name="username" placeholder="Username" required="">
 				    </div>
 				  </div>
 
 				  <div class="form-group">
-				    <label for="name" class="col-sm-2 control-label">Password</label>
-				    <div class="col-sm-5">
+				    <label for="name" class="col-md-1 control-label">Password</label>
+				    <div class="col-md-12">
 				      <input type="password" class="form-control" name="password" placeholder="Password" required="">
 				    </div>
 				  </div>
 
-				  <div class="form-group">
-				    <div class="col-sm-10 col-sm-offset-2">
-				      <input name="create" type="submit" value="Log In" class="btn btn-primary">
+				  <div class="form-group" style="float: right;">
+				    <div class="col-md-12 " >
+				      <input id="submit" name="submit" type="submit" value="Login" class="btn btn-primary">
 				    </div>
 				  </div>
+				  <div class="form-group">
+				    <div class="col-md-12 " >
+				    <?php
+				        if(isset($Error)){
+				            echo '<h3>'.$Error.'</h3>';
+				        }
+				    ?>
+					</div>
+				</div>					
 				</form>
-				<?php
-			        if(isset($Error)){
-			            echo '<h3>'.$Error.'</h3>';
-			        }
-			    ?>
 			</fieldset>
 		</div>
-		<div class="col-md-3"></div>
 	</div>
 </div>
