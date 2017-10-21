@@ -6,14 +6,20 @@
 
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
-  background: url('images/WALLPAPER.jpg') no-repeat center center fixed; 
-  /*background: url('images/qaqo.jpg') no-repeat center center fixed; */
-  -webkit-background-size: cover;
+  background: url('images/bg.jpg') ;
+  /* background: #17BCD2; */
+  /*-webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   background-attachment: fixed;
   -o-background-size: cover;
-}
+*/}
+
+/* body, */
+/* html { */
+  /* background-color: #ffddcc; */
+  /* padding: 0; */
+/* } */
 
 h1, h2, h3, h4, h5, h6, .text-heading {
   font-family: "Blacktear Script", cursive, sans-serif;
@@ -78,14 +84,14 @@ p {
 }
 
 .landi2{
-  color: #f3ebc3;
-    text-shadow: 0 0 25px white;
+  color: #000000;
+    text-shadow: 0 0 25px #cc9966;
 }
 
 .para1 { margin-left:10px; margin-right: 80px; margin-top:30px; text-align: right;} 
 .para2 { margin-left: 80px; margin-right: 10px; margin-top:30px;} 
 .para3{ margin-left:10px; margin-right: 80px; margin-top:30px; margin-bottom:70px; text-align: right;}
-.parabout{margin-left: 80px; text-align: justify;}
+.parabout{text-align: justify;}
 .parabooks{margin-left: 90px; margin-right: 80px; text-align: justify;}
 
 .userstuff{
@@ -111,6 +117,12 @@ img{
   
 }
 
+.smolbout{
+  height:75px;
+  width:75px;
+  
+}
+
 .login{
   font-size:1.5rem;
   padding-top: 15px;
@@ -118,10 +130,10 @@ img{
 }
 
 .titel{
-  margin: auto;
+	display:block;
+  margin:auto;
   height:60%;
   width: 10%;
-    padding: 0px 100px 0px 100px;
 }
 
 .tinytitel{
@@ -162,8 +174,8 @@ img{
 
 .bg {
   
-  background: url('images/HERE.png') no-repeat center center;
-  background-size: 120% 105%;
+  background: url('images/pagod.png') no-repeat center center;
+  
 }
 
 .bgsmol {
@@ -192,8 +204,21 @@ img{
   }
 }
 
+@media (min-width: 576px){
+  .bg{
+    background-size: cover;
+    background-size: 120% 170%;
+  }
+}
+@media (min-width: 150%){
+  .bg{
+    background: url('images/peach.jpg') no-repeat center;
+    
+  }
+}
+
 .bg-overlay {
-  background-color: rgba(35, 1, 10, 0.5);
+ background-color: rgba(0, 51, 41, 0.65);
 }
 
 .boutbox {
@@ -407,11 +432,7 @@ img {
   padding-top: 48.7%;
 }
 /* BEAUTY */
-body,
-html {
-  background-color: #fff;
-  padding: 0;
-}
+
 .wrapper .column .inner {
   background-size: cover;
   background-position: center;
