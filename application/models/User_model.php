@@ -24,6 +24,9 @@
 			$ok = false;
 			$session_data = [];
 			foreach($query->result() as $row){
+				if($row->blocked == 1){
+					return array("Error" => "This user is blocked");
+				}
 				$session_data = array(
 					'username' => $row->username,
 					'name' => $row->name,
@@ -81,6 +84,7 @@
 					'blocked' => $row->blocked
 				);
 			}
+			return 'No such user';
 		}
 
 		public function likeScrapbook($username, $scrapbook_id){

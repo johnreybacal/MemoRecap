@@ -14,14 +14,14 @@
 					'username' => $row->username,
 					'name' => $row->name,
 					'dp' => $row->dp,
-					'logged_in' => 1
+					'admin' => true
 				);
 				$ok = true;
 			}
 			if($ok){
 				return $session_data;
 			}else{
-				return array("Error" => "Invalid username or password", 'logged_in' => 0);
+				return array("Error" => "Invalid username or password", 'admin' => false);
 			}
 		}
 
@@ -121,6 +121,38 @@
 
 		public function addAdmin($username, $name, $password){
 			$this->db->query("INSERT INTO admins (username, name, password, dp) VALUES ('".$username."', '".$name."', '".$password."', 'default.png')");
+		}
+
+		public function editAdmin($username, $name, $newpass, $password){
+			$query = $this->db->query("SELECT * FROM admins WHERE username = '".$username."' AND password = '".$password."'");
+			$ok = false;
+			$dp = '';
+			foreach($query->result() as $row){
+				if(!isset($name)){
+					$name = $row->name;
+				}
+				if(!isset($newpass)){
+					$newpass = $row->password;	
+				}
+				$dp = $row->dp;				
+				$ok = true;
+			}
+			if(!$ok){
+				return array("Error" => "Incorrect password");
+			}else{
+				$this->db->query("UPDATE admins SET name = '".$name."', password = '".$newpass."' WHERE username = '".$username."'");
+				return array(
+					'username' => $username,
+					'name' => $name,
+					'dp' => $dp,
+					'admin' => true
+				);
+			}	
+		}
+
+		public function changeDP($username, $dp){
+			$this->db->query("UPDATE users SET dp = '".$dp."' WHERE username = '".$username."'");
+			return array('dp' => $dp);
 		}
 
 

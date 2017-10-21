@@ -32,40 +32,20 @@
         <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'About')>-1)?'active':''; ?>">
 			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('About'); ?>">About</a>
         </li>
-		<li class="dropdown">
-			<a class="dropdown-toggle nav-link text-expanded text-uppercase landi2 login" data-toggle="dropdown"><strong>Log In<span class="caret"></span></strong></a>
-			<!--login-->
-				<ul class="dropdown-menu" style="padding:10px 10px 10px 10px; width:150px;">
-	<li>			
-	<form class="form-signin" method = "POST" action = "<?php echo base_url('Login/'.uri_string()); ?>">
-	    <label for="inputEmail" class="sr-only">Username</label>
-	    <input type="text" id="inputEmail" name = "username" class="form-control" placeholder="Username" required>
-	    <label for="inputPassword" class="sr-only">Password</label>
-	    <input type="password" id="inputPassword" name = "password" class="form-control" placeholder="Password" required>    
-	    <input style="background-color:#e4b4b4;" name = "submit" type="submit" value = "Sign in"></input>
-	</form>
-	<button id="SignLink" style="font-size:15px; text-align: center;">Sign Up</button>
-	</li>
-</ul>
-<div id="SignModal" class="modal">
-<div class="container" style="width: 500px;">
-  <div class="modal-content">
-  <div class="modal-header" style="background-color:#ffe6b3;">
-    <span class="close" id = "sclose">&times;</span>
-	</div>
-    <form action = "<?php echo base_url('Signup/'); ?>" method = "POST">
-		<br /><center>
-		<input type="text" name="username" placeholder = "Username" required /><br /><br />
-		<input type="text" name="name" placeholder = "Name" required /><br /><br />
-		<input type="password" name="password" placeholder = "Password" required /><br /><br />
-		</center>
-		<div class="modal-footer" style="background-color:#ffe6b3;">
-		<input type="submit" name="create" value = "Submit" />
-		</div>
-	</form>  
-  </li>
+		<li class="nav-item px-lg-4">
+			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Login'); ?>">
+				Login
+				<span class="sr-only">(current)</span>
+			</a>
+        </li>
+        <li class="nav-item px-lg-4">
+			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Signup'); ?>">
+				Signup
+				<span class="sr-only">(current)</span>
+			</a>
+        </li>
 		</ul>
-		</li>
+		
 	</div>
 	</div>
 </nav>

@@ -206,7 +206,7 @@
 
 		//D
 		public function delete($id){
-			$this->db->query("DELETE FROM scrapbooks WHERE scrapbook_id='".$id."'");
+			$this->db->query("DELETE FROM scrapbooks WHERE scrapbook_id = '".$id."'");
 		}
 		//End of CRUD
 

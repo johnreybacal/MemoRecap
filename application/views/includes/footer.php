@@ -50,9 +50,11 @@ document.getElementById("xclose").addEventListener("click", function(){
     modal.style.display = "none";
 });
 window.onclick = function(event) {
-    if(event.target == modal) {
-        modal.style.display = "none";
-    }
+    if(typeof modal !== 'undefined'){
+	    if(event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
     if(typeof umodal !== 'undefined'){
     	if(event.target == umodal) {
 	        umodal.style.display = "none";
@@ -76,6 +78,11 @@ window.onclick = function(event) {
 	if(typeof document.getElementById('editDescModal') !== 'undefined'){
     	if (event.target == document.getElementById('editDescModal')) {
 			document.getElementById('editDescModal').style.display = "none";
+		}
+	}
+	if(typeof document.getElementById('deleteModal') !== 'undefined'){
+    	if (event.target == document.getElementById('deleteModal')) {
+			document.getElementById('deleteModal').style.display = "none";
 		}
 	}
 }
