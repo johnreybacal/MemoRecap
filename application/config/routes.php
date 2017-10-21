@@ -65,6 +65,7 @@ $route['Login'] = 'MemoRecap/Login';
 $route['loginAction'] = 'MemoRecap/loginAction';
 $route['Signup'] = 'MemoRecap/Signup';
 $route['signupAction'] = 'MemoRecap/signupAction';
+$route['Search'] = 'MemoRecap/Search';
 $route['Assets'] = 'MemoRecap/Assets';
 $route['About'] = 'MemoRecap/About';
 $route['Profile/(:any)'] = 'MemoRecap/Profile/$1';
