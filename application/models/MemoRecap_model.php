@@ -118,6 +118,33 @@
 			$this->db->query('UPDATE '.$table.' SET privacy = "'.$value.'" WHERE '.substr($table, 0, strlen($table) - 1).'_id = "'.$target.'"');
 		}
 
+		public function searchScrapbooks($search, $username = null){
+			$scrapbooks = [];
+			$query = $this->db->query('SELECT * FROM scrapbooks WHERE (LOWER(username) LIKE "%'.$search.'%" OR LOWER(name) LIKE "%'.$search.'%" OR LOWER(description) LIKE "%'.$search.'%") AND (privacy = "public" OR username = "'.$username.'")');
+			foreach($query->result() as $x){
+				$query = $this->db->query("SELECT * FROM scrapbooks WHERE scrapbook_id = '".$x->scrapbook_id."'");
+				foreach($query->result() as $y){
+					if($y->blocked == 0){
+						$scrapbooks[] = array(
+							'scrapbook_id' => $y->scrapbook_id,
+							'first_page' => $y->first_page,
+							'username' => $y->username,
+							'name' => $y->name,
+							'like' => $this->checkLike($y->scrapbook_id),
+							'view_counter' => $y->view_counter,
+							'likes' => $this->getNumberOfLikes($y->scrapbook_id),
+							'description' => $y->description
+						);					
+					}
+				}
+			}
+			return $scrapbooks;
+		}
+
+		public function searchUsers($search){			
+			return $this->db->query('SELECT dp, name, username FROM users WHERE (LOWER(username) LIKE "%'.$search.'%" OR LOWER(name) LIKE "%'.$search.'%")')->result();
+		}
+
 	}
 
 ?>
