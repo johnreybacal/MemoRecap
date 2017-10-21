@@ -5,7 +5,10 @@ body{
 	display: inline;
 }
 #assets{
-	/*width: 13vw; */ height: auto; list-style: none; border: solid blue; overflow: auto;
+	/*width: 13vw; */ height: 65vh; list-style: none; border: solid white; overflow: auto; padding: 0px 35px;
+}
+#bac{
+	 height: 30vh; list-style: none; border: thick white; overflow: auto; padding: 0px 35px;
 }
 .asset-picker{
 	display: inline-block; list-style: none; margin: 0; padding: 0;/*width: auto; height: auto;*/
@@ -32,22 +35,22 @@ body{
 	background: #fdc; overflow: hidden; /*position: relative;*/
 }
 #z-order-container{
-	border: solid thin black; height: auto; width: auto; overflow: auto; background-color: #aaa;
+	border: solid thin black; height: 70vh; width: auto; overflow: auto; background-color: #aaa;
 }
 #asset-attribute{
 	border: solid thin black; height: auto; width: auto; background-color: #aaa;
 }
 #page-attribute{
-	border: solid thin black; height: auto; width: auto; background-color: #aaa;
+	border: solid thin black; height: 22vh; width: auto; background-color: #aaa;
 }
 #pagination-container{
-	width: 100%; height: auto; border:solid thin white; display: inline-block;
+	width: 100%; height: auto; border:solid thin white; display: inline-block; margin: auto 0px;
 }
 #pagination{
 	width: 100%; height: auto; overflow-y: hidden; overflow-x:auto;
 }
 #pagination li{
-	border: solid thin white; padding: 8px; margin: 2px 2px; display: inline-block;
+	border: solid thin white; padding: 8px; margin: 0px 2px; display: inline-block;
 }
 .pages{
 	height: 100%; width: 100%; overflow: hidden;
@@ -73,11 +76,6 @@ body{
 }
 .clear{
 	
-}
-
-#nav-tabs{
-        width: 55px;
-        height: 35px;
 }
 
 #nav-tabs li
@@ -111,7 +109,9 @@ body{
         color: #fff;
         background: #FFF;
 }
-
+span{
+	width: 23px;
+}
 
 
 #style-1::-webkit-scrollbar-track
