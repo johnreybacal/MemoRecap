@@ -151,9 +151,14 @@ $(document).ready(function(){
 
 	$('#changeBG').click(function(){		
 		$('#p-' + currentPage).css({'background': hexToRgb($('#bgc').val())});
-		// $('#p-' + currentPage).css({'background':'rgb('+$('#R').val()+', '+$('#G').val()+', '+$('#B').val()+')'});
 		$('#p-' + currentPage).attr('data-bg', 'rgb');
 	});
+
+	$('.bgcolorbtn').click(function(){
+		var hex = $(this).data('color');
+		$('#p-' + currentPage).css({'background': hexToRgb(hex)});
+		$('#p-' + currentPage).attr('data-bg', 'rgb');
+	})
 
 	$('#bgc').change(function(){  
 	    $('#hexcolor').html($(this).val());
