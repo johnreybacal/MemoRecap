@@ -1,12 +1,17 @@
 body{
 	background: #cfd;
 }
-
+#tools{
+	display: inline;
+}
 #assets{
-	/*width: 13vw; */ height: 84vh; list-style: none; border: solid blue; overflow: auto;
+	/*width: 13vw; */ height: 65vh; list-style: none; border: solid white; overflow: auto; padding: 0px 35px;
+}
+#bac{
+	 height: 30vh; list-style: none; border: thick white; overflow: auto; padding: 0px 35px;
 }
 .asset-picker{
-	display: inline-block; list-style: none; /*width: auto; height: auto;*/
+	display: inline-block; list-style: none; margin: 0; padding: 0;/*width: auto; height: auto;*/
 }
 .asset-picker li{
     display: inline-block; list-style: none;
@@ -30,49 +35,25 @@ body{
 	background: #fdc; overflow: hidden; /*position: relative;*/
 }
 #z-order-container{
-	border: solid thin black; height: 30vh; width: 100%; overflow: auto; background-color: #aaa;
+	border: solid thin black; height: 70vh; width: auto; overflow: auto; background-color: #aaa;
 }
 #asset-attribute{
-	border: solid thin black; height: 35vh; width: 100%; background-color: #aaa;
+	border: solid thin black; height: auto; width: auto; background-color: #aaa;
 }
 #page-attribute{
-	border: solid thin black; height: 25vh; width: 100%; background-color: #aaa;
+	border: solid thin black; height: 22vh; width: auto; background-color: #aaa;
 }
 #pagination-container{
-	 width: 20%; height:50px; /* border:solid thin red;*/
-}
-
-#pagination::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
-}
-
-#pagination::-webkit-scrollbar
-{
-	height: 10px;
-	width: 18px;
-	background-color: #F5F5F5;
-}
-
-#pagination::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: aquamarine;
+	width: 100%; height: auto; border:solid thin white; display: inline-block; margin: auto 0px;
 }
 #pagination{
-	width: 100%; height:100%; background-color overflow-y: hidden; overflow-x:auto;
+	width: 100%; height: auto; overflow-y: hidden; overflow-x:auto;
 }
 #pagination li{
-	border: solid thin white; padding: 8px; display: inline-block;
+	border: solid thin white; padding: 8px; margin: 0px 2px; display: inline-block;
 }
 .pages{
 	height: 100%; width: 100%; overflow: hidden;
-}
-#fileChooser{
-	position: absolute; left: 300px; top: 700px;
 }
 .context-menu {
     list-style: none; overflow: hidden; display: none; z-index: 1000; position: absolute; border: 1px solid #CCC; white-space: nowrap; font-family: sans-serif; background: #FFF; color: #333; border-radius: 5px;
@@ -95,11 +76,6 @@ body{
 }
 .clear{
 	
-}
-
-#nav-tabs{
-        width: 75px;
-        height: 35px;
 }
 
 #nav-tabs li
@@ -133,7 +109,9 @@ body{
         color: #fff;
         background: #FFF;
 }
-
+span{
+	width: 23px;
+}
 
 
 #style-1::-webkit-scrollbar-track
