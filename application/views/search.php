@@ -1,4 +1,4 @@
-<div style = "background-color: white;">
+<div style = "background-color: white; margin-top: 7%;">
 	<form action = "<?php echo base_url('Search'); ?>" method = "GET">
 		<input type = "search" name = "search" />
 		<input type = "submit" value = "Search" />

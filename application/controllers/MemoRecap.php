@@ -18,29 +18,11 @@ class MemoRecap extends CI_Controller {
 		$this->load->view('includes/footer');
 	}
 
-	public function loginAction(){
-		$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
-		if(!$this->session->has_userdata('Error')){
-			redirect(base_url('Home'));
-		}else{
-			redirect(base_url('Login'));
-		}
-	}
-
 	public function Signup(){
 		$this->loadHeader();
 		$this->loadNav();
 		$this->load->view('signup');
 		$this->load->view('includes/footer');
-	}
-	
-	public function signupAction(){
-		$this->session->set_userdata($this->user->Signup($this->input->post('username'), $this->input->post('name'), $this->input->post('password')));
-		if(!$this->session->has_userdata('Error')){
-			redirect(base_url('Home'));
-		}else{
-			redirect(base_url('Signup'));
-		}
 	}
 
 	public function loadNav(){
@@ -67,8 +49,14 @@ class MemoRecap extends CI_Controller {
 	public function Home(){		
 		$this->loadHeader();
 		$this->loadNav();			
-		$this->load->view('includes/modal');			
-		$this->load->view('home');
+		$this->load->view('includes/modal');
+		if($this->session->userdata('logged_in')){
+			$data['scrapbooks'] = $this->memorecap->displayScrapbooks($this->session->userdata('username'));
+			$this->load->view('myScrapbooks',$data);
+		}else{
+			$data['featured_works'] = $this->memorecap->getFeaturedWorks('LIMIT 3');
+			$this->load->view('home', $data);
+		}
 		$this->load->view('includes/footer');			
 	}
 
@@ -102,7 +90,15 @@ class MemoRecap extends CI_Controller {
 				$data['latest_works'] = $this->memorecap->getLatestWorks();
 				$this->load->view('Gallery/latestWorks', $data);
 				break;
-			default:	$this->load->view('scrapbooks');	break;
+			default:
+				$data['editors_pick'] = $this->memorecap->getEditorsPick('LIMIT 3');
+				$data['featured_works'] = $this->memorecap->getFeaturedWorks('LIMIT 3');
+				$data['latest_works'] = $this->memorecap->getLatestWorks('LIMIT 3');
+				// echo 'ep:';print_r($data['editors_pick']);echo '<br />';
+				// echo 'fw:';print_r($data['featured_works']);echo '<br />';				
+				// echo 'lw:';print_r($data['latest_works']);echo '<br />';
+				$this->load->view('scrapbooks');
+				break;
 		}		
 		$this->load->view('Gallery/includes/reportModal');			
 		$this->load->view('Gallery/includes/script');			
@@ -205,11 +201,7 @@ class MemoRecap extends CI_Controller {
 	}
 
 	public function editor($id){
-		if($this->session->userdata('logged_in')){
-			if($id == 'new'){
-				$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('description'), $this->input->post('pages'), $this->input->post('size'), $this->input->post('privacy'));
-				redirect(base_url('editor/'.$id));
-			}
+		if($this->session->userdata('logged_in')){			
 			$data['title'] = 'MemoRecap';
 			if($this->scrapbook->loadJSON(0, $id, $this->session->userdata('username'))){
 				$data['assignAssets'] = $this->scrapbook->assignAssets();
@@ -231,6 +223,13 @@ class MemoRecap extends CI_Controller {
 			$this->load->view('errors/MemoRecap_errors/loginPoMuna');
 			$this->load->view('includes/footer');
 		}
+	}
+
+	public function Create(){
+		$this->loadHeader();
+		$this->loadNav();
+		$this->load->view('pre_create');
+		$this->load->view('includes/footer');
 	}
 	
 	public function four_oh_four(){

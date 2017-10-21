@@ -1,66 +1,73 @@
-<!-- NAVIGATION -->
-<nav class="navbar navbar-expand-lg navbar-light bg-overlay  nav-row">
-	<div class="container">
-		<a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none landi2 hed" href="<?php echo base_url('Home'); ?>">MemoRecap</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-		<ul class="navbar-nav mx-auto">
-        <li class="nav-item px-lg-4">            
-            <img class="smol" src="<?php echo base_url('css/images/logo_sana.png'); ?>"  alt="" ></a>
-        </li> 
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Home')>-1)?'active':''; ?>">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Home'); ?>">
-				Home
-				<span class="sr-only">(current)</span>
-			</a>
-        </li>
-		<!-- <li class="nav-item px-lg-4">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="">Create</a>
-        </li> -->
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Assets')>-1)?'active':''; ?>">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Assets'); ?>">
-				Box of Assets
-			</a>
-        </li>
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Scrapbooks')>-1)?'active':''; ?>">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Scrapbooks'); ?>">
-				Scrapbooks
-			</a>
-        </li>
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'About')>-1)?'active':''; ?>">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('About'); ?>">About</a>
-        </li>
-		<li class="nav-item px-lg-4">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Login'); ?>">
-				Login
-				<span class="sr-only">(current)</span>
-			</a>
-        </li>
-        <li class="nav-item px-lg-4">
-			<a class="hed nav-link text-uppercase text-expanded landi2 " href="<?php echo base_url('Signup'); ?>">
-				Signup
-				<span class="sr-only">(current)</span>
-			</a>
-        </li>
-		</ul>
-		
-	</div>
-	</div>
-</nav>
+<!-- Navbar -->
+<div class="w3-top">
+ 	<div id="nav" class="w3-bar w3-theme-d2 w3-left-align">
+		<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" 	onclick="openNav()"><i class="fa fa-bars"></i></a>
+		<a href="<?php echo base_url('Home')?>" class="w3-bar-item w3-button">MemoRecap<i class="fa fa-home w3-margin-left"></i></a>
 
-<script src="<?php echo base_url('js/popper.min.js'); ?>"></script>
+		<a href="<?php echo base_url('Signup')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Sign Up</a>
+		<a href="<?php echo base_url('Login')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Log In</a>
+		<a href="<?php echo base_url('About')?>" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">About</a>
 
-<script>
-var smodal = document.getElementById('SignModal');
-var sbtn = document.getElementById("SignLink");
-var sspan = document.getElementById("sclose");
-sbtn.onclick = function() {
-    smodal.style.display = "block";
+    	<a href="<?php echo base_url('Scrapbooks')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-envelope"></i> Scrapbooks</a>
+  		
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal" title="Search"><i class="fa fa-search"></i></a>
+  </div>
+ 
+ 
+ </div>
+ 
+
+  <!-- Navbar on small screens -->
+  <div id="nav" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+    <a href="<?php echo base_url('Signup/')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Sign Up</a>
+    <a href="<?php echo base_url('SignIn/')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Sign In</a>
+    <a href="#about" class="w3-bar-item w3-button">About</a>
+   
+   
+    <a href="#" class="w3-bar-item w3-button">Search</a>
+  </div>
+
+
+<!-- <div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+
+      
+   
+    <a href="#home" class="w3-bar-item w3-button"><i class="fa fa-home w3-margin-right"></i>MemoRecap</a>    
+    <a href="<?php echo base_url('Signup/')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Sign Up</a>
+    <a href="<?php echo base_url('SignIn/')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Sign In</a>
+    <a href="#about" class="w3-bar-item w3-button  w3-right"><i class="fa fa-th"></i> About</a>
+    <a href="#recent" class="w3-bar-item w3-button  w3-right"><i class="fa fa-envelope"></i> Recent</a>
+    <a href="#featured" class="w3-bar-item w3-button  w3-right"><i class="fa fa-envelope"></i> Featured</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red"><i class="fa fa-search"></i></a>
+    
+    
+     
+   
+   
+  </div>
+
+  <!-- Navbar on small screens -->
+ <!--  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
+    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+  </div>
+</div> -->
+
+<script type="text/javascript">
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
 }
-sspan.onclick = function() {
-    smodal.style.display = "none";
-}
+
+
+
 </script>
-	

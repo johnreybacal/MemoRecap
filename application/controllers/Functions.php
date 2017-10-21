@@ -94,6 +94,11 @@ class Functions extends CI_Controller {
 	    }
 	}
 
+	public function create(){
+		$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('description'), $this->input->post('pages'), $this->input->post('size'), 'private');
+		redirect(base_url('editor/'.$id));
+	}
+
 	public function save(){		
 		$json = file_get_contents('php://input');
 		$id = substr($json, 0, 4);
@@ -108,6 +113,24 @@ class Functions extends CI_Controller {
 
 	public function delete($id){
 		$this->scrapbook->delete($id);		
+	}
+
+	public function loginAction(){
+		$this->session->set_userdata($this->user->Login($this->input->post('username'), $this->input->post('password')));
+		if(!$this->session->has_userdata('Error')){
+			redirect(base_url('Home'));
+		}else{
+			redirect(base_url('Login'));
+		}
+	}
+	
+	public function signupAction(){
+		$this->session->set_userdata($this->user->Signup($this->input->post('username'), $this->input->post('name'), $this->input->post('password')));
+		if(!$this->session->has_userdata('Error')){
+			redirect(base_url('Home'));
+		}else{
+			redirect(base_url('Signup'));
+		}
 	}
 
 }
