@@ -1,91 +1,85 @@
-<!-- NAVIGATION -->
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<?php echo base_url('css/w3-theme-black.css'); ?>" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css"> -->
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <link rel="stylesheet" href="<?php echo base_url('css/index.css'); ?>">
 <style type="text/css">
-    .navbar #nav > .active > a {
+    .w3-bar-item #nav > .active > a {
     color: #f0664c!important;
 
-    /*dapat nandito kasi internal > external css
-     lahat kasi sa index.css naka !important*/
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
 }
 
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
 </style>
-<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-overlay">
-        <a class="navbar-brand" href="<?php echo base_url('Home'); ?>">MemoRecap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul id = "nav" class="navbar-nav mr-auto">
-            <li class="nav-item ">            
-                <img class="smol" src="<?php echo base_url('css/images/logo_sana.png'); ?>"  alt="" />
-            </li>
-            <li class="nav-item  <?php echo (strpos(uri_string(), 'Home')>-1)?'active':''; ?>">
-                <a class=" nav-link  " href="<?php echo base_url('Home'); ?>">
-                    Home
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
+<body>
+<!-- Navbar -->
+<div class="w3-top">
+    <div id="nav" class="w3-bar w3-theme-d2 w3-left-align">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);"    onclick="openNav()"><i class="fa fa-bars"></i></a>
+        <a href="<?php echo base_url('Home')?>" class="w3-bar-item w3-button">MemoRecap<i class="fa fa-home w3-margin-left"></i></a>
+
+        <a href="<?php echo base_url('Logout')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Log Out</a>
+        <a href="<?php echo base_url('Profile')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Profile</a>
+        <a href="#about" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-right">About</a>
+
+        <a href="<?php echo base_url('Scrapbooks')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-envelope"></i> Scrapbooks</a>
         
-        <!-- <li class="nav-item px-lg-4">
-            <a class="hed nav-link text-uppercase text-expanded landi2 " href="">Create</a>
-        </li> 
-        <li class="nav-item px-lg-4 <?php echo (strpos(uri_string(), 'Assets')>-1)?'active':''; ?>" style="margin-left:20px;">
-            <a style="color:#dddddd;" class="hed nav-link text-uppercase text-expanded " href="<?php echo base_url('Assets'); ?>">
-                Box of Assets
-            </a>
-        </li>-->
-            <li class="nav-item  <?php echo (strpos(uri_string(), 'Scrapbooks')>-1)?'active':''; ?>" >
-                <a class=" nav-link " href="<?php echo base_url('Scrapbooks'); ?>">
-                    Scrapbooks
-                </a>
-            </li>
-        
-            <li class="nav-item <?php echo (strpos(uri_string(), 'About')>-1)?'active':''; ?>" >
-                <a class=" nav-link " href="<?php echo base_url('About'); ?>">About</a>
-            </li>
-        </ul>
-            <form class="navbar-form navbar-left">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <div class="input-group-btn">
-                  
-                   <button style="margin-left: 3px;" ty type="submit" class="btn btn-default">Submit</button>
-                  
-                </div>
-              </div>
-            </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <a class="nav-link " href="<?php echo base_url('Profile/')?>">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="<?php echo base_url('Logout/')?>">Logout</a>
-            </li>
-        </ul>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal" title="Search"><i class="fa fa-search"></i></a>
+  </div>
+ 
+ 
+ </div>
+ 
 
-    </div>
-</nav>
+  <!-- Navbar on small screens -->
+  <div id="nav" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+    <a href="<?php echo base_url('Logout')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-user-plus"></i> Log Out</a>
+    <a href="<?php echo base_url('Profile')?>" class="w3-bar-item w3-button w3-hide-small w3-right"><i class="fa fa-sign-in"></i> Profile</a>
+    <a href="#about" class="w3-bar-item w3-button">About</a>
+   
+   
+    <a href="#" class="w3-bar-item w3-button">Search</a>
+  </div>
 
-<script src="<?php echo base_url('js/popper.min.js'); ?>"></script>
-
-<script>
-var smodal = document.getElementById('SignModal');
-var sbtn = document.getElementById("SignLink");
-var sspan = document.getElementById("sclose");
-sbtn.onclick = function() {
-    smodal.style.display = "block";
+<script type="text/javascript">
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
 }
-sspan.onclick = function() {
-    smodal.style.display = "none";
-}
+
+
+
 </script>
 
  <script>
      $(function() {
-        $('#nav li a').click(function() {
-           $('#nav li').removeClass();
-           $($(this).attr('href')).addClass('active');
+        $('#nav a').click(function() {
+           
+           $('#nav a').attr('href').addClass('active');
         });
      });
   </script>
-    
+</body>
+</html>
