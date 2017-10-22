@@ -79,12 +79,12 @@
     </div>
    
    
-   <div class=" p-4 my-4">
+   <div class=" text-center">
         <ul class="pagination justify-content-center mb-0">
           <li class="page-item">
             <a class="landi hed float-left EPFW" href="<?php echo base_url('Scrapbooks/Featured_Works'); ?>">Featured Works</a>
           </li>
-          <li class="page-item disabled">
+          <li class="page-item">
             <a class="landi hed float-left EPFW" href="<?php echo base_url('Scrapbooks/Editors_Pick'); ?>">Editor's Pick</a>
           </li>
         </ul>

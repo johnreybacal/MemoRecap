@@ -78,13 +78,13 @@
     </div>
    
    
-   <div class=" p-4 my-4">
+   <div class=" text-center">
         <ul class="pagination justify-content-center mb-0">
           <li class="page-item">
-            <a class="landi hed float-left EPFW" href="<?php echo base_url('Scrapbooks/Featured_Works'); ?>">Featured Works</a>
+            <a class="landi hed" href="<?php echo base_url('Scrapbooks/Featured_Works'); ?>">Featured Works</a>
           </li>
-          <li class="page-item disabled">
-            <a class="landi hed float-left EPFW" href="<?php echo base_url('Scrapbooks/Latest_Works'); ?>">Latest Works</a>
+          <li class="page-item">
+            <a class="landi hed " href="<?php echo base_url('Scrapbooks/Latest_Works'); ?>">Latest Works</a>
           </li>
         </ul>
       </div>
