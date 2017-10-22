@@ -1,19 +1,5 @@
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Footer -->
-<style type="text/css">
-footer {
-    clear: both;
-    position: relative;
-    z-index: 10;
-    height: 17em;
-    margin-top: -3em;
-}
-</style>
-<footer class="w3-center w3-padding-64 footer" style="background-color: #282E34!important;">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+	<footer class="w3-center w3-padding-64 " style="background-color: #282E34!important;">
+  <button class="w3-button w3-light-grey" onclick = "$('html, body').animate({ scrollTop: 0 }, 'slow');"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</button>
   <div class="container">
         <div class= "row" >
 			<div class = "col-md-4" style="margin-top:10px;">
@@ -51,7 +37,6 @@ footer {
     <!-- Bootstrap core JavaScript -->    
     <script src="<?php echo base_url('js/popper.min.js'); ?>"></script>
 	<script src="<?php echo base_url('js/bootstrap.min.js'); ?>"></script>
-    
 <script>
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");
@@ -78,15 +63,15 @@ window.onclick = function(event) {
 	}
 }
 
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-white";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white", "");
-    }
-}
+// window.onscroll = function() {myFunction()};
+// function myFunction() {
+//     var navbar = document.getElementById("myNavbar");
+//     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+//         navbar.className = "w3-bar" + " w3-card-2" + " w3-animate-top" + " w3-white";
+//     } else {
+//         navbar.className = navbar.className.replace(" w3-card-2 w3-animate-top w3-white", "");
+//     }
+// }
 
 // Used to toggle the menu on small screens when clicking on the menu button
 function toggleFunction() {
@@ -96,6 +81,53 @@ function toggleFunction() {
     } else {
         x.className = x.className.replace(" w3-show", "");
     }
+}
+</script>
+<script>
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+document.getElementById("xclose").addEventListener("click", function(){
+    modal.style.display = "none";
+});
+window.onclick = function(event) {
+    if(typeof modal !== 'undefined'){
+	    if(event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+    if(typeof umodal !== 'undefined'){
+    	if(event.target == umodal) {
+	        umodal.style.display = "none";
+	    }
+    }
+    if(typeof smodal !== 'undefined'){
+		if(event.target == smodal) {
+		    smodal.style.display = "none";
+		}
+	}
+    if(typeof document.getElementById('scrapbookReportModal') !== 'undefined'){
+    	if (event.target == document.getElementById('scrapbookReportModal')) {
+			document.getElementById('scrapbookReportModal').style.display = "none";
+		}
+	}
+	if(typeof document.getElementById('userReportModal') !== 'undefined'){
+    	if (event.target == document.getElementById('userReportModal')) {
+			document.getElementById('userReportModal').style.display = "none";
+		}
+	}
+	if(typeof document.getElementById('editDescModal') !== 'undefined'){
+    	if (event.target == document.getElementById('editDescModal')) {
+			document.getElementById('editDescModal').style.display = "none";
+		}
+	}
+	if(typeof document.getElementById('deleteModal') !== 'undefined'){
+    	if (event.target == document.getElementById('deleteModal')) {
+			document.getElementById('deleteModal').style.display = "none";
+		}
+	}
 }
 </script>
 

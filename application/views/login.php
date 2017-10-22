@@ -7,7 +7,11 @@
 	    <input type="password" id="inputPassword" name = "password" class="form-control" placeholder="Password" required>    
 	    <input style="background-color:#e4b4b4; width:100%;" name = "submit" type="submit" value = "Sign in"></input>
 	</form> -->
-	
+	<style type="text/css">
+		body{
+			background-image: url ("<?php echo base_url('css/images/TAYTEL.png'); ?>");
+		}
+	</style>
  <div class="container"  style="height: 700px;">
 	<div class="row">
 		<div class="col-md-8">
@@ -39,6 +43,15 @@
 				      <input id="submit" name="submit" type="submit" value="Login" class="btn btn-primary">
 				    </div>
 				  </div>
+				  <div class="form-group">
+				    <div class="col-md-12 " >
+				    <?php
+				        if(isset($Error)){
+				            echo '<h3>'.$Error.'</h3>';
+				        }
+				    ?>
+					</div>
+				</div>					
 				</form>
 			</fieldset>
 		</div>

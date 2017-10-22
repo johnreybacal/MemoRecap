@@ -9,14 +9,19 @@
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery-ui.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/variables.js'); ?>"></script>	
 		<script type = "text/javascript" src = "<?php echo base_url('js/jquery.ui.rotatable.min.js'); ?>"></script>
+		<script>
+			$(".loader").fadeIn("fast");
+		</script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/FileSaver.min.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/Blob.js'); ?>"></script>
 		<script type = "text/javascript" src = "<?php echo base_url('js/canvas-toBlob.js'); ?>"></script>
+		<script type = "text/javascript" src = "<?php echo base_url('js/globals.js'); ?>"></script>
 		<?php
 			echo $assignAssets;
 		?>
 	</head>
 	<body onload = "onload()">
+		<div class="loader"></div>
 		<script>
 		  window.fbAsyncInit = function() {
 		    FB.init({
@@ -41,13 +46,15 @@
 			?>			
 		</div>		
 		<div id = "pagination-container">
+			<button id = "prevPage">&lt</button>
 			<ol id = "pagination">
 				<?php					
 					echo $loadPagination;
-				?>				
+				?>
 			</ol>
+			<button id = "nextPage">&gt</button>
 		</div>
-		<a href = '<?php echo base_url('MemoRecap/editor/'.$id); ?>'>Edit</a>
+		<a href = '<?php echo base_url('editor/'.$id); ?>'>Edit</a>
 		<button id = 'saveAsImage'>Download as image</button>
 		<button id = 'shareToFB'>Share to facebook</button>
 		<br />		

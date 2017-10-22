@@ -1,15 +1,4 @@
-<style type="text/css">
-	.center{
-		margin: auto;
-		text-align: center;
-		width: 50%;
-		display: inline-block;
-
-
-
-	}
-</style>
-    <div class="tagline-lower text-center text-expanded text-shadow w3-margin-bottom" style="margin:5% 0 0 0;">
+<div class="tagline-lower text-center text-expanded text-shadow w3-margin-bottom" style="margin:5% 0 0 0;">
 		<img style="width:500px; height:150px; " src = "<?php echo base_url('css/images/TAYTEL.png'); ?>" alt=""/>
 		<p style="font-size: 25px">Create. Share. Inspire.
 		<br />Unleash the Artist within.</p>

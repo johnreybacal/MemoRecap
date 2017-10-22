@@ -1,5 +1,10 @@
 
-<div class="container"  style="height: 700px;">
+<style type="text/css">
+	body{
+		background: url('../css/images/loginbg.jpg') ;
+	}
+</style>
+<div class="container"  style="height: 700px; background: url('../css/images/loginbg.jpg') no-repeat center center;">
 	<div class="row">
 		<div class="col-md-8" >
 			<div class="col-md-10 ">
@@ -37,6 +42,15 @@
 				      <input id="submit" name="create" type="submit" value="Sign Up" class="btn btn-primary">
 				    </div>
 				  </div>
+				  <div class="form-group">
+				    <div class="col-md-12 " >
+				    <?php
+				        if(isset($Error)){
+				            echo '<h3>'.$Error.'</h3>';
+				        }
+				    ?>
+					</div>
+				</div>		
 				</form>
 			</fieldset>
 		</div>
