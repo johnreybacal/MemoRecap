@@ -18,6 +18,14 @@
   .size{
     font-size: 4%;
   }
+  hr {
+    background-color: dimgrey !important;
+    color: dimgrey !important;
+    border: solid 2px dimgrey !important;
+    height: 5px !important;
+    width: 1000px !important;
+
+}
 </style>
 <!-- modalstart -->
 <div id="editDescModal" class="modal ">                
@@ -56,15 +64,17 @@
 </div>
 
 <!-- modal end -->
+<div class="container" style="min-height: 700px;">
 <div class="w3-row-padding w3-center" style="margin: 7% 0 0 0;">
     <?php foreach($scrapbooks as $scrapbook): ?>
-        <div class = "row" style = "margin: auto;">
+        <div class = "row">
+          <div class="w3-col m4 w3-center">.</div>
       <div id = "sc-row-<?php echo $scrapbook['scrapbook_id']; ?>" class="w3-col m4 w3-border" style="background-color: #fefefe!important;">
             <img src = "<?php echo $scrapbook['first_page']; ?>" height = "100px" width = "100px" onclick="onClick(this)" class="pointer w3-round-xlarge" alt="Alternative"/>
         <div class="w3-container w3-margin-top">
         <h3><b><?php echo $scrapbook['name']; ?></b></h3>
           <div class="row">
-            <div class="w3-col m12" style="float: left;">          
+            <div class="w3-col m12" >          
               <h3 >
                 <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span>
                 <span class="w3-margin-left left" style="color: #111111;"><?php echo $scrapbook['likes']; ?></span>
@@ -72,7 +82,7 @@
                 <span class="right"><?php echo $scrapbook['view_counter']; ?></span>&nbsp;</h3>
             </div>
           </div>
-          <div>
+          <div >
             <font class="left">
                 
                 <button class = "togglePrivacy" data-id = "<?php echo $scrapbook['scrapbook_id']; ?>"><?php echo $scrapbook['privacy']; ?></button>
@@ -90,13 +100,14 @@
           </div>
         </div>
       </div>
- 
+ <div class="w3-col m4 w3-center">&nbsp;</div>
   </div>
 
     <?php endforeach; ?> 
     
 <!-- end of 1st -->
 </div> <!--close tag -->
+</div>
 <!-- <div class="container" style="min-height: 700px;">
 	
 	List of scrapbooks
@@ -139,6 +150,24 @@
 	</tbody>
 	</table>	
 </div>  -->
+
+<div id="modal01" class="w3-modal " onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" style="margin-top: 60px;" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-opacity w3-transparent ">
+    <img id="img01" class="w3-round-xlarge w3-image" style="width: auto;">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+  
+<script type="text/javascript">
+  function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
 <script>
     document.getElementById("editClose").onclick = function(){
         document.getElementById('editDescModal').style.display = "none";        

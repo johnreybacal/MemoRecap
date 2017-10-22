@@ -68,8 +68,22 @@
           <div class="row">
             <div class="w3-col m12" style="float: left;">          
               <h3 >
-                <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span>
-                <span class="w3-margin-left left" style="color: #111111;"><?php echo $ep['likes']; ?></span>
+                <?php
+                    switch($ep['like']){
+                      case 0:
+                        break;
+                      case 1:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "unlike" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart left" style="color: red;"></span></button>';
+                        break;
+                      case 2:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "like" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span></button>';
+                        break;
+                    }                    
+                  
+                
+                ?>
+                <!-- <span  class="glyphicon glyphicon-heart-empty left" style="color: red;"></span> -->
+                <span id = "like-count-<?php echo $ep['scrapbook_id']; ?>" class="w3-margin-left left" style="color: #111111;"><?php echo $ep['likes']; ?></span>
                 <span class="glyphicon glyphicon-eye-open right w3-margin-left" style="color: black;"></span>
                 <span class="right"><?php echo $ep['view_counter']; ?></span>&nbsp;</h3>
             </div>
@@ -109,9 +123,20 @@
          <h1><a class="user left" href = "<?php echo base_url('Profile/'.$fw['username']); ?>"><?php echo $fw['username']; ?></a></h1>
           <div class="row">
             <div class="w3-col m12" style="float: left;">          
-              <h3 >
-                <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span>
-                <span class="w3-margin-left left" style="color: #111111;"><?php echo $fw['likes']; ?></span>
+              <h3>
+                <?php
+                    switch($fw['like']){
+                      case 0:
+                        break;
+                      case 1:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "unlike" data-id = "'.$fw['scrapbook_id'].'"><span class="glyphicon glyphicon-heart left" style="color: red;"></span></button>';
+                        break;
+                      case 2:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "like" data-id = "'.$fw['scrapbook_id'].'"><span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span></button>';
+                        break;
+                    }                                  
+                ?>                
+                <span id = "like-count-<?php echo $fw['scrapbook_id']; ?>" class="w3-margin-left left" style="color: #111111;"><?php echo $fw['likes']; ?></span>
                 <span class="glyphicon glyphicon-eye-open right w3-margin-left" style="color: black;"></span>
                 <span class="right"><?php echo $fw['view_counter']; ?></span>&nbsp;</h3>
             </div>
@@ -149,9 +174,23 @@
          <h1><a class="user left" href = "<?php echo base_url('Profile/'.$lw['username']); ?>"><?php echo $lw['username']; ?></a></h1>
           <div class="row">
             <div class="w3-col m12" style="float: left;">          
-              <h3 >
-                <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span>
-                <span class="w3-margin-left left" style="color: #111111;"><?php echo $lw['likes']; ?></span>
+              <h3>
+                <?php
+                    switch($lw['like']){
+                      case 0:
+                        break;
+                      case 1:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "unlike" data-id = "'.$lw['scrapbook_id'].'"><span class="glyphicon glyphicon-heart left" style="color: red;"></span></button>';
+                        break;
+                      case 2:
+                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "like" data-id = "'.$lw['scrapbook_id'].'"><span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span></button>';
+                        break;
+                    }                    
+                  
+                 
+                ?>
+                <!-- <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span> -->
+                <span id = "like-count-<?php echo $lw['scrapbook_id']; ?>" class="w3-margin-left left" style="color: #111111;"><?php echo $lw['likes']; ?></span>
                 <span class="glyphicon glyphicon-eye-open right w3-margin-left" style="color: black;"></span>
                 <span class="right"><?php echo $lw['view_counter']; ?></span>&nbsp;</h3>
             </div>

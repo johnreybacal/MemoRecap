@@ -23,7 +23,7 @@ body, html {
 /* Second image (Portfolio) */
 .bgimg-2 {
     background-image: url("css/images/page3_big_pic2.jpg");
-    min-height: 100%;
+    min-height: 115%;
 }
 
 /* Third image (Contact) */
@@ -95,7 +95,7 @@ body, html {
   <div class="w3-display-middle" style="white-space:nowrap;">
     <!-- <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Memo <span class="w3-hide-small">Recap</span> </span> -->
     <!--style="background-color: rgba(236,161,166,0.5);"--> 
-    <div style="margin: 7% 0 0 0;"> 
+    <div style="margin: 8% 0 0 0;"> 
       <button id="myBtn" class="hed landi" style="padding:10px 55px;margin:0 0 0 43%;font-size:3em;border-radius:15px;background-color:#ffe6b3;">
         Create
       </button>
@@ -105,7 +105,7 @@ body, html {
       <h1 class="hedest landi w3-black w3-extended" style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">Create your own Scrapbooks in three easy steps</h1>
     
       <!-- step 1 2 3 -->
-      <div class="container" style="margin: 3% 0 0 0;">
+      <div class="container" style="margin: 2% 0 0 0;">
         <div class="row">
           <div class="col-md-1"></div>
           <!-- step 1 -->

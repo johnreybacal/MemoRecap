@@ -1,27 +1,34 @@
-<div style = "background-color: white; margin-top: 7%;">
+<style type="text/css">
+	
+hr {
+    /*height: 10px;*/
+    border-top: 3px double #8c8b8b;
+}
+</style>
+<div style = "background-color: white; margin-top: 7%; min-height: 700px;">
 	<div class="col-md-4">
 	<form action = "<?php echo base_url('Search'); ?>" method = "GET">
-		<input type = "search" name = "search" />
+		<input type = "search" name = "search" placeholder="Search" />
 		<input type = "submit" value = "Search" />
 	</form>
-	<h3>Seach results</h3>
-	<hr />
+	<h1 style="font-weight: 900;">Seach results</h1>
+	
 </div>
 	<div class="container-fluid">
 		<div class="row">	
 			<div class="col-md-12">	
-				
+				<hr/>
 
 					<?php if(isset($users)): ?>
 
-						<h4>Users</h4>
+						<h3><b>Users</b></h3>
 						
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="col-md-3">DP</div>
-									<div class="col-md-2">Username</div>
-									<div class="col-md-2">Name</div>
+									<div class="col-md-3"></div>
+									<div class="col-md-2"><h4>Username</h4></div>
+									<div class="col-md-2"><h4>Name</h4></div>
 								</div>
 							</div>		
 						</div>
@@ -35,22 +42,23 @@
 								</div>
 							<?php endforeach; ?>
 						</div>
-						
+						<hr>
 					<?php endif; ?>	
 			
 
 					<?php if(isset($scrapbooks)): ?>
-						<h4>Scrapbooks</h4>
+						<br/>
+						<h3 ><b>Scrapbooks</b></h3>
 						<!-- thead of scrapbook -->
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-md-3">Cover</div>
-								<div class="col-md-2">Title</div>
-								<div class="col-md-2">Description</div>
-								<div class="col-md-1">Owner</div>
-								<div class="col-md-1">Likes</div>
-								<div class="col-md-1">Views</div>
-								<div class="col-md-2">Action</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-2"><h4>Title</h4></div>
+								<div class="col-md-2"><h4>Description</h4></div>
+								<div class="col-md-1"><h4>Owner</h4></div>
+								<div class="col-md-1"><h4>Likes</h4></div>
+								<div class="col-md-1"><h4>Views</h4></div>
+								<div class="col-md-2"><h4>Action</h4></div>
 							</div>		
 						</div>
 						<!-- tbody scrapbooks of the user -->
@@ -60,7 +68,7 @@
 		<!--  -->					
 									<div  class="col-md-3"><img src = "<?php echo $scrapbook['first_page']; ?>" />
 									</div>
-
+									<h5>
 				                	<div class="col-md-2"><?php echo $scrapbook['name']; ?></div>
 				                	<div class="col-md-2"><?php echo $scrapbook['description']; ?></div>
 					                <div class="col-md-1">
@@ -70,7 +78,7 @@
 					                <div class="col-md-1" id = "like-count-<?php echo $scrapbook['scrapbook_id']; ?>">
 					                  	<?php echo $scrapbook['likes']; ?>                  
 					                </div>
-
+					            	</h5>
 					                <div class="col-md-1"><?php echo $scrapbook['view_counter']; ?></div>
 					                <h5><div class="col-md-2">
 					                  	<a href = "<?php echo base_url('view/'.$scrapbook['scrapbook_id']); ?>"><span style="font-size: 24px;" class="glyphicon glyphicon-eye-open w3-margin-left" style="color: black;"></span></a>
@@ -95,6 +103,7 @@
 					                </div></h5>
 					               
 								</div> <!-- end of row-->
+						<hr>
 						<br>	<?php endforeach; ?>
 						</div> <!-- end of 3rd container-->
 						<hr />
