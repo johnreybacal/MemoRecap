@@ -5,10 +5,7 @@ body{
 	display: inline;
 }
 #assets{
-	/*width: 13vw; */ height: 65vh; list-style: none; border: solid white; overflow: auto; padding: 0px 35px;
-}
-#bac{
-	 height: 30vh; list-style: none; border: thick white; overflow: auto; padding: 0px 35px;
+	/*width: 13vw; */ height: 30vh; list-style: none; border: solid blue; overflow: auto;
 }
 .asset-picker{
 	display: inline-block; list-style: none; margin: 0; padding: 0;/*width: auto; height: auto;*/
@@ -35,22 +32,25 @@ body{
 	background: #fdc; overflow: hidden; /*position: relative;*/
 }
 #z-order-container{
-	border: solid thin black; height: 70vh; width: auto; overflow: auto; background-color: #aaa;
+	border: solid thin black; height: 20%; width: 90%; overflow: auto; background-color: #aaa;
 }
 #asset-attribute{
 	border: solid thin black; height: auto; width: auto; background-color: #aaa;
 }
 #page-attribute{
-	border: solid thin black; height: 22vh; width: auto; background-color: #aaa;
+	border: solid thin black; height: auto; width: auto; background-color: #aaa;
 }
 #pagination-container{
-	width: 100%; height: auto; border:solid thin white; display: inline-block; margin: auto 0px;
+	width: 100%; height: auto; border:solid thin white; display: inline-block;
+}
+#pagination-containerview{
+	width: 60%; height: 10%; border:solid thin white; display: inline-block;
 }
 #pagination{
 	width: 100%; height: auto; overflow-y: hidden; overflow-x:auto;
 }
 #pagination li{
-	border: solid thin white; padding: 8px; margin: 0px 2px; display: inline-block;
+	border: solid thin white; padding: 8px; margin: 2px 2px; display: inline-block;
 }
 .pages{
 	height: 100%; width: 100%; overflow: hidden;
@@ -76,6 +76,11 @@ body{
 }
 .clear{
 	
+}
+
+#nav-tabs{
+        width: 55px;
+        height: 35px;
 }
 
 #nav-tabs li
@@ -114,24 +119,25 @@ span{
 }
 
 
-#style-1::-webkit-scrollbar-track
+#pagination::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-#style-1::-webkit-scrollbar
+#pagination::-webkit-scrollbar
 {
 	width: 18px;
+	height: 12px;
 	background-color: #F5F5F5;
 }
 
-#style-1::-webkit-scrollbar-thumb
+#pagination::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: yellow;
+	background-color: #666666;
 }
 .scrollbar
 {
