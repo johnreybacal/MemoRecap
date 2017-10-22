@@ -37,22 +37,23 @@
           </div>
         <img src = "<?php echo $ep['first_page']; ?>" style="width:80%" onclick="onClick(this)" class="pointer w3-round-xlarge" alt="The mist over the mountains">
         
+        
         <div class="w3-container w3-margin-top">
         <h3><b><?php echo $ep['name']; ?></b></h3>
          <h1><a class="user left" href = "<?php echo base_url('Profile/'.$ep['username']); ?>"><?php echo $ep['username']; ?></a></h1>
           <div class="row">
                  
             <div class="w3-col m12" style="float: left;">          
-              <h3>
+              <h4 >
                 <?php
                     switch($ep['like']){
                       case 0:
                         break;
                       case 1:
-                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "unlike" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart left" style="color: red;"></span></button>';
+                        echo '<button class = "unlike" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart left" style="color: red;"></span></button>';
                         break;
                       case 2:
-                        echo '<button style="float:left; border:none; background-color: rgba(0,0,0,0);" class = "like" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span></button>';
+                        echo '<button class = "like" data-id = "'.$ep['scrapbook_id'].'"><span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span></button>';
                         break;
                     }                    
                   
@@ -60,8 +61,8 @@
                   //   echo '<button class = "reportButton" data-scid = "'.$ep["scrapbook_id"].'">Report</button>';
                   // }
                 ?>
-                <!-- <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span> -->
-                <span id = "like-count-<?php echo $ep['scrapbook_id']; ?>" class="w3-margin-left left" style="color: #111111;"><?php echo $ep['likes']; ?></span>
+                
+                <span class="w3-margin-left left" style="color: #111111;"><?php echo $ep['likes']; ?></span>
                 <span class="glyphicon glyphicon-eye-open right w3-margin-left" style="color: black;"></span>
                 <span class="right"><?php echo $ep['view_counter']; ?></span>&nbsp;</h3>
             </div>
