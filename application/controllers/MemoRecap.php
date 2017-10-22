@@ -200,17 +200,31 @@ class MemoRecap extends CI_Controller {
 		}
 	}
 
-	public function editor($id){
+	public function editor($mode, $id){
 		if($this->session->userdata('logged_in')){			
 			$data['title'] = 'MemoRecap';
 			if($this->scrapbook->loadJSON(0, $id, $this->session->userdata('username'))){
 				$data['assignAssets'] = $this->scrapbook->assignAssets();
-				$data['displayAssets'] = $this->asset->displayAssets($this->session->userdata('username'));
+				$data['ui'] = $this->asset->displayAssets(1, $this->session->userdata('username'));
+				$data['bg'] = $this->asset->displayAssets(2, $this->session->userdata('username'));
+				$data['st'] = $this->asset->displayAssets(3, $this->session->userdata('username'));
+				$data['sh'] = $this->asset->displayAssets(4, $this->session->userdata('username'));
 				$data['loadWorkspace'] = $this->scrapbook->loadWorkspace();
 				$data['loadPagination'] = $this->scrapbook->loadPagination();
 				$data['loadZOrder'] = $this->scrapbook->loadZOrder();
 				$data['script'] = $this->scrapbook->script();
-				$this->load->view('editor', $data);
+				$data['id'] = $id;
+				if($mode == 'normal'){
+					$data['normal'] = true;
+					$this->load->view('includes/editor_header', $data);
+					$this->load->view('editor', $data);
+				}
+				if($mode == 'advanced'){
+					$data['normal'] = false;
+					$this->load->view('includes/editor_header', $data);
+					$this->load->view('editor_advanced', $data);
+				}
+				$this->load->view('includes/editor_footer', $data);
 			}else{
 				$this->loadHeader();
 				$this->loadNav();

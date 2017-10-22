@@ -1,6 +1,6 @@
 function deleteAsset(){
 	// alert(assets[currentPage]);
-	var selectedAsset = $('#selectedAsset').html();				
+	var selectedAsset = $('#workspace').data('selected');
 	$('#' + selectedAsset).fadeOut(1000, function(){//delete asset
 		$('#' + selectedAsset).remove();				
 	});
@@ -92,7 +92,7 @@ $(document).ready(function(){
 		$("#p-" + pageCount.toString()).droppable({
 			accept: ".first",						//para sa generated pages
 			drop: function(event, ui){
-				var id = assetID + '-' + $('#wtf').html();	
+				var id = assetID + '-' + $('#assets').data('selected');	
 				var pos = $('#workspace').position();					
 	    		assets[currentPage] += id + "/";
 	    		assetID++;
@@ -149,10 +149,9 @@ $(document).ready(function(){
 		}
 	});
 
-	$('#changeBG').click(function(){		
-		$('#p-' + currentPage).css({'background': hexToRgb($('#bgc').val())});
-		$('#p-' + currentPage).attr('data-bg', 'rgb');
-	});
+	
+	// $('#changeBG').click(function(){		
+	// });
 
 	$('.bgcolorbtn').click(function(){
 		var hex = $(this).data('color');
@@ -161,8 +160,11 @@ $(document).ready(function(){
 	})
 
 	$('#bgc').change(function(){  
-	    $('#hexcolor').html($(this).val());
+	    // $('#hexcolor').html($(this).val());
+		$('#p-' + currentPage).css({'background': hexToRgb($('#bgc').val())});
+		$('#p-' + currentPage).attr('data-bg', 'rgb');
 	});
+
 
 });
 

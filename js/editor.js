@@ -1,11 +1,11 @@
 function copy(){
 	isCut = false;
-	clipboard = $('#selectedAsset').html();
+	clipboard = $('#workspace').data('selected');
 }
 
 function cut(){
 	isCut = true;
-	clipboard = $('#selectedAsset').html();
+	clipboard = $('#workspace').data('selected');
 	pageClipboarded = currentPage;
 }
 
@@ -52,7 +52,7 @@ function paste(y, x){
 }
 
 function sendTo(somewhere){
-	var selectedAsset = $('#selectedAsset').html();	
+	var selectedAsset = $('#workspace').data('selected');	
 	var assetsInThisPage = assets[currentPage].substring(0, assets[currentPage].length - 1).split("/");
 	var assetIndex = 0;
 	for(var i = 0; i < assetsInThisPage.length; i++){
@@ -125,12 +125,7 @@ function generateFirstPage(){
 	zoomOrig(true);
 }
 
-function getScrapbookID(url) {
-    if (!url) url = window.location.href;			    
-	return url.substring(url.length-4, url.length);
-}
-
-function save(saveURL, leaveFlag){
+function save(saveURL, id, leaveFlag){
 	generateFirstPage();
 	var canvas = document.getElementById('first-page');
 	var fp = canvas.toDataURL();
@@ -185,18 +180,23 @@ function save(saveURL, leaveFlag){
 	// var obj = JSON.parse(attr);
 	// alert(attr);
 	//alert(attrjson);
-	//alert(JSON.stringify(attrjson));	
-	var c = getScrapbookID();	
-    $.ajax({
-    	url: saveURL,
-    	type: 'POST',
-    	contentType: 'application/json',
-    	data: c + attr,
-    	dataType: 'json',
-    	success: function(res){
-    		console.log('save result: ' + res);
-    	}
-    });
+	//alert(JSON.stringify(attrjson));		
+	$.post(saveURL,{
+        id: id,
+        json: attr        
+        }, function(data){
+        	console.log('save: ' + data);
+    });	
+    // $.ajax({
+    // 	url: saveURL,
+    // 	type: 'POST',
+    // 	contentType: 'application/json',
+    // 	data: c + attr,
+    // 	dataType: 'json',
+    // 	success: function(res){
+    // 		console.log('save result: ' + res);
+    // 	}
+    // });
     console.log('leaveFlag in editor.js: ' + leaveFlag);
 	$('#first-page').remove();
     if(leaveFlag){

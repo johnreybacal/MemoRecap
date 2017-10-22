@@ -16,7 +16,7 @@
 			$asset_id = "0000".$temp;
 			$asset_id = substr($asset_id,strlen($asset_id)-4,strlen($asset_id));
 			$qry = "INSERT into assets (asset_id, file, category, username, privacy, upload_date) VALUES ('".$asset_id."', '".$image."', '".$category."', '".$username."', '".$privacy."', '".date("Y/m/d")."')";
-			return ($this->db->simple_query($qry))?"Image Uploaded Successfully <br/>":"Not <br/>";
+			return ($this->db->simple_query($qry))?$asset_id:"Failed";
 		}
 
 		//R
@@ -37,30 +37,31 @@
 
 		public function displayAssetsLooper($category, $username){
 			$assetsHTML = '';				
-			$query = $this->db->query("SELECT * FROM assets WHERE category = '".$category."' AND (username = '".$username."' OR privacy = 'public')");			
+			$query = $this->db->query("SELECT * FROM assets WHERE category = '".$category."' AND (username = '".$username."' OR privacy = 'public') AND blocked = 0");			
 			foreach($query->result_array() as $row){
-				$assetsHTML .= '
-					<li>
-						<div class = "first" id = "'.$row["asset_id"].'">
-							<img src="'.base_url('uploaded_assets/').$row['category'].$row["file"].'" />
-						</div>';
-				if($category == 'User_Images/' || $category == 'Backgrounds/'){
-					$assetsHTML .=	'<button data-id = "'.$row["asset_id"].'" class = "setBG btn btn-default btn-md">Set as BG</button>';
-					
-				}		
-				$assetsHTML .= '</li>
-					';
+				$assetsHTML .= '<li>';
+				if($category == 'Backgrounds/'){
+					$assetsHTML .= '<div class = "bg-asset box" id = "'.$row["asset_id"].'">';
+				}else{
+					$assetsHTML .= '<div class = "first" id = "'.$row["asset_id"].'">';
+				}
+				$assetsHTML .= '<img src="'.base_url('uploaded_assets/').$row['category'].$row["file"].'" /></div>';
+				$assetsHTML .= '</li>';
 			}
 			return $assetsHTML;
 		}
 
-		public function displayAssets($username){//for editor
-			$assetsHTML = '';				
-			$assetsHTML .= ' <div id="1" class="tab-pane active"><h4>User images</h4><ul class="asset-picker">'.$this->displayAssetsLooper('User_Images/', $username).'</ul></div>';
-			$assetsHTML .= ' <div id="2" class="tab-pane"><h4>Backgrounds</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Backgrounds/', $username).'</ul></div>';
-			$assetsHTML .= ' <div id="3" class="tab-pane"><h4>Stickers</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Stickers/', $username).'</ul></div>';
-			$assetsHTML .= ' <div id="4" class="tab-pane"><h4>Shapes</h4><ul class="asset-picker">'.$this->displayAssetsLooper('Shapes/', $username).'</ul></div>';
-			return $assetsHTML;
+		public function displayAssets($cat, $username){//for editor
+			switch($cat) {
+				case 1:				
+					return ' <div id="user_images" class="tab-pane active"><ul class="asset-picker">'.$this->displayAssetsLooper('User_Images/', $username).'</ul></div>';
+				case 2:
+					return ' <div id="backgrounds" class="tab-pane"><ul class="asset-picker">'.$this->displayAssetsLooper('Backgrounds/', $username).'</ul></div>';					
+				case 3:
+					return ' <div id="stickers" class="tab-pane"><ul class="asset-picker">'.$this->displayAssetsLooper('Stickers/', $username).'</ul></div>';
+				case 4:
+					return ' <div id="shapes" class="tab-pane"><ul class="asset-picker">'.$this->displayAssetsLooper('Shapes/', $username).'</ul></div>';
+			}			
 		}
 
 	}

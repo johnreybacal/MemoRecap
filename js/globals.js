@@ -21,6 +21,7 @@ function getAngle($this){
 }
 
 function displayAssetAttributes($this){
+	$('#workspace').attr('data-selected', $this.attr('id'));
 	$('#selectedAsset').html($this.attr('id'));
 	// var $this = $(this);
 	var thisPos = $this.position();
