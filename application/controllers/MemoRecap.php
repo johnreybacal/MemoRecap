@@ -93,11 +93,8 @@ class MemoRecap extends CI_Controller {
 			default:
 				$data['editors_pick'] = $this->memorecap->getEditorsPick('LIMIT 3');
 				$data['featured_works'] = $this->memorecap->getFeaturedWorks('LIMIT 3');
-				$data['latest_works'] = $this->memorecap->getLatestWorks('LIMIT 3');
-				// echo 'ep:';print_r($data['editors_pick']);echo '<br />';
-				// echo 'fw:';print_r($data['featured_works']);echo '<br />';				
-				// echo 'lw:';print_r($data['latest_works']);echo '<br />';
-				$this->load->view('scrapbooks');
+				$data['latest_works'] = $this->memorecap->getLatestWorks('LIMIT 3')
+				$this->load->view('scrapbooks', $data);
 				break;
 		}		
 		$this->load->view('Gallery/includes/reportModal');			
@@ -127,23 +124,7 @@ class MemoRecap extends CI_Controller {
 		}else{
 			$this->load->view('profile', $data);
 		}
-		$this->load->view('includes/footer');
-		// if($this->session->has_userdata('Error')){
-		// 	$data['Error'] = $this->session->userdata('Error');
-		// 	$this->session->unset_userdata('Error');
-		// 	$this->load->view('includes/header', $data);
-		// }else{
-		// 	$this->loadHeader();
-		// }			
-		// $this->loadNav();
-		// if($this->session->userdata('logged_in')){
-		// 	$this->load->view('includes/modal');		
-		// 	$data['profile'] = $this->user->getProfile($username);
-		// 	$this->load->view('profile', $data);
-		// }else{
-		// 	$this->load->view('errors/MemoRecap_errors/loginPoMuna');
-		// }
-		// $this->load->view('includes/footer');
+		$this->load->view('includes/footer');		
 	}
 
 	public function About(){
