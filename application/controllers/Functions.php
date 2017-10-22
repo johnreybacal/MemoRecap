@@ -96,14 +96,16 @@ class Functions extends CI_Controller {
 
 	public function create(){
 		$id = $this->scrapbook->createScrapbook($this->input->post('name'), $this->input->post('description'), $this->input->post('pages'), $this->input->post('size'), 'private');
-		redirect(base_url('editor/'.$id));
+		redirect(base_url('editor/normal'.$id));
 	}
 
 	public function save(){		
-		$json = file_get_contents('php://input');
-		$id = substr($json, 0, 4);
-		$json = substr($json, 4, strlen($json));
-		header('Content-type: application/json');
+		// $json = file_get_contents('php://input');
+		// $id = substr($json, 0, 4);
+		// header('Content-type: application/json');
+		// $json = substr($json, 4, strlen($json));
+		$id = $this->input->post('id');
+		$json = $this->input->post('json');
 		$json = json_decode($json, true);
 		$blob = array_shift($json);
 		$json = json_encode($json);		
