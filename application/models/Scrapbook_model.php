@@ -287,7 +287,7 @@
 			$query = $this->db->query("SELECT * FROM assets");			
 			$scriptHTML = '<script>';
 			foreach($query->result_array() as $row){
-				$scriptHTML .= '$("#'.$row["asset_id"].'").mousedown(function(){ $("#wtf").html("'.$row["asset_id"].'"); });';
+				$scriptHTML .= '$("#'.$row["asset_id"].'").mousedown(function(){ $("#assets").attr("data-selected", "'.$row["asset_id"].'"); });';
 			}
 			$scriptHTML .= 'pageCount = '.$this->getVariables('pages').';';
 			$scriptHTML .= 'assetID = '.$this->getVariables('assets').';';
