@@ -17,13 +17,13 @@ body, html {
 /* First image (Logo. Full height) */
 .bgimg-1 {
     background-image: url('css/images/page3_big_pic1.jpg');
-    min-height: 100%;
+    min-height: 400px;
 }
 
 /* Second image (Portfolio) */
 .bgimg-2 {
     background-image: url("css/images/page3_big_pic2.jpg");
-    min-height: 400px;
+    min-height: 100%;
 }
 
 /* Third image (Contact) */
@@ -62,66 +62,88 @@ body, html {
   .size{
     font-size: 4%;
   }
-  .stepup {
-    background: #73AD21;
-height: 5em;
-width: 12em;
--moz-border-radius: 1em 4em 1em 4em;
-border-radius: 1em 4em 1em 4em;
-  }
   .stepdown {
-    background: #73AD21;
-height: 65px;
-width:160px;
--moz-border-radius: 25px 10px / 10px 25px;
-border-radius: 25px 10px / 10px 25px;
+    
+    white-space: normal;      /* CSS3 */   
+    background-color:#fed7aa;
+   
 }
+.border1{
+  -moz-border-radius: 15px 50px 30px 5px;
+   border-radius: 15px 50px 30px 5px;
+}
+.border2{
+  height: 280px;
+  -moz-border-radius: 30px;
+   border-radius: 30px;
+}
+.border3{
+  -moz-border-radius: 15px 50px ;
+   border-radius: 15px 50px ;
+}
+.stepsize{
+  font-size: 50px;
+  color: #632c25;
+}
+.fontw{
+  font-weight: 900;
+  }
+
+
 </style>
-<div class="bgimg-1 w3-display-container w3-opacity-min" >
+<div class="bgimg-2 w3-display-container w3-opacity-min" ">
   <div class="w3-display-middle" style="white-space:nowrap;">
     <!-- <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Memo <span class="w3-hide-small">Recap</span> </span> -->
     <!--style="background-color: rgba(236,161,166,0.5);"--> 
-    <div> 
+    <div style="margin: 7% 0 0 0;"> 
       <button id="myBtn" class="hed landi" style="padding:10px 55px;margin:0 0 0 43%;font-size:3em;border-radius:15px;background-color:#ffe6b3;">
         Create
       </button>
     </div>
-      <h1 class="hedest landi">Create your own Scrapbooks in three easy steps</h1>
+    <center>
       
-      <h4 class="stepup">sda</h4>
-      <h4 class="stepdown">da</h4>
-
-      <h4 class="stepup">da</h4>
-      <h4 class="stepdown">da</h4> 
-
-      <h4 class="stepup">da</h4>
-      <h4 class="stepdown">da</h4>
+      <h1 class="hedest landi w3-black w3-extended" style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">Create your own Scrapbooks in three easy steps</h1>
     
+      <!-- step 1 2 3 -->
+      <div class="container" style="margin: 3% 0 0 0;">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <!-- step 1 -->
+            <div class="col-md-3 stepdown border1 " >
+                <h1 class="brody stepsize fontw">1.Select</h1> 
+                <p  class="fontw" style = "color:black; white-space: normal;">Select what you want to beautify, be it a simple selfie or a scenery or candid shots. Just about every photo that you have taken.</p>             
+            </div>
+            <div class="col-md-1"></div>
+            <!-- step 2 -->
+            <div class="col-md-3 stepdown border2" >              
+                <h1 class="brody stepsize fontw">2. Style</h1> 
+                <p class="fontw" style = "color:black; white-space: normal;">Express yourself with the way that you style your photos. Want to add more sunshine on a smiling face? Go for it!</p> 
+            </div>
+            <div class="col-md-1"></div>
+            <!-- step 3 -->
+            <div class="col-md-3 stepdown border3 ">              
+                <h1 class="brody stepsize fontw">3.Save</h1> 
+                <p class="fontw" style = "color:black;white-space: normal;">When done, treasure the memories by easily clicking save, and you have it with you forever, with cool portability.</p>               
+            </div>
+            
+        </div>
+      </div>
+    </center>
   </div>
 </div>
-<div class="container" style="margin-top: 100px;">
+<div class="container" style="margin-top: 5%;">
     <div class="row" >		
-		<div class="col-sm-6 col-md-6 container">
+      <div class="col-sm-3 col-md-3 "></div>
+		  <div class="col-sm-6 col-md-6 container">
 		
-		<div class="tagline-lower text-expanded text-shadow " style="margin-left:25%;">
-			<p  style="font-size: 1em text-align:center;">&nbsp;Create. Share. Inspire.
-			<br />Unleash the Artist within.</p>
-		</div>	</div>
-		
-		
-	<!-- <div style="margin:1% 0% 1% 40%;">
-    <button id="myBtn" class="hed landi"
-        	style="font-size:3em;padding:10px 55px 10px 55px;
-        	border-radius:15px;
-        	background-color:#ffe6b3;
-        	margin:auto;">
-	         Create
-	   </button>
-   </div> -->
-</div> 
-
-	
-		</div>
+    		<div class="tagline-lower text-expanded text-shadow ">
+    			<p  class=" fontw " style="font-size: 1em text-align:center;white-space: nowrap;">&nbsp;Create. Share. Inspire.
+    			Unleash the Artist within.</p>
+    		</div>
+        <div style="height: 8%; padding-bottom: 5%;">&nbsp;</div>
+      </div>
+		</div> 
+</div>
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -167,7 +189,7 @@ border-radius: 25px 10px / 10px 25px;
 </div>
 
 
-<div class="bgimg-2 w3-display-container w3-opacity-min">
+<div class="bgimg-1 w3-display-container w3-opacity-min">
   <div class="w3-display-middle">
     <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Scrapbooks</span>
   </div>

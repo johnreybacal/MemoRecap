@@ -1,90 +1,104 @@
 <!-- PPPPPPRRRRRRRRRROOOOOOOOOOFFFFFFIIIIIIIIIIILLLLLLLLLLLEEEEEEEEE	 -->
-
-<style type="text/css">
- 
-</style>
-<div class="container" style="min-height: 800px;">
-
-      <div class=" bg-faded">
-    <div class="row">
-        <div class="userstuff   col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4" style="padding:5%;">
-                        <img src = "<?php echo base_url('dp/'.$profile['dp']); ?>" alt="" class="img-rounded img-responsive" />
-                    </div>
-                    <div class="userstuff" style="margin:5% 0% 5% 25%;">
-                        <h4>User details</h4>							                       
-                        <p><?php echo $profile['name']; ?></p>
-                        <p><?php echo $profile['username']; ?></p>
-                        <div >
-                            
-                            <a  href="<?php echo base_url('Account'); ?>" class="btn btn-default btn-lg" role="button" style="background-color:#e4b4b4; color:#4d2600;">Account Options</a>
-                            
-                                
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- start of modal -->
+<div id="userReportModal" class="modal">                
+  <div class="modal-content" style = "width: 50%;">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h4>Report this user</h4>
     </div>
+    <div class="modal-body">
+      <h5 style = "color: black">Why are you reporting this user?</h5>
+      <form method = "POST" action = "<?php echo base_url('reportUser'); ?>">
+        <input type = "text" name = "id" id = "id" readonly /><br />
+        Reason: <input type = "text" value = "Abusive" name = "reason" /><br />
+        <input type = "submit" value = "Report" />
+      </form>
+    </div>
+    <div class="modal-footer">      
+      <h3>We are very sorry that you've experienced this</h3>
+    </div>
+  </div>
 </div>
+<!-- end of modal -->
+<div class="container-fluid " style="margin-top: 10%;height: 700px; border: 2px solid red;">
+  <div class="row">
+    <div class="col-md-4"  style=" border: 2px solid red;">
+    
+            
+      <div class="row">
+          <div class="col-md-4">
+              <img src = "<?php echo base_url('dp/'.$profile['dp']); ?>" alt="" class="img-rounded img-responsive" />
+          </div>
+          <div class="userstuff">
+            				                       
+              <p><?php echo $profile['name']; ?></p>
+              <p><?php echo $profile['username']; ?></p>
+              <div >
+                  <?php 
+                    if($this->session->userdata('username') == $profile['username']){
+                      echo '<a href="'.base_url('Account').'">Account Options</a>';
+                    }
+                  ?>
+                      <span class="caret"></span><span class="sr-only">Display Picture</span>
+                  <?php 
+                    if($this->session->userdata('username') != $profile['username']){
+                      echo '<button id = "reportButton" data-id = "'.$profile['username'].'">Report this user</button>';
+                    }
+                    ?>
+              </div>
+          </div>
+      </div>
+ 
+    </div>
+    <!-- dito na bacs yung scrapbook niya -->
+    <div class="col-md-8">
+    </div>
+  </div>
+   <!--  <div class="w3-row-padding w3-center" style="margin: 7% 0 0 0;">
+      <div class="card-img-overlay ">
+          <h2 class=" text-shadow text-white text-uppercase ">Editors Picks</h2>
+          <p class="parabooks text-shadow text-white">The works featured here are chosen by the editors as those best shows
+        or endorses the beauty and functionalities of this website.
+        </p>
+      
+    </div>
+      <?php foreach($scrapbook as $scrapbook): ?>
+      <div class="w3-col m4 w3-border" style="background-color: #fefefe!important;">
+        <img src = "<?php echo $scrapbook['first_page']; ?>" style="width:80%" onclick="onClick(this)" class="pointer w3-round-xlarge" alt="The mist over the mountains">
+        <div class="w3-container w3-margin-top">
+        <h3><b><?php echo $scrapbook['name']; ?></b></h3>
+         <h1><a class="user left" href = "<?php echo base_url('Profile/'.$scrapbook['username']); ?>"><?php echo $scrapbook['username']; ?></a></h1>
+          <div class="row">
+            <div class="w3-col m12" style="float: left;">          
+              <h3 >
+                <span class="glyphicon glyphicon-heart-empty left" style="color: red;"></span>
+                <span class="w3-margin-left left" style="color: #111111;"><?php echo $scrapbook['likes']; ?></span>
+                <span class="glyphicon glyphicon-eye-open right w3-margin-left" style="color: black;"></span>
+                <span class="right"><?php echo $scrapbook['view_counter']; ?></span>&nbsp;</h3>
+            </div>
+          </div>
+          <div>
+            <h5><i><?php echo $scrapbook['description']; ?></i></h5>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?> 
+    <a  class="right w3-xlarge w3-black w3-hover-white w3-wide w3-animate-opacity" href="<?php echo base_url('Scrapbooks/Editors_Pick'); ?>">View this gallery!</a>
+
+   </div>  -->
+  </div>
 </div>
 
 	
-<!-- BBBBBBAAAAAAAAAAADDDDDDDDEEEEEEEEEEHHHHHHHH 
-    <div class="container bg p-4 my-4">
 
-      <div class=" p-4 my-4" style="margin: 0px 50px 0px 50px">
-	  
-        <div class="card card-inverse">
-          <img class="card-img img-fluid w-100" src = "<?php echo base_url('css/images/slider1.jpg'); ?>" alt="">
-          <div class="card-img-overlay bg-overlay">
-            <h2 class="card-title text-shadow text-white text-uppercase mb-0">Scrapbook Title</h2>
-            <p class="text-shadow text-white">March 1, 2017</p>
-            <p class="lead card-text text-shadow text-white w-50 d-none d-lg-block">Pinned scrapbook</p>
-            <a href="#" class="btn btn-secondary">Check It Out</a>
-          </div>
-        </div>
-      </div>
 
-      <div class=" p-4 my-4" style="margin: 0px 50px 0px 50px">
-        <div class="card card-inverse">
-          <img class="card-img img-fluid w-100" src = "<?php echo base_url('css/images/slider2.jpg'); ?>" alt="">
-          <div class="card-img-overlay bg-overlay">
-            <h2 class="card-title text-shadow text-white text-uppercase mb-0">Scrapbook Title</h2>
-            <p class="text-shadow text-white">March 1, 2017</p>
-            <p class="lead card-text text-shadow text-white w-50 d-none d-lg-block">My latest scrapbook</p>
-            <a href="#" class="btn btn-secondary">Check It Out</a>
-          </div>
-        </div>
-      </div>
-
-      <div class=" p-4 my-4" style="margin: 0px 50px 0px 50px">
-        <div class="card card-inverse">
-          <img class="card-img img-fluid w-100" src = "<?php echo base_url('css/images/slider3.jpg'); ?>" alt="">
-          <div class="card-img-overlay bg-overlay">
-            <h2 class="card-title text-shadow text-white text-uppercase mb-0">Scrapbook Ttile</h2>
-            <p class="text-shadow text-white">March 1, 2017</p>
-            <p class="lead card-text text-shadow text-white w-50 d-none d-lg-block">Shared scrapbook</p>
-            <a href="#" class="btn btn-secondary">Check It Out</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pagination 
-      <div class=" p-4 my-4">
-        <ul class="pagination justify-content-center mb-0">
-          <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
-          </li>
-        </ul>
-      </div>
-	  -->
-
-    </div>
+     <script>
+    document.getElementsByClassName("close")[0].onclick = function(){
+          document.getElementById('userReportModal').style.display = "none";        
+      }      
+      $('#reportButton').click(function(){
+        var id = $(this).data('id');        
+        $('#id').val(id);
+        $('#userReportModal').css('display', 'block');
+      });
+  </script>
