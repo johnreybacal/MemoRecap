@@ -11,15 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?php echo base_url('css/font-awesome.min.css'); ?>">
 
-  	<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('css/images/logo_sana.ico'); ?>" />
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url('css/images/logo_sana.ico'); ?>" />
+    <link rel = "stylesheet" href = "<?php echo base_url('css/iconfont/material-icons.css'); ?>" />
     <script src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
 
     <title>MemoRecap</title>
-    <?php
-        if(isset($Error)){
-            echo '<script>alert("'.$Error.'");</script>';
-        }
-    ?>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url('css/bootstrap.min.css'); ?>" rel="stylesheet">
 
@@ -32,18 +28,88 @@
     <link href="<?php echo base_url('css/modal.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('css/w3.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('css/w3-theme-black.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('css/index.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('fonts/font-awesome.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('fonts/font-awesome.min.css'); ?>" rel="stylesheet">
     
    <style type="text/css">
+   .center{
+        margin: auto;
+        text-align: center;
+        width: 50%;
+        display: inline-block;
+    }
 @font-face {
-    font-family: "Black Tear Script";
-    src: url(../fonts/Brody.ttf) format("truetype");
+    font-family: Black_Tear;
     src: url(../fonts/Black.ttf) format("truetype");
 }
-.blacktear { 
-    font-family: "My Custom Font", Verdana, Tahoma;
+@font-face{
+    font-family: Brody
+    src: url(../fonts/Brody.ttf) format("truetype");
 }
+.blacktear { 
+    font-family: "Black_Teara";
+}
+.brody{
+    font-family: "Brody";
+}
+.w3-bar-item #nav > .active > a {
+    color: #f0664c!important;
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+.pointer{
+        cursor: pointer;
+    }
+  .user{
+    color: #576b95;
+  }
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+  .size{
+    font-size: 4%;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
 </style>
 
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -53,4 +119,4 @@
 
 
 </head>
-<body style="margin: 0 0 0 0 ; padding: 0 0 0 0; top:0; bottom:0; left: 0; right: 0; box-sizing:0;">
+<body style="margin: 0 0 0 0 ; padding: 0 0 0 0; top:0; bottom:0; left: 0; right: 0; box-sizing:0; ">
