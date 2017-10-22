@@ -17,7 +17,7 @@ $(document).ready(function(){
 	$(".pages").droppable({		
 		accept: ".first",						//para saluhin from asset picker
 		drop: function(event, ui){				//make asset draggable and resizable
-			var id = assetID + '-' + $('#wtf').html();
+			var id = assetID + '-' + $('#assets').data('selected');
 			var pos = $('#workspace').position();		
     		assetID++;
 			$(ui.helper).removeClass("first");	//pra hindi mag-clone	
@@ -61,8 +61,8 @@ $(document).ready(function(){
 		$('.attr').html('');
 	});
 
-	$('.setBG').click(function(){
-		var id = $(this).data('id');
+	$('.bg-asset').click(function(){
+		var id = $(this).attr('id');
 		// alert(id + ' ' + $('#' + id).children('img').attr('src'));
 		// alert($('#p-' + currentPage).data('bg'));
 		$('#p-' + currentPage).css({'background-image': 'url("' + $('#' + id).children('img').attr('src') + '")'});
